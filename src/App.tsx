@@ -1,5 +1,11 @@
+import RegisterForm from './components/auth/RegisterForm';
+
 function App() {
-  return <div className='App'>RS Network</div>;
+  return (
+    <div className='App'>
+      <RegisterForm />
+    </div>
+  );
 }
 
 export default App;
