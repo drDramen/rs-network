@@ -1,29 +1,32 @@
-import InputText from '../../input/InputText/InputText';
+import classes from './LoginForm.module.css';
+import logo from '../../../assets/images/logo_white.png';
 import InputEmail from '../../input/InputEmail/InputEmail';
 import InputPassword from '../../input/InputPassword/InputPassword';
-import logo from '../../../assets/images/logo_white.png';
-import classes from './RegisterForm.module.css';
 import { Button } from 'antd';
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function RegisterForm({ isRegister, setUserName }: RegisterProps) {
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
+function LoginForm({ setAuth, setUser }: LoginProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordRepeat, setPasswordRepeat] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    if (email.length > 0 && password.length > 0) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [email, password]);
+
   const handleSubmit = async () => {
     const user = {
-      name: `${name} ${surname}`,
       email,
       password,
-      repeatedPassword: passwordRepeat,
     };
     try {
-      const response = await fetch('http://localhost:8080/users', {
+      const response = await fetch('http://localhost:8080/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,28 +37,16 @@ function RegisterForm({ isRegister, setUserName }: RegisterProps) {
         const error = await response.text();
         throw new Error(`${error}`);
       }
-      const data = (await response.json()) as User;
-      isRegister(true);
-      setUserName(data.name.split(' ')[0]);
+      const data = (await response.json()) as LoginResponse;
+      data.user.password = '';
+      setAuth(true);
+      localStorage.setItem('JWT', data.token);
+      setUser(data.user);
     } catch (err) {
       const error = err as Error;
       toast.error(error.message);
     }
   };
-
-  useEffect(() => {
-    if (
-      name.length > 0 &&
-      surname.length > 0 &&
-      email.length > 0 &&
-      password.length > 0 &&
-      passwordRepeat.length > 0
-    ) {
-      setIsFormValid(true);
-    } else {
-      setIsFormValid(false);
-    }
-  }, [name, surname, email, password, passwordRepeat]);
 
   return (
     <div className={classes.wrapper}>
@@ -72,19 +63,9 @@ function RegisterForm({ isRegister, setUserName }: RegisterProps) {
           alt='rs-network-logo'
         />
       </div>
-      <div>
-        <p className={classes.caption}>Registration</p>
+      <div className={classes.form}>
+        <p className={classes.caption}>Log In</p>
         <form>
-          <InputText
-            placeholder='Your name'
-            value={name}
-            setValue={setName}
-          />
-          <InputText
-            placeholder='Your surname'
-            value={surname}
-            setValue={setSurname}
-          />
           <InputEmail
             placeholder='Your email'
             value={email}
@@ -95,11 +76,6 @@ function RegisterForm({ isRegister, setUserName }: RegisterProps) {
             value={password}
             setValue={setPassword}
           />
-          <InputPassword
-            placeholder='Repeat your password'
-            value={passwordRepeat}
-            setValue={setPasswordRepeat}
-          />
           <Button
             disabled={isFormValid ? false : true}
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -108,12 +84,12 @@ function RegisterForm({ isRegister, setUserName }: RegisterProps) {
             type='primary'
             size='large'
           >
-            Sign up
+            Sign In
           </Button>
         </form>
         <p className={classes.footer}>
-          Already have an account?
-          <a href='#'>Log in</a>
+          Don't have an account?
+          <a href='#'>Register</a>
         </p>
       </div>
     </div>
@@ -132,9 +108,14 @@ type User = {
   about?: string;
 };
 
-type RegisterProps = {
-  isRegister: React.Dispatch<React.SetStateAction<boolean>>;
-  setUserName: React.Dispatch<React.SetStateAction<string>>;
+type LoginResponse = {
+  token: string;
+  user: User;
 };
 
-export default RegisterForm;
+type LoginProps = {
+  setAuth: React.Dispatch<React.SetStateAction<boolean>>;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
+};
+
+export default LoginForm;

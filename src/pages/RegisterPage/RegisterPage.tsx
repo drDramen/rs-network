@@ -4,19 +4,15 @@ import { useState } from 'react';
 
 const RegisterPage = () => {
   const [isRegister, setIsRegister] = useState(false);
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const [userName, setUserName] = useState('');
   return (
     <>
       {isRegister ? (
-        <SuccessfulRegister name={user.name} />
+        <SuccessfulRegister name={userName} />
       ) : (
         <RegisterForm
           isRegister={setIsRegister}
-          setUser={setUser}
+          setUserName={setUserName}
         />
       )}
     </>
