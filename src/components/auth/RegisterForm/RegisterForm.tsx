@@ -1,38 +1,71 @@
-import InputText from '../input/InputText/InputText';
-import InputEmail from '../input/InputEmail/InputEmail';
-import InputPassword from '../input/InputPassword/InputPassword';
-import logo from '../../assets/images/logo_white.png';
+import InputText from '../../input/InputText/InputText';
+import InputEmail from '../../input/InputEmail/InputEmail';
+import InputPassword from '../../input/InputPassword/InputPassword';
+import logo from '../../../assets/images/logo_white.png';
 import classes from './RegisterForm.module.css';
 import { Button } from 'antd';
 import { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function RegisterForm() {
+function RegisterForm({ isRegister, setUser }: RegisterProps) {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
-  const [isFormValid, setIsFormValid] = useState(true);
-  const handleSubmit = async (): Promise<User> => {
-    const user: User = {
+  const [isFormValid, setIsFormValid] = useState(false);
+  const handleSubmit = async () => {
+    const user = {
       name,
       email,
       password,
+      repeatedPassword: passwordRepeat,
     };
-    const response = await fetch('http://localhost:8080/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
-    const data = (await response.json()) as User;
-    console.log(data);
-    return data;
+    try {
+      const response = await fetch('http://localhost:8080/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+      if (response.status === 400) {
+        const error = await response.text();
+        throw new Error(`${error}`);
+      }
+      const data = (await response.json()) as User;
+      isRegister(true);
+      setUser({ ...data });
+    } catch (err) {
+      const error = err as Error;
+      toast.error(error.message);
+    }
   };
+
+  useEffect(() => {
+    if (
+      name.length > 0 &&
+      surname.length > 0 &&
+      email.length > 0 &&
+      password.length > 0 &&
+      passwordRepeat.length > 0
+    ) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [name, surname, email, password, passwordRepeat]);
 
   return (
     <div className={classes.wrapper}>
+      <ToastContainer
+        position='top-center'
+        theme='colored'
+        autoClose={5000}
+        hideProgressBar={true}
+        closeButton={false}
+      />
       <div className={classes.logo}>
         <img
           src={logo}
@@ -97,6 +130,11 @@ type User = {
   followers?: string[];
   location?: string;
   about?: string;
+};
+
+type RegisterProps = {
+  isRegister: React.Dispatch<React.SetStateAction<boolean>>;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
 };
 
 export default RegisterForm;
