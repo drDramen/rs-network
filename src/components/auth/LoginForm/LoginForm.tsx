@@ -89,7 +89,7 @@ function LoginForm({ setAuth, setUser }: LoginProps) {
         </form>
         <p className={classes.footer}>
           Don't have an account?
-          <a href='#'>Register</a>
+          <a href='/registration'>Register</a>
         </p>
       </div>
     </div>

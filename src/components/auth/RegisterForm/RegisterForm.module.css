@@ -2,6 +2,7 @@
 
 .wrapper {
   max-width: 800px;
+  max-height: 355px;
   padding: 1rem;
   margin: 5% auto 0;
   display: flex;
@@ -42,7 +43,7 @@
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   color: #606266;
-  margin-bottom: 0;
+  margin: 0.5rem 0 0 0;
 }
 
 a {

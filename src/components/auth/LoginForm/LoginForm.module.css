@@ -2,6 +2,7 @@
 
 .wrapper {
   max-width: 600px;
+  max-height: 255px;
   padding: 1rem;
   margin: 5% auto 0;
   display: flex;
@@ -36,14 +37,14 @@
 
 .submit {
   display: block;
-  margin: 0 auto;
+  margin: 1rem auto 0;
 }
 
 .footer {
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   color: #606266;
-  margin-bottom: 0;
+  margin: 1rem 0 0 0;
 }
 
 a {

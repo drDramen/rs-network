@@ -113,7 +113,7 @@ function RegisterForm({ isRegister, setUserName }: RegisterProps) {
         </form>
         <p className={classes.footer}>
           Already have an account?
-          <a href='#'>Log in</a>
+          <a href='/login'>Log in</a>
         </p>
       </div>
     </div>
