@@ -23,6 +23,15 @@
   font-weight: 700;
 }
 
+.comment-date {
+  line-height: 24px;
+}
+
+.comment-delete-btn {
+  padding: 0 4px;
+  height: 24px;
+}
+
 .comment-text {
   margin: 0;
 }

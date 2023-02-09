@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 import { TypePost, TypeUser, TypeComment } from '../types/types';
 
 export default class ApiService {
@@ -8,11 +10,20 @@ export default class ApiService {
     if (!result.ok) {
       throw new Error(`Could not fetch ${this._apiBase}${url}` + `, received ${result.status}`);
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return result.json();
   }
 
-  async postResource<T>(url: string, body: { [key: string]: string }): Promise<T> {
+  async deleteResource<T>(url: string): Promise<T> {
+    const result = await fetch(`${this._apiBase}${url}`, {
+      method: 'DELETE',
+    });
+    if (!result.ok) {
+      throw new Error(`Could not fetch ${this._apiBase}${url}` + `, received ${result.status}`);
+    }
+    return result.json();
+  }
+
+  async postResource<T>(url: string, body: { [key: string]: string | number }): Promise<T> {
     const result = await fetch(`${this._apiBase}${url}`, {
       method: 'POST',
       headers: {
@@ -23,7 +34,6 @@ export default class ApiService {
     if (!result.ok) {
       throw new Error(`Could not fetch ${this._apiBase}${url}` + `, received ${result.status}`);
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return result.json();
   }
 
@@ -43,13 +53,20 @@ export default class ApiService {
     return this.getResource<TypeUser>(`users/${id}`);
   }
 
-  async likes(pospId: string, userId1: string) {
-    return this.postResource<string[]>(`likes/${pospId}`, { userId: userId1 });
+  async likes(pospId: string, userId: string) {
+    return this.postResource<string[]>(`likes/${pospId}`, { userId: userId });
   }
 
-  // _getAllPostsID = (allPosts: [TypePost]) => {
-  //   return allPosts.map((post) => {
-  //     return post._id;
-  //   });
-  // };
+  async addComment(postId: string, userId: string, date: number, description: string) {
+    return this.postResource<TypeComment>('comment', {
+      postId: postId,
+      userId: userId,
+      date: date,
+      description: description,
+    });
+  }
+
+  async deleteComment(id: string) {
+    return this.deleteResource<TypeComment>(`comment/${id}`);
+  }
 }

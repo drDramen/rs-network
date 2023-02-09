@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useState, useEffect } from 'react';
 import { TypePost } from '../../types/types';
 import ApiService from '../../services/api-service';
-import Post from '../post';
+import Post from './post';
 import './thread-posts.css';
 
 const TreadPosts = () => {
@@ -9,11 +12,9 @@ const TreadPosts = () => {
   const [posts, setPosts] = useState<[TypePost] | null>(null);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     apiService.getAllPosts().then((allPosts) => {
       setPosts(allPosts);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderPosts = (arr: TypePost[]) => {
@@ -26,7 +27,7 @@ const TreadPosts = () => {
           description={description}
           imageUrl={imageUrl}
           date={date}
-          comments={comments}
+          comments={comments.reverse()}
           likes={likes}
         />
       );

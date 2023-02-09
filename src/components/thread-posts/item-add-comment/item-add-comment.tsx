@@ -1,15 +1,30 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+
 import React, { useState } from 'react';
 import { Button, Input } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
+import ApiService from '../../../services/api-service';
 import './item-add-comment.css';
 
-const ItemAddComment = () => {
+const USER = '63dcd7599c1a365e8cf6fdf5';
+
+const ItemAddComment = ({
+  postId,
+  setNewComment,
+}: {
+  postId: string;
+  setNewComment: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+  const apiService = new ApiService();
   const [comment, setComment] = useState('');
 
   const onSubmit = (event: React.MouseEvent) => {
+    const date = new Date().getTime();
     event.preventDefault();
     if (comment) {
-      alert(comment);
+      apiService.addComment(postId, USER, date, comment).then((newComment) => {
+        setNewComment(newComment._id);
+      });
     }
     setComment('');
   };

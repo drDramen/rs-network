@@ -1,19 +1,22 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useState, useEffect } from 'react';
-import { TypeUser } from '../../../types/types';
+import { TypeUser } from '../../../../types/types';
 import { Button, Modal } from 'antd';
-import ApiService from '../../../services/api-service';
-import Avatar from '../../avatar';
+import ApiService from '../../../../services/api-service';
+import Avatar from '../../../avatar';
 import './post-likes.css';
 
 const LikesModal = ({ likes }: { likes: string[] }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const apiService = new ApiService();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [users, setUsers] = useState<TypeUser[] | null>(null);
   const [userId, setUserId] = useState<string>(likes[0]);
+
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises, @typescript-eslint/no-shadow
     apiService.getUser(userId).then((user) => {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
       setUsers((users) => {
         if (userId != likes[likes.length - 1]) {
           const currentPos = likes.indexOf(userId);
@@ -22,7 +25,6 @@ const LikesModal = ({ likes }: { likes: string[] }) => {
         return users != null ? [...users, user] : [user];
       });
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   useEffect(() => {

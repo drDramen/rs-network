@@ -1,7 +1,8 @@
 import { FC } from 'react';
+import TreadPosts from '../thread-posts';
 
 const PostsFeed: FC = () => {
-  return <div>Posts</div>;
+  return <TreadPosts />;
 };
 
 export default PostsFeed;
