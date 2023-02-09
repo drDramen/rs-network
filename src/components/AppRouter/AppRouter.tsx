@@ -1,11 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from '../../pages/login-page/Login-page';
+import LoginPage from '../../pages/LoginPage/LoginPage';
 import { privateRoutes, publicRoutes, RouteNames } from '../../router';
 import PostsFeed from '../posts-feed/Posts-feed';
 import PrivateLayout from '../private-layout/Private-layout';
 
 const AppRouter = () => {
-  const isAuth = true; // TODO: should be replaced by getting from the global store
+  const isAuth = false; // TODO: should be replaced by getting from the global store
 
   return isAuth ? (
     <Routes>

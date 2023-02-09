@@ -1,6 +1,6 @@
 import PostsFeed from '../components/posts-feed/Posts-feed';
-import LoginPage from '../pages/login-page/Login-page';
-import RegistrationPage from '../pages/registration-page/Registration-page';
+import LoginPage from '../pages/LoginPage/LoginPage';
+import RegisterPage from '../pages/RegisterPage/RegisterPage';
 
 export interface IRoute {
   path: string;
@@ -21,7 +21,7 @@ export enum RouteNames {
 
 export const publicRoutes: IRoute[] = [
   { path: RouteNames.Login, component: LoginPage },
-  { path: RouteNames.Registration, component: RegistrationPage },
+  { path: RouteNames.Registration, component: RegisterPage },
 ];
 
 export const privateRoutes: IRoute[] = [
