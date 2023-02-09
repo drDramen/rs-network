@@ -1,18 +1,13 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from '../../pages/LoginPage/LoginPage';
 import { privateRoutes, publicRoutes, RouteNames } from '../../router';
 import PostsFeed from '../posts-feed/Posts-feed';
 import PrivateLayout from '../private-layout/Private-layout';
 
 const AppRouter = () => {
-  const isAuth = false; // TODO: should be replaced by getting from the global store
+  const isAuth = true; // TODO: should be replaced by getting from the global store
 
   return isAuth ? (
     <Routes>
-      <Route
-        path={RouteNames.Login}
-        element={<LoginPage />}
-      />
       <Route
         path={RouteNames.Root}
         element={<PrivateLayout />}
@@ -34,7 +29,7 @@ const AppRouter = () => {
         element={
           <Navigate
             replace
-            to={RouteNames.Login}
+            to={RouteNames.Root}
           />
         }
       />
