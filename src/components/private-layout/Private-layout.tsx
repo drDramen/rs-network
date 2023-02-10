@@ -23,9 +23,10 @@ const PrivateLayout: FC = () => {
       </Sider>
       <Content
         style={{
-          margin: '24px 16px',
-          padding: 24,
-          minHeight: 280,
+          maxHeight: 'calc(100vh - 112px)',
+          maxWidth: 600,
+          margin: 'auto',
+          overflowY: 'auto',
         }}
       >
         <Outlet />
