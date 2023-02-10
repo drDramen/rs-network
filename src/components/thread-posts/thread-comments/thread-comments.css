@@ -1,0 +1,10 @@
+.comment-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.show-all-comments-btn {
+  margin-top: 10px;
+}
