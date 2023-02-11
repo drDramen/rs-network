@@ -54,9 +54,13 @@ export default class ApiService {
       date: date,
       description: description,
       imageUrl: imageUrl,
-      likes: [''],
-      comments: [''],
+      likes: [],
+      comments: [],
     });
+  }
+
+  async deletePost(id: string) {
+    return this.deleteResource<TypePost>(`posts/${id}`);
   }
 
   async getComment(id: string) {
@@ -87,9 +91,6 @@ export default class ApiService {
   async uploadImage(formData: FormData): Promise<{ imageUrl: string }> {
     const result = await fetch(`${this._apiBase}image-upload`, {
       method: 'POST',
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      // },
       body: formData,
     });
     if (!result.ok) {

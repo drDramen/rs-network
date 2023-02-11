@@ -32,6 +32,7 @@ const TreadPosts = () => {
           date={date}
           comments={comments.reverse()}
           likes={likes}
+          setPosts={setPosts}
         />
       );
     });

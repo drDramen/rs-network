@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Button, Input, Divider } from 'antd';
-import { SendOutlined, FileImageOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { SendOutlined, FileImageOutlined, CloseOutlined } from '@ant-design/icons';
 import ApiService from '../../../services/api-service';
 import PostImage from '../../thread-posts/post/post-image';
 import { TypePost } from '../../../types/types';
@@ -43,10 +43,8 @@ const PostForm = ({
 
   const uploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files !== null) {
-      console.log(event.target.files[0]);
       const formData = new FormData();
       formData.append('image', event.target.files[0]);
-      console.log(formData.get('image'));
       apiService.uploadImage(formData).then((image) => {
         setImageUrl(image.imageUrl);
       });
@@ -59,7 +57,13 @@ const PostForm = ({
 
   return (
     <div className='post-form'>
-      {imageUrl != '' ? <PostImage url={imageUrl} /> : null}
+      {imageUrl != '' ? (
+        <PostImage
+          url={imageUrl}
+          className={'image-post-form'}
+          preview={false}
+        />
+      ) : null}
       {imageUrl != '' ? (
         <Button
           className='delete-image-btn'
@@ -68,7 +72,7 @@ const PostForm = ({
           htmlType='submit'
           onClick={onDeleteImage}
         >
-          {<CloseCircleOutlined />}
+          {<CloseOutlined />}
         </Button>
       ) : null}
 
