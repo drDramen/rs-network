@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import { TypePost } from '../../types/types';
 import ApiService from '../../services/api-service';
+import PostForm from './post-form';
 import Post from './post';
 import './thread-posts.css';
 
@@ -16,6 +17,8 @@ const TreadPosts = () => {
       setPosts(allPosts);
     });
   }, []);
+
+  useEffect(() => {}, [posts]);
 
   const renderPosts = (arr: TypePost[]) => {
     return arr.map(({ _id, description, imageUrl, userId, date, comments, likes }: TypePost) => {
@@ -35,7 +38,12 @@ const TreadPosts = () => {
   };
 
   if (posts) {
-    return <div>{renderPosts(posts)}</div>;
+    return (
+      <div>
+        <PostForm setPosts={setPosts} />
+        {renderPosts(posts.reverse())}
+      </div>
+    );
   } else {
     return null;
   }

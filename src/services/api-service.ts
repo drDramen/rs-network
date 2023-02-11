@@ -23,7 +23,10 @@ export default class ApiService {
     return result.json();
   }
 
-  async postResource<T>(url: string, body: { [key: string]: string | number }): Promise<T> {
+  async postResource<T>(
+    url: string,
+    body: { [key: string]: string | number | string[] },
+  ): Promise<T> {
     const result = await fetch(`${this._apiBase}${url}`, {
       method: 'POST',
       headers: {
@@ -43,6 +46,17 @@ export default class ApiService {
 
   async getPost(id: string) {
     return this.getResource<TypePost>(`posts/${id}`);
+  }
+
+  async createPost(userId: string, date: number, description: string, imageUrl: string) {
+    return this.postResource<TypePost>('posts', {
+      userId: userId,
+      date: date,
+      description: description,
+      imageUrl: imageUrl,
+      likes: [''],
+      comments: [''],
+    });
   }
 
   async getComment(id: string) {
@@ -68,5 +82,21 @@ export default class ApiService {
 
   async deleteComment(id: string) {
     return this.deleteResource<TypeComment>(`comment/${id}`);
+  }
+
+  async uploadImage(formData: FormData): Promise<{ imageUrl: string }> {
+    const result = await fetch(`${this._apiBase}image-upload`, {
+      method: 'POST',
+      // headers: {
+      //   'Content-Type': 'multipart/form-data',
+      // },
+      body: formData,
+    });
+    if (!result.ok) {
+      throw new Error(
+        `Could not fetch ${this._apiBase}image-upload` + `, received ${result.status}`,
+      );
+    }
+    return result.json();
   }
 }

@@ -6,6 +6,7 @@ import { SendOutlined } from '@ant-design/icons';
 import ApiService from '../../../services/api-service';
 import './item-add-comment.css';
 
+const { TextArea } = Input;
 const USER = '63dcd7599c1a365e8cf6fdf5';
 
 const ItemAddComment = ({
@@ -29,16 +30,18 @@ const ItemAddComment = ({
     setComment('');
   };
 
-  const onCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(event.target.value);
   };
 
   return (
     <form className='add-comment-form'>
-      <Input
+      <TextArea
+        autoSize={true}
+        style={{ padding: '4px 35px 4px 11px' }}
         placeholder='Add comment...'
         value={comment}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => onCommentChange(event)}
+        onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => onCommentChange(event)}
       />
       <Button
         className='add-comment-btn'
