@@ -1,10 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useUser } from '../../hooks/useUser';
 import { privateRoutes, publicRoutes, RouteNames } from '../../router';
 import PostsFeed from '../posts-feed/Posts-feed';
 import PrivateLayout from '../private-layout/Private-layout';
 
 const AppRouter = () => {
-  const isAuth = true; // TODO: should be replaced by getting from the global store
+  const { isAuth } = useUser();
 
   return isAuth ? (
     <Routes>

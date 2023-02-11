@@ -6,11 +6,15 @@ import { Button } from 'antd';
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { TypeUser } from '../../../types/types';
+import { Link } from 'react-router-dom';
+import { useUser } from '../../../hooks/useUser';
 
-function LoginForm({ setAuth, setUser }: LoginProps) {
+function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
+  const { login } = useUser();
 
   useEffect(() => {
     if (email.length > 0 && password.length > 0) {
@@ -20,28 +24,9 @@ function LoginForm({ setAuth, setUser }: LoginProps) {
     }
   }, [email, password]);
 
-  const handleSubmit = async () => {
-    const user = {
-      email,
-      password,
-    };
+  const handleSubmit = () => {
     try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      });
-      if (response.status === 400) {
-        const error = await response.text();
-        throw new Error(`${error}`);
-      }
-      const data = (await response.json()) as LoginResponse;
-      data.user.password = '';
-      setAuth(true);
-      localStorage.setItem('JWT', data.token);
-      setUser(data.user);
+      void login(email, password);
     } catch (err) {
       const error = err as Error;
       toast.error(error.message);
@@ -78,7 +63,6 @@ function LoginForm({ setAuth, setUser }: LoginProps) {
           />
           <Button
             disabled={isFormValid ? false : true}
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onClick={handleSubmit}
             className={classes.submit}
             type='primary'
@@ -89,33 +73,16 @@ function LoginForm({ setAuth, setUser }: LoginProps) {
         </form>
         <p className={classes.footer}>
           Don't have an account?
-          <a href='/registration'>Register</a>
+          <Link to='/registration'>Register</Link>
         </p>
       </div>
     </div>
   );
 }
 
-type User = {
-  _id?: string;
-  name: string;
-  email: string;
-  password: string;
-  age?: number;
-  image?: string;
-  followers?: string[];
-  location?: string;
-  about?: string;
-};
-
-type LoginResponse = {
+export type LoginResponse = {
   token: string;
-  user: User;
-};
-
-type LoginProps = {
-  setAuth: React.Dispatch<React.SetStateAction<boolean>>;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
+  user: TypeUser;
 };
 
 export default LoginForm;
