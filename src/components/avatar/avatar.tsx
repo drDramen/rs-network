@@ -1,14 +1,30 @@
 import './avatar.css';
 import { Avatar } from 'antd';
 
-const Ava = ({ image, name }: { image: string; name: string }) => {
+const Ava = ({
+  image,
+  name,
+  size,
+}: {
+  image: string;
+  name: string;
+  size?: { xs: number; sm: number; md: number; lg: number; xl: number; xxl: number };
+}) => {
   if (image === '') {
-    return <Avatar alt='avatar'>{name.at(0)?.toUpperCase()}</Avatar>;
+    return (
+      <Avatar
+        alt='avatar'
+        size={size ? size : 'default'}
+      >
+        {name.at(0)?.toUpperCase()}
+      </Avatar>
+    );
   }
   return (
     <Avatar
       src={image}
       alt='avatar'
+      size={size ? size : 'default'}
     />
   );
 };

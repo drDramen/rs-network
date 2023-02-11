@@ -1,6 +1,7 @@
 import PostsFeed from '../components/posts-feed/Posts-feed';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import RegisterPage from '../pages/RegisterPage/RegisterPage';
+import UserPage from '../pages/UserPage/UserPage';
 
 export interface IRoute {
   path: string;
@@ -30,5 +31,5 @@ export const privateRoutes: IRoute[] = [
   { path: RouteNames.Followers, component: PostsFeed }, // TODO: should be replaced component
   { path: RouteNames.Following, component: PostsFeed }, // TODO: should be replaced component
   { path: RouteNames.Messages, component: PostsFeed }, // TODO: should be replaced component
-  { path: RouteNames.Users, component: PostsFeed }, // TODO: should be replaced component
+  { path: RouteNames.Users, component: UserPage }, // TODO: should be replaced component
 ];

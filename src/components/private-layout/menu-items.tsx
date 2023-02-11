@@ -1,7 +1,7 @@
 import { MenuProps } from 'antd';
 import { NavLink } from 'react-router-dom';
 
-const id = 'ddddd'; // TODO: should be replaced by getting from the global store
+const id = '63dce6b73d2c466b038fc8a9'; // TODO: should be replaced by getting from the global store
 
 export const items: MenuProps['items'] = [
   {

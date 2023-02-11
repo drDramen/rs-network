@@ -24,7 +24,7 @@ const PrivateLayout: FC = () => {
       <Content
         style={{
           maxHeight: 'calc(100vh - 112px)',
-          maxWidth: 600,
+          // maxWidth: 800,
           margin: 'auto',
           overflowY: 'auto',
         }}

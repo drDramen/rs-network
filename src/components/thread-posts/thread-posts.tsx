@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { TypePost } from '../../types/types';
 import ApiService from '../../services/api-service';
 import Post from './post';
-import './thread-posts.css';
+import classes from './thread-posts.module.css';
 
 const TreadPosts = () => {
   const apiService = new ApiService();
@@ -35,7 +35,7 @@ const TreadPosts = () => {
   };
 
   if (posts) {
-    return <div>{renderPosts(posts)}</div>;
+    return <div className={classes.wrapper}>{renderPosts(posts)}</div>;
   } else {
     return null;
   }
