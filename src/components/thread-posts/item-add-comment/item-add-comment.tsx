@@ -5,9 +5,9 @@ import { Button, Input } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
 import ApiService from '../../../services/api-service';
 import './item-add-comment.css';
+import { useUser } from '../../../hooks/useUser';
 
 const { TextArea } = Input;
-const USER = '63dcd7599c1a365e8cf6fdf5';
 
 const ItemAddComment = ({
   postId,
@@ -18,12 +18,13 @@ const ItemAddComment = ({
 }) => {
   const apiService = new ApiService();
   const [comment, setComment] = useState('');
+  const { user } = useUser();
 
   const onSubmit = (event: React.MouseEvent) => {
     const date = new Date().getTime();
     event.preventDefault();
     if (comment) {
-      apiService.addComment(postId, USER, date, comment).then((newComment) => {
+      apiService.addComment(postId, user._id, date, comment).then((newComment) => {
         setNewComment(newComment._id);
       });
     }

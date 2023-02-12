@@ -7,10 +7,9 @@ import ApiService from '../../../services/api-service';
 import PostImage from '../../thread-posts/post/post-image';
 import { TypePost } from '../../../types/types';
 import './post-form.css';
+import { useUser } from '../../../hooks/useUser';
 
 const { TextArea } = Input;
-
-const USER = '63dcd7599c1a365e8cf6fdf5';
 
 const PostForm = ({
   setPosts,
@@ -20,6 +19,7 @@ const PostForm = ({
   const apiService = new ApiService();
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const { user } = useUser();
 
   useEffect(() => {}, [imageUrl]);
 
@@ -27,8 +27,8 @@ const PostForm = ({
     const date = new Date().getTime();
     event.preventDefault();
     if (description || imageUrl != '') {
-      apiService.createPost(USER, date, description, imageUrl).then(() => {
-        apiService.getAllPosts().then((allPosts) => {
+      apiService.createPost(user._id, date, description, imageUrl).then(() => {
+        apiService.getAllPosts(user._id).then((allPosts) => {
           setPosts(allPosts);
         });
       });

@@ -10,8 +10,7 @@ import dateTransformer from '../../../../services/date-transformer';
 import ApiService from '../../../../services/api-service';
 import Avatar from '../../../avatar';
 import './comment.css';
-
-const USER = '63dcd7599c1a365e8cf6fdf5'; // TODO only for dev, delete in prod
+import { useUser } from '../../../../hooks/useUser';
 
 const Comment = ({
   _id,
@@ -30,6 +29,7 @@ const Comment = ({
   const apiService = new ApiService();
   const [user, setUser] = useState<TypeUser | null>(null);
   const [showTrash, setShowTrash] = useState<boolean>(false);
+  const USER = useUser().user;
 
   useEffect(() => {
     apiService.getUser(userId).then((user) => {
@@ -68,7 +68,7 @@ const Comment = ({
 
             <span className='comment-date'>
               {' '}
-              {USER === userId && showTrash ? (
+              {USER._id === userId && showTrash ? (
                 <Button
                   className='comment-delete-btn'
                   type='link'

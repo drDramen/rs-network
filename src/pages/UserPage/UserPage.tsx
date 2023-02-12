@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import TextParagraph from '../../components/paragraph/TextParagraph';
 import ApiService from '../../services/api-service';
-import { TypePost, TypeUser } from '../../types/types';
+import { TypePost } from '../../types/types';
 import UserInfo from './UserInfo/UserInfo';
 import Post from '../../components/thread-posts/post';
 import classes from './UserPage.module.css';
 import { useUser } from '../../hooks/useUser';
+import PostForm from '../../components/thread-posts/post-form';
 
 const UserPage = () => {
   const { user } = useUser();
@@ -47,7 +48,8 @@ const UserPage = () => {
       {user.about ? <TextParagraph weight='bold'>About</TextParagraph> : null}
       <TextParagraph size='small'>{user.about}</TextParagraph>
       <br />
-      {posts ? renderPosts(posts) : null}
+      <PostForm setPosts={setPosts} />
+      {posts ? renderPosts(posts.reverse()) : null}
     </div>
   );
 };
