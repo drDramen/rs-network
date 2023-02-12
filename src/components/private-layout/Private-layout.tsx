@@ -1,4 +1,5 @@
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Row } from 'antd';
+import Footer from '../footer';
 import { FC } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useUser } from '../../hooks/useUser';
@@ -17,12 +18,22 @@ const PrivateLayout: FC = () => {
         trigger={null}
         collapsible
       >
-        <Menu
-          theme='dark'
-          mode='inline'
-          selectedKeys={[location.pathname]}
-          items={items}
-        />
+        <Row
+          style={{
+            justifyContent: 'space-between',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+          }}
+        >
+          <Menu
+            theme='dark'
+            mode='inline'
+            selectedKeys={[location.pathname]}
+            items={items}
+          />
+          <Footer />
+        </Row>
       </Sider>
       <Content
         style={{

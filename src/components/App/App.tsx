@@ -12,7 +12,6 @@ function App() {
           <div className='logo'>RS Network</div>
         </Header>
         <AppRouter />
-        <Footer />
       </Layout>
     </div>
   );
