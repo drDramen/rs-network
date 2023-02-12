@@ -9,14 +9,16 @@ import { useUser } from '../../hooks/useUser';
 import PostForm from '../../components/thread-posts/post-form';
 
 const UserPage = () => {
+  const currentId = location.pathname.split('/')[2];
   const { user } = useUser();
+  const currentUserId = currentId === user._id ? user._id : currentId;
 
   const apiService = new ApiService();
   const [posts, setPosts] = useState<[TypePost] | null>(null);
 
   useEffect(() => {
     async function getUserPosts() {
-      const userPosts = await apiService.getUserPosts(user._id);
+      const userPosts = await apiService.getUserPosts(currentUserId);
       setPosts(userPosts);
     }
     void getUserPosts();

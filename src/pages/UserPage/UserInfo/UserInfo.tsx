@@ -1,10 +1,20 @@
+import { useEffect, useState } from 'react';
 import Avatar from '../../../components/avatar';
 import TextParagraph from '../../../components/paragraph/TextParagraph';
 import { useUser } from '../../../hooks/useUser';
+import ApiService from '../../../services/api-service';
 import classes from './UserInfo.module.css';
 
 const UserInfo = () => {
-  const { user } = useUser();
+  const currentId = location.pathname.split('/')[2];
+  const apiService = new ApiService();
+  const authContext = useUser();
+  const [user, setUser] = useState(authContext.user);
+  useEffect(() => {
+    if (currentId !== user._id) {
+      void apiService.getUser(currentId).then((newUser) => setUser(newUser));
+    }
+  });
 
   return (
     <div className={classes.wrapper}>
