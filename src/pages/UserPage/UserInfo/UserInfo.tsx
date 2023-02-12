@@ -11,6 +11,7 @@ const UserInfo = () => {
   const apiService = new ApiService();
   const authContext = useUser();
   const [user, setUser] = useState(authContext.user);
+
   useEffect(() => {
     if (currentId !== user._id) {
       void apiService.getUser(currentId).then((newUser) => setUser(newUser));
