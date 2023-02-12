@@ -34,6 +34,7 @@ const UserPage = () => {
           date={date}
           comments={comments.reverse()}
           likes={likes}
+          setPosts={setPosts}
         />
       );
     });

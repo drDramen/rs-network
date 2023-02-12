@@ -40,7 +40,7 @@ const TreadPosts = () => {
 
   if (posts) {
     return (
-      <div>
+      <div className={classes.wrapper}>
         <PostForm setPosts={setPosts} />
         {renderPosts(posts.reverse())}
       </div>
