@@ -1,4 +1,3 @@
-import './avatar.css';
 import { Avatar } from 'antd';
 
 const Ava = ({
@@ -15,6 +14,7 @@ const Ava = ({
       <Avatar
         alt='avatar'
         size={size ? size : 'default'}
+        style={{ fontSize: '9rem' }}
       >
         {name.at(0)?.toUpperCase()}
       </Avatar>
