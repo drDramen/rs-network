@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-shadow */
 
-import { useState, useEffect, FC } from 'react';
+import { useState, useEffect } from 'react';
 import { TypeUser, TypePost } from '../../../types/types';
 import { Divider } from 'antd';
 import ApiService from '../../../services/api-service';

@@ -10,8 +10,8 @@ import ApiService from '../../../../services/api-service';
 import LikesModal from '../../post/post-likes';
 import Avatar from '../../../avatar';
 import './post-header.css';
-
-const USER = '63dcd7599c1a365e8cf6fdf5'; // TODO only for dev, delete in prod
+import { useUser } from '../../../../hooks/useUser';
+import { useNavigate } from 'react-router-dom';
 
 const PostHeader = ({
   userId,
@@ -35,18 +35,20 @@ const PostHeader = ({
   const apiService = new ApiService();
   const postDate = dateTransformer(date);
   const [currentLikes, setCurrentLikes] = useState<string[]>(likes);
+  const { user } = useUser();
+  const navigate = useNavigate();
 
   useEffect(() => {}, [currentLikes]);
 
   const onLike = () => {
-    apiService.likes(postId, USER).then((likes) => {
+    apiService.likes(postId, user._id).then((likes) => {
       setCurrentLikes(likes);
     });
   };
 
   const deletePost = () => {
     apiService.deletePost(postId).then(() => {
-      apiService.getAllPosts().then((allPosts) => {
+      apiService.getAllPosts(user._id).then((allPosts) => {
         setPosts(allPosts);
       });
     });
@@ -62,10 +64,15 @@ const PostHeader = ({
         name={name}
       />
       <Col className='name-date'>
-        <div className='post-name'>{name}</div>
+        <div
+          className='post-name'
+          onClick={() => navigate(`/users/${userId}`)}
+        >
+          {name}
+        </div>
         <div className='post-date'>{postDate}</div>
       </Col>
-      {USER === userId && showTrash ? (
+      {user._id === userId && showTrash ? (
         <Button
           style={{ padding: '4px' }}
           type='link'
@@ -81,7 +88,7 @@ const PostHeader = ({
           type='link'
           size='large'
         >
-          {currentLikes.includes(USER) ? (
+          {currentLikes.includes(user._id) ? (
             <LikeFilled onClick={onLike} />
           ) : (
             <LikeOutlined onClick={onLike} />

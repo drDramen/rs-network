@@ -1,19 +1,21 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable react-hooks/exhaustive-deps */
-
 import { useState, useEffect } from 'react';
 import { TypePost } from '../../types/types';
 import ApiService from '../../services/api-service';
 import PostForm from './post-form';
 import Post from './post';
-import './thread-posts.css';
+import classes from './thread-posts.module.css';
+import { useUser } from '../../hooks/useUser';
 
 const TreadPosts = () => {
   const apiService = new ApiService();
   const [posts, setPosts] = useState<[TypePost] | null>(null);
 
+  const { user } = useUser();
+
   useEffect(() => {
-    apiService.getAllPosts().then((allPosts) => {
+    apiService.getAllPosts(user._id).then((allPosts) => {
       setPosts(allPosts);
     });
   }, []);
@@ -40,7 +42,7 @@ const TreadPosts = () => {
 
   if (posts) {
     return (
-      <div>
+      <div className={classes.wrapper}>
         <PostForm setPosts={setPosts} />
         {renderPosts(posts.reverse())}
       </div>

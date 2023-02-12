@@ -20,9 +20,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const response = await fetch(`${apiBaseUrl}permission`, {
         headers: { Authorization: `Bearer ${tokenFromStorage}` },
       });
-
-      const user = (await response.json()) as TypeUser;
-      dispatch({ type: AuthActionName.SET_USER, payload: user });
+      if (response.status === 403) {
+        dispatch({ type: AuthActionName.LOGOUT, payload: {} });
+      }
+      if (response.status === 200) {
+        const user = (await response.json()) as TypeUser;
+        dispatch({ type: AuthActionName.SET_USER, payload: user });
+      }
     }
   };
 

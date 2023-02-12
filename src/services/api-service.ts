@@ -41,8 +41,12 @@ export default class ApiService {
     return result.json();
   }
 
-  async getAllPosts() {
-    return this.getResource<[TypePost]>('thread-posts/63dce6b73d2c466b038fc8a9');
+  async getAllPosts(userId: string) {
+    return this.getResource<[TypePost]>(`thread-posts/${userId}`);
+  }
+
+  async getUserPosts(userId: string) {
+    return this.getResource<[TypePost]>(`user-posts/${userId}`);
   }
 
   async getPost(id: string) {
