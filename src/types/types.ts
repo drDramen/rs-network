@@ -10,6 +10,8 @@ export type TypeUser = {
   about: string;
 };
 
+export type EmptyUser = Record<string, never>;
+
 export type TypePost = {
   _id: string;
   userId: string;
