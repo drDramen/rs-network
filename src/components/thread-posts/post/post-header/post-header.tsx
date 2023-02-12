@@ -4,6 +4,7 @@
 import { LikeOutlined, LikeFilled, DeleteOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import { Row, Col, Button } from 'antd';
+import { TypePost } from '../../../../types/types';
 import dateTransformer from '../../../../services/date-transformer';
 import ApiService from '../../../../services/api-service';
 import LikesModal from '../../post/post-likes';
@@ -20,6 +21,7 @@ const PostHeader = ({
   date,
   likes,
   showTrash,
+  setPosts,
 }: {
   userId: string;
   postId: string;
@@ -28,6 +30,7 @@ const PostHeader = ({
   date: number;
   likes: string[];
   showTrash: boolean;
+  setPosts: React.Dispatch<React.SetStateAction<[TypePost] | null>>;
 }) => {
   const apiService = new ApiService();
   const postDate = dateTransformer(date);
@@ -38,6 +41,14 @@ const PostHeader = ({
   const onLike = () => {
     apiService.likes(postId, USER).then((likes) => {
       setCurrentLikes(likes);
+    });
+  };
+
+  const deletePost = () => {
+    apiService.deletePost(postId).then(() => {
+      apiService.getAllPosts().then((allPosts) => {
+        setPosts(allPosts);
+      });
     });
   };
 
@@ -60,7 +71,7 @@ const PostHeader = ({
           type='link'
           size='large'
         >
-          {<DeleteOutlined />}
+          <DeleteOutlined onClick={deletePost} />
         </Button>
       ) : null}
       <Row className='post-like'>

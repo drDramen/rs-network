@@ -14,7 +14,7 @@ import ThreadComments from '../thread-comments';
 
 import './post.css';
 
-const Post: FC<TypePost> = ({
+const Post = ({
   _id,
   userId,
   description,
@@ -22,7 +22,17 @@ const Post: FC<TypePost> = ({
   date,
   comments,
   likes,
-}: TypePost) => {
+  setPosts,
+}: {
+  _id: string;
+  userId: string;
+  date: number;
+  description: string;
+  imageUrl: string;
+  likes: string[];
+  comments: string[];
+  setPosts: React.Dispatch<React.SetStateAction<[TypePost] | null>>;
+}) => {
   const apiService = new ApiService();
   const [user, setUser] = useState<TypeUser | null>(null);
   const [commentsId, setCommentsId] = useState<string[]>(comments);
@@ -69,6 +79,7 @@ const Post: FC<TypePost> = ({
           date={date}
           likes={likes}
           showTrash={showTrash}
+          setPosts={setPosts}
         />
         <PostImage url={imageUrl} />
         <PostText text={description} />
