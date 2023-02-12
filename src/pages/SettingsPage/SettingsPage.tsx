@@ -2,25 +2,17 @@ import classes from './SettingsPage.module.css';
 import Avatar from '../../components/avatar';
 import InputFile from '../../components/input/InputFile/InputFile';
 import { useState } from 'react';
-import { TypeUser } from '../../types/types';
 import InputText from '../../components/input/InputText/InputText';
 import InputEmail from '../../components/input/InputEmail/InputEmail';
 import InputTextArea from '../../components/input/InputTextArea/InputTextArea';
 import { Button } from 'antd';
+import { useUser } from '../../hooks/useUser';
+import { TypeUser } from '../../types/types';
+import { ToastContainer, toast } from 'react-toastify';
 
 const SettingsPage = () => {
-  const [user, setUser] = useState<TypeUser>({
-    _id: '63dce6b73d2c466b038fc8a9',
-    name: 'Aleksandr Yermolaev',
-    email: 'user1@example.com',
-    image: '',
-    age: 25,
-    location: 'Kyiv',
-    followers: ['63dcd6fa9c1a365e8cf6fdf3', '63dcd7599c1a365e8cf6fdf5'],
-    password: '',
-    about:
-      'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit',
-  });
+  const authContext = useUser();
+  const user = authContext.user as TypeUser;
 
   const [image, setImage] = useState(user.image);
   const [name, setName] = useState(user.name.split(' ')[0]);
@@ -31,11 +23,34 @@ const SettingsPage = () => {
   const [about, setAbout] = useState(user.about);
 
   const handleSumbit = () => {
-    console.log('sumbmit');
+    const updatedUser: TypeUser = {
+      ...user,
+      image,
+      name: `${name} ${surname}`,
+      age: Number(age),
+      location,
+      email,
+      about,
+    };
+    try {
+      void authContext.updateUser(updatedUser);
+      toast.success('Your profile updated!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(`Oh no something went wrong: ${error.message}`);
+      }
+    }
   };
 
   return (
     <div className={classes.wrapper}>
+      <ToastContainer
+        position='top-right'
+        theme='colored'
+        autoClose={3000}
+        hideProgressBar={true}
+        closeButton={false}
+      />
       <div className={classes.avatar}>
         <Avatar
           image={image}
@@ -57,7 +72,7 @@ const SettingsPage = () => {
         />
         <InputText
           placeholder='Your age'
-          value={`${age}`}
+          value={age === '0' ? '' : `${age}`}
           setValue={setAge}
         />
         <InputText
