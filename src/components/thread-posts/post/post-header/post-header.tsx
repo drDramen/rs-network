@@ -11,6 +11,7 @@ import LikesModal from '../../post/post-likes';
 import Avatar from '../../../avatar';
 import './post-header.css';
 import { useUser } from '../../../../hooks/useUser';
+import { useNavigate } from 'react-router-dom';
 
 const PostHeader = ({
   userId,
@@ -35,6 +36,7 @@ const PostHeader = ({
   const postDate = dateTransformer(date);
   const [currentLikes, setCurrentLikes] = useState<string[]>(likes);
   const { user } = useUser();
+  const navigate = useNavigate();
 
   useEffect(() => {}, [currentLikes]);
 
@@ -62,7 +64,12 @@ const PostHeader = ({
         name={name}
       />
       <Col className='name-date'>
-        <div className='post-name'>{name}</div>
+        <div
+          className='post-name'
+          onClick={() => navigate(`/users/${userId}`)}
+        >
+          {name}
+        </div>
         <div className='post-date'>{postDate}</div>
       </Col>
       {user._id === userId && showTrash ? (

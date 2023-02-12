@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Avatar from '../../../components/avatar';
+import FollowButton from '../../../components/buttons/FollowButton';
 import TextParagraph from '../../../components/paragraph/TextParagraph';
 import { useUser } from '../../../hooks/useUser';
 import ApiService from '../../../services/api-service';
@@ -39,6 +40,7 @@ const UserInfo = () => {
         <TextParagraph>{user.age ? `${user.age} y.o` : ''}</TextParagraph>
         <TextParagraph>{user.location}</TextParagraph>
         <TextParagraph>{user.email}</TextParagraph>
+        {authContext.user._id === user._id ? null : <FollowButton followedUserId={user._id} />}
       </div>
     </div>
   );

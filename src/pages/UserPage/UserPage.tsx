@@ -50,7 +50,7 @@ const UserPage = () => {
       {user.about ? <TextParagraph weight='bold'>About</TextParagraph> : null}
       <TextParagraph size='small'>{user.about}</TextParagraph>
       <br />
-      <PostForm setPosts={setPosts} />
+      {currentId === user._id ? <PostForm setPosts={setPosts} /> : null}
       {posts ? renderPosts(posts.reverse()) : null}
     </div>
   );
