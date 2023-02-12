@@ -1,12 +1,15 @@
 import { Layout, Menu } from 'antd';
 import { FC } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { items } from './menu-items';
+import { useUser } from '../../hooks/useUser';
+import { getMenuItems } from './menu-items';
 
 const { Sider, Content } = Layout;
 
 const PrivateLayout: FC = () => {
   const location = useLocation();
+  const { user } = useUser();
+  const items = getMenuItems(user._id);
 
   return (
     <Layout>

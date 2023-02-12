@@ -7,6 +7,7 @@ import { Button } from 'antd';
 import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 
 function RegisterForm({ isRegister, setUserName }: RegisterProps) {
   const [name, setName] = useState('');
@@ -113,7 +114,7 @@ function RegisterForm({ isRegister, setUserName }: RegisterProps) {
         </form>
         <p className={classes.footer}>
           Already have an account?
-          <a href='/login'>Log in</a>
+          <Link to='/login'>Log in</Link>
         </p>
       </div>
     </div>

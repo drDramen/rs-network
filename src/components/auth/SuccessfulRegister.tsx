@@ -1,6 +1,9 @@
 import { Button, Result } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { RouteNames } from '../../router';
 
 const SuccessfulRegister = ({ name }: ResultType) => {
+  const navigate = useNavigate();
   return (
     <Result
       status='success'
@@ -9,7 +12,7 @@ const SuccessfulRegister = ({ name }: ResultType) => {
       extra={
         <Button
           type='primary'
-          href='#'
+          onClick={() => navigate(RouteNames.Login)}
         >
           Log in
         </Button>

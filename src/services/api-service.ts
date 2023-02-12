@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
+import { apiBaseUrl } from '../api-constants';
 import { TypePost, TypeUser, TypeComment } from '../types/types';
 
 export default class ApiService {
-  _apiBase = 'http://localhost:8080/';
+  _apiBase = apiBaseUrl;
 
   async getResource<T>(url: string): Promise<T> {
     const result = await fetch(`${this._apiBase}${url}`);
@@ -55,6 +56,18 @@ export default class ApiService {
 
   async getUser(id: string) {
     return this.getResource<TypeUser>(`users/${id}`);
+  }
+
+  async updateUser(user: TypeUser): Promise<TypeUser> {
+    const response = await fetch(`${this._apiBase}users/${user._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+
+    return response.json();
   }
 
   async likes(pospId: string, userId: string) {
