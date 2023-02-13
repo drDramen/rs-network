@@ -25,12 +25,10 @@ function LoginForm() {
   }, [email, password]);
 
   const handleSubmit = () => {
-    try {
-      void login(email, password);
-    } catch (err) {
+    login(email, password).catch((err) => {
       const error = err as Error;
       toast.error(error.message);
-    }
+    });
   };
 
   return (
