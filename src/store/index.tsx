@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createContext, PropsWithChildren, useEffect, useReducer } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { apiBaseUrl } from '../api-constants';
 import { LoginResponse } from '../components/auth/LoginForm/LoginForm';
 import ApiService from '../services/api-service';
@@ -14,13 +15,17 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(userReducer, initialState);
   const apiService = new ApiService();
 
+  const setLoading = (isLoading: boolean) => {
+    dispatch({ type: AuthActionName.SET_LOADING, payload: isLoading });
+  };
+
   const auth = async () => {
     const tokenFromStorage = localStorage.getItem('JWT');
     if (tokenFromStorage) {
       const response = await fetch(`${apiBaseUrl}permission`, {
         headers: { Authorization: `Bearer ${tokenFromStorage}` },
       });
-      if (response.status === 403) {
+      if (response.status === 401 || response.status === 403) {
         dispatch({ type: AuthActionName.LOGOUT, payload: {} });
       }
       if (response.status === 200) {
@@ -31,9 +36,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
-    void (async () => {
-      await auth();
-    })();
+    setLoading(true);
+    auth()
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   const login = async (email: string, password: string): Promise<void> => {
@@ -67,9 +73,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const value = {
     user: state.user,
     isAuth: state.isAuth,
+    isLoading: state.isLoading,
     login,
     logOut,
     updateUser,
+    setLoading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
