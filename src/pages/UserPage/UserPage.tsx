@@ -14,7 +14,7 @@ const UserPage = () => {
   const currentUserId = currentId === user._id ? user._id : currentId;
 
   const apiService = new ApiService();
-  const [posts, setPosts] = useState<[TypePost] | null>(null);
+  const [posts, setPosts] = useState<TypePost[]>([]);
 
   useEffect(() => {
     async function getUserPosts() {

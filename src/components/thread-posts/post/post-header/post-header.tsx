@@ -3,6 +3,7 @@
 
 import { LikeOutlined, LikeFilled, DeleteOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
 import { Row, Col, Button } from 'antd';
 import { TypePost } from '../../../../types/types';
 import dateTransformer from '../../../../services/date-transformer';
@@ -12,6 +13,9 @@ import Avatar from '../../../avatar';
 import './post-header.css';
 import { useUser } from '../../../../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
+import { apiBaseUrl } from '../../../../api-constants';
+
+const webSocket = io(apiBaseUrl);
 
 const PostHeader = ({
   userId,
@@ -30,7 +34,7 @@ const PostHeader = ({
   date: number;
   likes: string[];
   showTrash: boolean;
-  setPosts: React.Dispatch<React.SetStateAction<[TypePost] | null>>;
+  setPosts: React.Dispatch<React.SetStateAction<TypePost[]>>;
 }) => {
   const apiService = new ApiService();
   const postDate = dateTransformer(date);
@@ -50,6 +54,7 @@ const PostHeader = ({
     apiService.deletePost(postId).then(() => {
       apiService.getAllPosts(user._id).then((allPosts) => {
         setPosts(allPosts);
+        webSocket.emit('del-post', 'Post deleted!');
       });
     });
   };
