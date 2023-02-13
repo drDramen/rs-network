@@ -1,0 +1,36 @@
+.footer {
+  padding: 10px 40px;
+}
+
+.github-logo {
+  display: flex;
+  justify-content: center;
+}
+
+.github-logo:hover {
+  scale: 1.1;
+}
+
+.github-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rsschool-logo {
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+  width: 100%;
+}
+
+.rsschool-logo:hover {
+  scale: 1.05;
+}
+
+.year {
+  display: flex;
+  justify-content: space-around;
+  color: #ffffff;
+  font-size: 15px;
+  margin: 8px 0;
+}
