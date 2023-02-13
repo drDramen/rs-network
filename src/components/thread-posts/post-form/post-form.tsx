@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Input, Divider } from 'antd';
 import { SendOutlined, FileImageOutlined, CloseOutlined } from '@ant-design/icons';
 import ApiService from '../../../services/api-service';
@@ -20,8 +20,6 @@ const PostForm = ({
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const { user } = useUser();
-
-  useEffect(() => {}, [imageUrl]);
 
   const onSubmitPost = (event: React.MouseEvent) => {
     const date = new Date().getTime();

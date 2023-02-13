@@ -72,6 +72,10 @@ export default class ApiService {
     return this.getResource<TypeComment>(`comment/${id}`);
   }
 
+  async getAllUsers() {
+    return this.getResource<TypeUser[]>('users');
+  }
+
   async getUser(id: string) {
     return this.getResource<TypeUser>(`users/${id}`);
   }

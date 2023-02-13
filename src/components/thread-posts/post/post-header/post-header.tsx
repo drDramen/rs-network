@@ -38,8 +38,6 @@ const PostHeader = ({
   const { user } = useUser();
   const navigate = useNavigate();
 
-  useEffect(() => {}, [currentLikes]);
-
   const onLike = () => {
     apiService.likes(postId, user._id).then((likes) => {
       setCurrentLikes(likes);

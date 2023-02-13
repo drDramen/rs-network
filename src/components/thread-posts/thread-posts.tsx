@@ -20,8 +20,6 @@ const TreadPosts = () => {
     });
   }, []);
 
-  useEffect(() => {}, [posts]);
-
   const renderPosts = (arr: TypePost[]) => {
     return arr.map(({ _id, description, imageUrl, userId, date, comments, likes }: TypePost) => {
       return (
