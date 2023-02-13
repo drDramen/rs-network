@@ -31,7 +31,7 @@ const Post = ({
   imageUrl: string;
   likes: string[];
   comments: string[];
-  setPosts: React.Dispatch<React.SetStateAction<[TypePost] | null>>;
+  setPosts: React.Dispatch<React.SetStateAction<TypePost[]>>;
 }) => {
   const apiService = new ApiService();
   const [user, setUser] = useState<TypeUser | null>(null);
