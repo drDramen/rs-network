@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useUser } from '../../hooks/useUser';
 import { getMenuItems } from './menu-items';
+import './private-layout.css';
 
 const { Sider, Content } = Layout;
 
@@ -14,8 +15,14 @@ const PrivateLayout: FC = () => {
   return (
     <Layout>
       <Sider
-        trigger={null}
-        collapsible
+        breakpoint='md'
+        collapsedWidth='0'
+        onBreakpoint={(broken) => {
+          console.log(broken);
+        }}
+        onCollapse={(collapsed, type) => {
+          console.log(collapsed, type);
+        }}
       >
         <Menu
           theme='dark'
