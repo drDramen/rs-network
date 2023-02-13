@@ -15,6 +15,7 @@ const UserPage = () => {
 
   const apiService = new ApiService();
   const [posts, setPosts] = useState<TypePost[]>([]);
+  const [currentUser, setCurrentUser] = useState(user);
 
   useEffect(() => {
     async function getUserPosts() {
@@ -45,10 +46,10 @@ const UserPage = () => {
 
   return (
     <div className={classes.wrapper}>
-      <UserInfo />
+      <UserInfo setCurrentUser={setCurrentUser} />
       <br />
-      {user.about ? <TextParagraph weight='bold'>About</TextParagraph> : null}
-      <TextParagraph size='small'>{user.about}</TextParagraph>
+      {currentUser.about ? <TextParagraph weight='bold'>About</TextParagraph> : null}
+      <TextParagraph size='small'>{currentUser.about}</TextParagraph>
       <br />
       {currentId === user._id ? <PostForm setPosts={setPosts} /> : null}
       {posts ? renderPosts(posts.reverse()) : null}
