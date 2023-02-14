@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 import { Button, Input, Divider } from 'antd';
 import { SendOutlined, FileImageOutlined, CloseOutlined } from '@ant-design/icons';
 import ApiService from '../../../services/api-service';
@@ -8,14 +9,12 @@ import PostImage from '../../thread-posts/post/post-image';
 import { TypePost } from '../../../types/types';
 import './post-form.css';
 import { useUser } from '../../../hooks/useUser';
+import { apiBaseUrl } from '../../../api-constants';
 
 const { TextArea } = Input;
+const webSocket = io(apiBaseUrl);
 
-const PostForm = ({
-  setPosts,
-}: {
-  setPosts: React.Dispatch<React.SetStateAction<[TypePost] | null>>;
-}) => {
+const PostForm = ({ setPosts }: { setPosts: React.Dispatch<React.SetStateAction<TypePost[]>> }) => {
   const apiService = new ApiService();
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -26,6 +25,7 @@ const PostForm = ({
     event.preventDefault();
     if (description || imageUrl != '') {
       apiService.createPost(user._id, date, description, imageUrl).then(() => {
+        webSocket.emit('new-post', 'New post created!');
         apiService.getAllPosts(user._id).then((allPosts) => {
           setPosts(allPosts);
         });
