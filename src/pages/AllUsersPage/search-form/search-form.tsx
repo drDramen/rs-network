@@ -17,6 +17,7 @@ const SearchForm = ({
 }) => {
   const [filtredName, setFiltredName] = useState<string>('');
   const [filtredLocation, setFiltredLocation] = useState<string>('');
+  const [filtredAge, setFiltredAge] = useState<[number, number]>([0, 120]);
 
   const allLocations = filtredUsers.map((user) => user.location);
   const locations = Array.from(new Set(allLocations)).filter((el) => el != '');
@@ -31,17 +32,22 @@ const SearchForm = ({
   useEffect(() => {
     const newUsers = users.filter((user) => {
       if (filtredLocation === '') {
-        return user.name.toUpperCase().includes(filtredName.toUpperCase());
+        return (
+          user.name.toUpperCase().includes(filtredName.toUpperCase()) &&
+          user.age >= filtredAge[0] &&
+          user.age <= filtredAge[1]
+        );
       } else {
         return (
           user.name.toUpperCase().includes(filtredName.toUpperCase()) &&
-          user.location == filtredLocation
+          user.location == filtredLocation &&
+          user.age >= filtredAge[0] &&
+          user.age <= filtredAge[1]
         );
       }
     });
-
     setFiltredUsers(newUsers);
-  }, [filtredName, filtredLocation]);
+  }, [filtredName, filtredLocation, filtredAge]);
 
   return (
     <div>
@@ -78,7 +84,7 @@ const SearchForm = ({
           Age:
         </Col>
         <Col span={21}>
-          <SearchAge />
+          <SearchAge setFiltredAge={setFiltredAge} />
         </Col>
       </Row>
       <Row style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>

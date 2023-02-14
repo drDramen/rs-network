@@ -1,9 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-shadow */
 import { Row, Col, Slider, InputNumber } from 'antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const SearchAge = () => {
-  const [inputValue, setInputValue] = useState([1, 100]);
+const SearchAge = ({
+  setFiltredAge,
+}: {
+  setFiltredAge: React.Dispatch<React.SetStateAction<[number, number]>>;
+}) => {
+  const [inputValue, setInputValue] = useState<[number, number]>([0, 120]);
+
+  useEffect(() => {
+    setFiltredAge(inputValue);
+  }, [inputValue]);
 
   const onChange = (newValue: [number, number]): void => {
     setInputValue(newValue);
@@ -24,8 +33,8 @@ const SearchAge = () => {
         span={4}
       >
         <InputNumber
-          min={1}
-          max={100}
+          min={0}
+          max={120}
           value={inputValue[0]}
           onChange={onChange1}
         />
@@ -33,7 +42,9 @@ const SearchAge = () => {
       <Col span={16}>
         <Slider
           range
-          defaultValue={[1, 100]}
+          defaultValue={[0, 120]}
+          min={0}
+          max={120}
           onChange={onChange}
           value={[inputValue[0], inputValue[1]]}
         />
@@ -43,8 +54,8 @@ const SearchAge = () => {
         span={4}
       >
         <InputNumber
-          min={1}
-          max={100}
+          min={0}
+          max={120}
           value={inputValue[1]}
           onChange={onChange2}
         />

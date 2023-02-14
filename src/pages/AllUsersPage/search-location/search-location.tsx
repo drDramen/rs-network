@@ -21,7 +21,7 @@ const SearchLocation = ({
   }, [locations]);
 
   useEffect(() => {
-    if (value == '' && !locations.includes(value)) {
+    if (value == '') {
       setFiltredLocation(value);
     }
   }, [value]);

@@ -71,7 +71,7 @@ const AllUsersPage = () => {
         filtredUsers={filtredUsers}
         setFiltredUsers={setFiltredUsers}
       />
-      {users ? renderUsers(filtredUsers) : null}
+      {filtredUsers.length ? renderUsers(filtredUsers) : null}
     </div>
   );
 };
