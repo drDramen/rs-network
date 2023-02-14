@@ -33,7 +33,6 @@ const User = ({
   const navigate = useNavigate();
 
   const isFolower: boolean = user.followers.includes(_id);
-
   const onFollow = () => {
     const updatedUser: TypeUser = {
       ...user,
@@ -90,7 +89,7 @@ const User = ({
       </Col>
       <Col>
         <Row
-          className={name}
+          className={'name'}
           onClick={() => navigate(`/users/${_id}`)}
         >
           {name}

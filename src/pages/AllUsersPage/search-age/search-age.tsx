@@ -6,17 +6,14 @@ const SearchAge = () => {
   const [inputValue, setInputValue] = useState([1, 100]);
 
   const onChange = (newValue: [number, number]): void => {
-    console.log(newValue);
     setInputValue(newValue);
   };
 
   const onChange1 = (newValue: number | null): void => {
-    console.log(newValue);
     if (newValue) setInputValue((inputValue) => [newValue, inputValue[1]]);
   };
 
   const onChange2 = (newValue: number | null): void => {
-    console.log(newValue);
     if (newValue) setInputValue((inputValue) => [inputValue[0], newValue]);
   };
 

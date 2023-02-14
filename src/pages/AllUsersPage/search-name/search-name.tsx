@@ -1,16 +1,14 @@
-import { useState } from 'react';
 import { Input } from 'antd';
 
 const SearchName = ({
-  names,
-  onFilterName,
+  setFiltredName,
 }: {
-  names: string[];
-  onFilterName: (name: string) => void;
+  setFiltredName: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onFilterName(event.target.value);
+    setFiltredName(event.target.value);
   };
+
   return (
     <Input
       placeholder='Enter name...'

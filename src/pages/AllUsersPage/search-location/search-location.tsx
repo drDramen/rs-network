@@ -1,14 +1,30 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from 'react';
 import { AutoComplete } from 'antd';
 
-const SearchLocation = ({ locations }: { locations: string[] }) => {
-  const allLocations: { value: string }[] = [];
-  locations.forEach((elem) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-    allLocations.push({ value: elem });
+const SearchLocation = ({
+  locations,
+  setFiltredLocation,
+}: {
+  locations: string[];
+  setFiltredLocation: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+  const allLocations = locations.map((location) => {
+    return { value: location };
   });
+
   const [value, setValue] = useState('');
   const [options, setOptions] = useState<{ value: string }[]>(allLocations);
+
+  useEffect(() => {
+    setOptions(allLocations);
+  }, [locations]);
+
+  useEffect(() => {
+    if (value == '' && !locations.includes(value)) {
+      setFiltredLocation(value);
+    }
+  }, [value]);
 
   const onSearch = (searchText: string) => {
     setOptions(
@@ -19,7 +35,7 @@ const SearchLocation = ({ locations }: { locations: string[] }) => {
   };
 
   const onSelect = (data: string) => {
-    console.log('onSelect', data);
+    setFiltredLocation(data);
   };
 
   const onChange = (data: string) => {

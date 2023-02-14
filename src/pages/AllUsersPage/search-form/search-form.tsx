@@ -15,23 +15,33 @@ const SearchForm = ({
   filtredUsers: TypeUser[];
   setFiltredUsers: React.Dispatch<React.SetStateAction<TypeUser[]>>;
 }) => {
-  const originalUsers = [...users];
+  const [filtredName, setFiltredName] = useState<string>('');
+  const [filtredLocation, setFiltredLocation] = useState<string>('');
 
   const allLocations = filtredUsers.map((user) => user.location);
   const locations = Array.from(new Set(allLocations)).filter((el) => el != '');
 
-  const allNames = filtredUsers.map((user) => user.name);
-  const names = Array.from(new Set(allNames)).filter((el) => el != '');
+  // const allNames = filtredUsers.map((user) => user.name);
+  // const names = Array.from(new Set(allNames)).filter((el) => el != '');
 
   const onReset = () => {
     setFiltredUsers(users);
   };
 
-  const onFilterName = (name: string) => {
-    const newUsers = users.filter((user) => user.name.toUpperCase().includes(name.toUpperCase()));
-    console.log(newUsers);
+  useEffect(() => {
+    const newUsers = users.filter((user) => {
+      if (filtredLocation === '') {
+        return user.name.toUpperCase().includes(filtredName.toUpperCase());
+      } else {
+        return (
+          user.name.toUpperCase().includes(filtredName.toUpperCase()) &&
+          user.location == filtredLocation
+        );
+      }
+    });
+
     setFiltredUsers(newUsers);
-  };
+  }, [filtredName, filtredLocation]);
 
   return (
     <div>
@@ -43,10 +53,7 @@ const SearchForm = ({
           Name:
         </Col>
         <Col span={21}>
-          <SearchName
-            names={names}
-            onFilterName={onFilterName}
-          />
+          <SearchName setFiltredName={setFiltredName} />
         </Col>
       </Row>
       <Row style={{ margin: '10px 0' }}>
@@ -57,7 +64,10 @@ const SearchForm = ({
           Location:
         </Col>
         <Col span={21}>
-          <SearchLocation locations={locations} />
+          <SearchLocation
+            locations={locations}
+            setFiltredLocation={setFiltredLocation}
+          />
         </Col>
       </Row>
       <Row>
