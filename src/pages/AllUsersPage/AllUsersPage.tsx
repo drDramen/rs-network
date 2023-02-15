@@ -5,10 +5,10 @@
 import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { TypeUser } from '../../types/types';
-import NoUsersFound from './no-users-found/no-users-found';
+import NoUsersFound from '../../components/no-users-found/no-users-found';
 import ApiService from '../../services/api-service';
-import SearchForm from './search-form/search-form';
-import User from './user/user-item';
+import SearchForm from '../../components/search-form';
+import UserItem from '../../components/user-item';
 import classes from './AllUsersPage.module.css';
 
 const AllUsersPage = () => {
@@ -48,11 +48,12 @@ const AllUsersPage = () => {
         location: string;
       }) => {
         return (
-          <User
+          <UserItem
             key={_id}
             _id={_id}
             name={name}
             image={image}
+            sizeAvatar={70}
             age={age}
             location={location}
           />

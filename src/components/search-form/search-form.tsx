@@ -5,7 +5,7 @@ import SearchName from '../search-name/search-name';
 import SearchAge from '../search-age/search-age';
 import { useEffect, useState } from 'react';
 import { Divider, Row, Col, Button } from 'antd';
-import { TypeUser } from '../../../types/types';
+import { TypeUser } from '../../types/types';
 
 const SearchForm = ({
   users,

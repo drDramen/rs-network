@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import TextParagraph from '../../components/paragraph/TextParagraph';
 import ApiService from '../../services/api-service';
+import { ToastContainer } from 'react-toastify';
 import { TypePost } from '../../types/types';
 import UserInfo from './UserInfo/UserInfo';
 import Post from '../../components/thread-posts/post';
@@ -46,6 +47,13 @@ const UserPage = () => {
 
   return (
     <div className={classes.wrapper}>
+      <ToastContainer
+        position='top-center'
+        theme='colored'
+        autoClose={3000}
+        hideProgressBar={true}
+        closeButton={false}
+      />
       <UserInfo setCurrentUser={setCurrentUser} />
       <br />
       {currentUser.about ? <TextParagraph weight='bold'>About</TextParagraph> : null}

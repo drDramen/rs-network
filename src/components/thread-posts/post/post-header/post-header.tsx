@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 
 import { LikeOutlined, LikeFilled, DeleteOutlined } from '@ant-design/icons';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { io } from 'socket.io-client';
 import { Row, Col, Button } from 'antd';
 import { TypePost } from '../../../../types/types';
@@ -63,6 +63,7 @@ const PostHeader = ({
       justify='space-between'
     >
       <Avatar
+        id={userId}
         image={image}
         name={name}
       />
