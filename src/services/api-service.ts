@@ -121,4 +121,8 @@ export default class ApiService {
     }
     return result.json();
   }
+
+  async getFollowing(id: string) {
+    return this.getResource<TypeUser[]>(`following/${id}`);
+  }
 }

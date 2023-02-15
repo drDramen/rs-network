@@ -4,24 +4,26 @@
 
 import { Row, Col, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { TypeUser } from '../../../types/types';
-import { useUser } from '../../../hooks/useUser';
+import { TypeUser } from '../../types/types';
+import { useUser } from '../../hooks/useUser';
 import { toast } from 'react-toastify';
-import Avatar from '../../../components/avatar';
+import Avatar from '../avatar';
 import './user-item.css';
 
-const User = ({
+const UserItem = ({
   _id,
   name,
   image,
+  sizeAvatar,
   age,
   location,
 }: {
   _id: string;
   name: string;
   image: string;
-  age: number;
-  location: string;
+  sizeAvatar: number;
+  age?: number;
+  location?: string;
 }) => {
   const authContext = useUser();
   const user = authContext.user as TypeUser;
@@ -79,21 +81,34 @@ const User = ({
         <Avatar
           image={image}
           name={name}
-          size={{ xs: 70, sm: 70, md: 70, lg: 70, xl: 70, xxl: 70 }}
+          size={{
+            xs: sizeAvatar,
+            sm: sizeAvatar,
+            md: sizeAvatar,
+            lg: sizeAvatar,
+            xl: sizeAvatar,
+            xxl: sizeAvatar,
+          }}
         />
       </Col>
-      <Col>
-        <Row
-          className={'user-name'}
-          onClick={() => navigate(`/users/${_id}`)}
-        >
-          {name}
-        </Row>
-        <Row>
-          Age: <span className={'user-title'}>{age}</span>
-        </Row>
-        <Row>
-          Location: <span className={'user-title'}>{location}</span>
+      <Col className={'user-information-wrapper'}>
+        <Row className={'user-information'}>
+          <Row
+            className={'user-name'}
+            onClick={() => navigate(`/users/${_id}`)}
+          >
+            {name}
+          </Row>
+          {age ? (
+            <Row>
+              Age: <span className={'user-title'}>{age}</span>
+            </Row>
+          ) : null}
+          {location ? (
+            <Row>
+              Location: <span className={'user-title'}>{location}</span>
+            </Row>
+          ) : null}
         </Row>
       </Col>
       <Col className={'user-buttons'}>
@@ -131,4 +146,4 @@ const User = ({
   );
 };
 
-export default User;
+export default UserItem;
