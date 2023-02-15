@@ -18,12 +18,6 @@ const PrivateLayout: FC = () => {
       <Sider
         breakpoint='md'
         collapsedWidth='0'
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
       >
         <Row
           style={{
@@ -44,8 +38,7 @@ const PrivateLayout: FC = () => {
       </Sider>
       <Content
         style={{
-          maxHeight: 'calc(100vh - 112px)',
-          // maxWidth: 800,
+          maxHeight: 'calc(100vh - 64px)',
           margin: 'auto',
           overflowY: 'auto',
         }}

@@ -20,8 +20,6 @@ const PostForm = ({ setPosts }: { setPosts: React.Dispatch<React.SetStateAction<
   const [imageUrl, setImageUrl] = useState('');
   const { user } = useUser();
 
-  useEffect(() => {}, [imageUrl]);
-
   const onSubmitPost = (event: React.MouseEvent) => {
     const date = new Date().getTime();
     event.preventDefault();
