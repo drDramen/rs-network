@@ -1,13 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+
 import { useState, useEffect } from 'react';
 import { AutoComplete } from 'antd';
 
 const SearchLocation = ({
   locations,
   setFiltredLocation,
+  isDefault,
 }: {
   locations: string[];
   setFiltredLocation: React.Dispatch<React.SetStateAction<string>>;
+  isDefault: boolean;
 }) => {
   const allLocations = locations.map((location) => {
     return { value: location };
@@ -25,6 +28,12 @@ const SearchLocation = ({
       setFiltredLocation(value);
     }
   }, [value]);
+
+  useEffect(() => {
+    if (isDefault) {
+      setValue('');
+    }
+  }, [isDefault]);
 
   const onSearch = (searchText: string) => {
     setOptions(

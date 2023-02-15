@@ -2,18 +2,28 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
-import classes from './AllUsersPage.module.css';
 import { useEffect, useState } from 'react';
-import ApiService from '../../services/api-service';
-import { TypeUser } from '../../types/types';
-import User from './user/user-item';
-import SearchForm from './search-form/search-form';
 import { ToastContainer } from 'react-toastify';
+import { TypeUser } from '../../types/types';
+import NoUsersFound from './no-users-found/no-users-found';
+import ApiService from '../../services/api-service';
+import SearchForm from './search-form/search-form';
+import User from './user/user-item';
+import classes from './AllUsersPage.module.css';
 
 const AllUsersPage = () => {
   const apiService = new ApiService();
   const [users, setUsers] = useState<TypeUser[]>([]);
   const [filtredUsers, setFiltredUsers] = useState<TypeUser[]>([]);
+  const [isDefault, setIsDefault] = useState<boolean>(true);
+
+  useEffect(() => {
+    setIsDefault(
+      users.length == filtredUsers.length && users.every((v, i) => filtredUsers[i] == v)
+        ? true
+        : false,
+    );
+  }, [filtredUsers]);
 
   useEffect(() => {
     apiService.getAllUsers().then((allUsers) => {
@@ -30,16 +40,12 @@ const AllUsersPage = () => {
         image,
         age,
         location,
-        followers,
-        about,
       }: {
         _id: string;
         name: string;
         image: string;
         age: number;
         location: string;
-        followers: string[];
-        about: string;
       }) => {
         return (
           <User
@@ -49,8 +55,6 @@ const AllUsersPage = () => {
             image={image}
             age={age}
             location={location}
-            followers={followers}
-            about={about}
           />
         );
       },
@@ -70,8 +74,9 @@ const AllUsersPage = () => {
         users={users}
         filtredUsers={filtredUsers}
         setFiltredUsers={setFiltredUsers}
+        isDefault={isDefault}
       />
-      {filtredUsers.length ? renderUsers(filtredUsers) : null}
+      {filtredUsers.length ? renderUsers(filtredUsers) : <NoUsersFound />}
     </div>
   );
 };

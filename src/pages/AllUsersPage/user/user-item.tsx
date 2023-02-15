@@ -2,14 +2,13 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
-import './user-item.css';
-import Avatar from '../../../components/avatar';
-import { useUser } from '../../../hooks/useUser';
-
 import { Row, Col, Button } from 'antd';
-import { TypeUser } from '../../../types/types';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { TypeUser } from '../../../types/types';
+import { useUser } from '../../../hooks/useUser';
+import { toast } from 'react-toastify';
+import Avatar from '../../../components/avatar';
+import './user-item.css';
 
 const User = ({
   _id,
@@ -17,16 +16,12 @@ const User = ({
   image,
   age,
   location,
-  followers,
-  about,
 }: {
   _id: string;
   name: string;
   image: string;
   age: number;
   location: string;
-  followers: string[];
-  about: string;
 }) => {
   const authContext = useUser();
   const user = authContext.user as TypeUser;
@@ -79,8 +74,8 @@ const User = ({
   };
 
   return (
-    <Row className={'wrapper'}>
-      <Col className={'avatar'}>
+    <Row className={'user-wrapper'}>
+      <Col className={'user-avatar'}>
         <Avatar
           image={image}
           name={name}
@@ -89,20 +84,20 @@ const User = ({
       </Col>
       <Col>
         <Row
-          className={'name'}
+          className={'user-name'}
           onClick={() => navigate(`/users/${_id}`)}
         >
           {name}
         </Row>
         <Row>
-          Age: <span className={'title'}>{age}</span>
+          Age: <span className={'user-title'}>{age}</span>
         </Row>
         <Row>
-          Location: <span className={'title'}>{location}</span>
+          Location: <span className={'user-title'}>{location}</span>
         </Row>
       </Col>
-      <Col className={'buttons'}>
-        <div className={'button'}>
+      <Col className={'user-buttons'}>
+        <div className={'user-button'}>
           {isFolower ? (
             <Button
               block
@@ -121,7 +116,7 @@ const User = ({
             </Button>
           )}
         </div>
-        <div className={'button'}>
+        <div className={'user-button'}>
           <Button
             block
             type='primary'

@@ -1,19 +1,7 @@
 .wrapper {
   width: 95%;
+  height: calc(100vh - 64px);
   max-width: 600px;
-  margin: 2% auto 0;
-}
-
-.avatar {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-end;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.button {
-  display: block;
-  min-width: 10%;
-  margin: 1rem auto;
+  margin: 0 auto;
+  padding-top: 2%;
 }

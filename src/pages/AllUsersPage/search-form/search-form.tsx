@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+
 import SearchLocation from '../search-location/search-location';
 import SearchName from '../search-name/search-name';
 import SearchAge from '../search-age/search-age';
@@ -10,10 +11,12 @@ const SearchForm = ({
   users,
   filtredUsers,
   setFiltredUsers,
+  isDefault,
 }: {
   users: TypeUser[];
   filtredUsers: TypeUser[];
   setFiltredUsers: React.Dispatch<React.SetStateAction<TypeUser[]>>;
+  isDefault: boolean;
 }) => {
   const [filtredName, setFiltredName] = useState<string>('');
   const [filtredLocation, setFiltredLocation] = useState<string>('');
@@ -21,9 +24,6 @@ const SearchForm = ({
 
   const allLocations = filtredUsers.map((user) => user.location);
   const locations = Array.from(new Set(allLocations)).filter((el) => el != '');
-
-  // const allNames = filtredUsers.map((user) => user.name);
-  // const names = Array.from(new Set(allNames)).filter((el) => el != '');
 
   const onReset = () => {
     setFiltredUsers(users);
@@ -59,7 +59,10 @@ const SearchForm = ({
           Name:
         </Col>
         <Col span={21}>
-          <SearchName setFiltredName={setFiltredName} />
+          <SearchName
+            isDefault={isDefault}
+            setFiltredName={setFiltredName}
+          />
         </Col>
       </Row>
       <Row style={{ margin: '10px 0' }}>
@@ -73,6 +76,7 @@ const SearchForm = ({
           <SearchLocation
             locations={locations}
             setFiltredLocation={setFiltredLocation}
+            isDefault={isDefault}
           />
         </Col>
       </Row>
@@ -84,7 +88,10 @@ const SearchForm = ({
           Age:
         </Col>
         <Col span={21}>
-          <SearchAge setFiltredAge={setFiltredAge} />
+          <SearchAge
+            setFiltredAge={setFiltredAge}
+            isDefault={isDefault}
+          />
         </Col>
       </Row>
       <Row style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>

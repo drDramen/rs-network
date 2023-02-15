@@ -1,18 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-shadow */
+
 import { Row, Col, Slider, InputNumber } from 'antd';
 import { useState, useEffect } from 'react';
 
 const SearchAge = ({
   setFiltredAge,
+  isDefault,
 }: {
   setFiltredAge: React.Dispatch<React.SetStateAction<[number, number]>>;
+  isDefault: boolean;
 }) => {
   const [inputValue, setInputValue] = useState<[number, number]>([0, 120]);
 
   useEffect(() => {
     setFiltredAge(inputValue);
   }, [inputValue]);
+
+  useEffect(() => {
+    if (isDefault) {
+      setInputValue([0, 120]);
+    }
+  }, [isDefault]);
 
   const onChange = (newValue: [number, number]): void => {
     setInputValue(newValue);
