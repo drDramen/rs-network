@@ -49,7 +49,12 @@ const UserInfo = ({
         <TextParagraph>{user.age ? `${user.age} y.o` : ''}</TextParagraph>
         <TextParagraph>{user.location}</TextParagraph>
         <TextParagraph>{user.email}</TextParagraph>
-        {authContext.user._id === user._id ? null : <FollowButton followedUserId={user._id} />}
+        {authContext.user._id === user._id ? null : (
+          <FollowButton
+            followedUserId={user._id}
+            followedUserName={user.name}
+          />
+        )}
       </div>
     </div>
   );
