@@ -4,6 +4,8 @@
 
 import { Row, Col, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { SmileTwoTone } from '@ant-design/icons';
+import { useUser } from '../../hooks/useUser';
 import { toast } from 'react-toastify';
 import Avatar from '../avatar';
 import FollowButton from '../buttons/FollowButton';
@@ -26,6 +28,7 @@ const UserItem = ({
   location?: string;
 }) => {
   const navigate = useNavigate();
+  const { user } = useUser();
 
   const onMessage = () => {
     toast('This feature is under development', {
@@ -77,21 +80,28 @@ const UserItem = ({
           ) : null}
         </Row>
       </Col>
-      <Col className={'user-buttons'}>
-        <FollowButton
-          followedUserId={_id}
-          followedUserName={name}
-        />
-        <div style={{ width: '120px' }}>
-          <Button
-            block
-            type='primary'
-            onClick={onMessage}
-          >
-            Message
-          </Button>
-        </div>
-      </Col>
+      {user._id != _id ? (
+        <Col className={'user-buttons'}>
+          <FollowButton
+            followedUserId={_id}
+            followedUserName={name}
+          />
+          <div style={{ width: '120px' }}>
+            <Button
+              block
+              type='primary'
+              onClick={onMessage}
+            >
+              Message
+            </Button>
+          </div>
+        </Col>
+      ) : (
+        <Col className={'user-you'}>
+          It is You
+          <SmileTwoTone />
+        </Col>
+      )}
       <Col></Col>
     </Row>
   );
