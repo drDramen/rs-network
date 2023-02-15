@@ -44,6 +44,7 @@ const UserItem = ({
     <Row className={'user-wrapper'}>
       <Col className={'user-avatar'}>
         <Avatar
+          id={_id}
           image={image}
           name={name}
           size={{

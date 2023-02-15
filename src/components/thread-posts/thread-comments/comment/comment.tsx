@@ -54,6 +54,7 @@ const Comment = ({
       >
         <Col flex={'30px'}>
           <Avatar
+            id={user._id}
             image={user.image}
             name={user.name}
           />
