@@ -46,3 +46,13 @@
   flex-grow: 2;
   align-self: flex-end;
 }
+
+.user-you {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 2;
+  gap: 0.2em;
+  align-self: flex-start;
+  font-size: 20px;
+  line-height: 19px;
+}
