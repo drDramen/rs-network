@@ -24,11 +24,10 @@ const PostForm = ({
   updatePost: TypePost | null;
   setUpdatePost: React.Dispatch<React.SetStateAction<TypePost | null>>;
 }) => {
+  const apiService = new ApiService();
   const [postDescription, postImageUrl] = updatePost
     ? [updatePost.description, updatePost.imageUrl]
     : ['', ''];
-
-  const apiService = new ApiService();
   const postFormRef = useRef<HTMLInputElement>(null);
   const [description, setDescription] = useState(postDescription);
   const [imageUrl, setImageUrl] = useState(postImageUrl);
@@ -60,7 +59,7 @@ const PostForm = ({
           .updatePost({
             _id: updatePost._id,
             userId: user._id,
-            date: date,
+            date: updatePost.date,
             description: description,
             imageUrl: imageUrl,
             likes: updatePost.likes,

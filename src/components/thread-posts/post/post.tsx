@@ -2,8 +2,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-shadow */
 
-import { useState, useEffect } from 'react';
-import { TypeUser, TypePost } from '../../../types/types';
+import React, { useState, useEffect } from 'react';
+import { TypeUser, TypePost, TypeComment } from '../../../types/types';
 import { Divider } from 'antd';
 import ApiService from '../../../services/api-service';
 import PostHeader from './post-header';
@@ -41,6 +41,8 @@ const Post = ({
   const [newCommentId, setNewCommentId] = useState<string>('');
   const [deletedCommentId, setDeletedCommentId] = useState<string>('');
   const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [updateComment, setUpdateComment] = useState<TypeComment | null>(null);
+
   useEffect(() => {
     apiService.getUser(userId).then((user) => {
       setUser(user);
@@ -92,12 +94,16 @@ const Post = ({
         <Divider className='post-divider' />
         <ItemAddComment
           postId={_id}
+          updateComment={updateComment}
           setNewComment={setNewCommentId}
+          setUpdateComment={setUpdateComment}
         />
         {commentsId.length ? (
           <ThreadComments
             commentsId={commentsId}
+            updateComment={updateComment}
             setDeletedCommentId={setDeletedCommentId}
+            setUpdateComment={setUpdateComment}
           />
         ) : null}
       </div>

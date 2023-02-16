@@ -4,8 +4,8 @@
 
 import { useState, useEffect } from 'react';
 import { Row, Col, Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
-import { TypeUser } from '../../../../types/types';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { TypeUser, TypeComment } from '../../../../types/types';
 import dateTransformer from '../../../../services/date-transformer';
 import ApiService from '../../../../services/api-service';
 import Avatar from '../../../avatar';
@@ -13,32 +13,30 @@ import './comment.css';
 import { useUser } from '../../../../hooks/useUser';
 
 const Comment = ({
-  _id,
-  userId,
-  date,
-  description,
+  comment,
   setDeletedCommentId,
+  setUpdateComment,
 }: {
-  _id: string;
-  userId: string;
-  date: number;
-  description: string;
+  comment: TypeComment;
   setDeletedCommentId: React.Dispatch<React.SetStateAction<string>>;
+  setUpdateComment: React.Dispatch<React.SetStateAction<TypeComment | null>>;
 }) => {
-  const commentDate = dateTransformer(date);
+  const commentDate = dateTransformer(comment.date);
   const apiService = new ApiService();
   const [user, setUser] = useState<TypeUser | null>(null);
-  const [showTrash, setShowTrash] = useState<boolean>(false);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
   const USER = useUser().user;
 
   useEffect(() => {
-    apiService.getUser(userId).then((user) => {
+    apiService.getUser(comment.userId).then((user) => {
       setUser(user);
     });
-  }, [userId]);
+  }, [comment.userId]);
 
   const deleteComment = () => {
-    apiService.deleteComment(_id).then((deletedComment) => setDeletedCommentId(deletedComment._id));
+    apiService
+      .deleteComment(comment._id)
+      .then((deletedComment) => setDeletedCommentId(deletedComment._id));
   };
 
   if (user) {
@@ -46,10 +44,10 @@ const Comment = ({
       <div
         className='comment'
         onMouseEnter={() => {
-          setShowTrash(true);
+          setShowOptions(true);
         }}
         onMouseLeave={() => {
-          setShowTrash(false);
+          setShowOptions(false);
         }}
       >
         <Col flex={'30px'}>
@@ -69,18 +67,26 @@ const Comment = ({
 
             <span className='comment-date'>
               {' '}
-              {USER._id === userId && showTrash ? (
-                <Button
-                  className='comment-delete-btn'
-                  type='link'
-                >
-                  {<DeleteOutlined onClick={deleteComment} />}
-                </Button>
+              {USER._id === comment.userId && showOptions ? (
+                <>
+                  <Button
+                    className='comment-delete-btn'
+                    type='link'
+                  >
+                    <EditOutlined onClick={() => setUpdateComment(comment)} />
+                  </Button>
+                  <Button
+                    className='comment-delete-btn'
+                    type='link'
+                  >
+                    {<DeleteOutlined onClick={deleteComment} />}
+                  </Button>
+                </>
               ) : null}
               {commentDate}
             </span>
           </Row>
-          <div className='comment-text'>{description}</div>
+          <div className='comment-text'>{comment.description}</div>
         </Row>
       </div>
     );

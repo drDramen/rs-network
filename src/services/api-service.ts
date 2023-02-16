@@ -119,6 +119,17 @@ export default class ApiService {
     return this.deleteResource<TypeComment>(`comment/${id}`);
   }
 
+  async updateComment(comment: TypeComment): Promise<TypeComment> {
+    const response = await fetch(`${this._apiBase}comment/${comment._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(comment),
+    });
+    return response.json();
+  }
+
   async uploadImage(formData: FormData): Promise<{ imageUrl: string }> {
     const result = await fetch(`${this._apiBase}image-upload`, {
       method: 'POST',
