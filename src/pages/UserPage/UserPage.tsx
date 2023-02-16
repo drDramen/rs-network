@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { useEffect, useState } from 'react';
 import TextParagraph from '../../components/paragraph/TextParagraph';
 import ApiService from '../../services/api-service';
@@ -28,23 +29,26 @@ const UserPage = () => {
   });
 
   // TODO: move this function from this file and from threa-posts to a single module
-  const renderPosts = (arr: TypePost[]) => {
-    return arr.map(({ _id, description, imageUrl, userId, date, comments, likes }: TypePost) => {
-      return (
-        <Post
-          key={_id}
-          _id={_id}
-          userId={userId}
-          description={description}
-          imageUrl={imageUrl}
-          date={date}
-          comments={comments.reverse()}
-          likes={likes}
-          setPosts={setPosts}
-          setUpdatePost={setUpdatePost}
-        />
-      );
-    });
+  const renderPosts = (posts: TypePost[]) => {
+    const reversePosts = [...posts].reverse();
+    return reversePosts.map(
+      ({ _id, description, imageUrl, userId, date, comments, likes }: TypePost) => {
+        return (
+          <Post
+            key={_id}
+            _id={_id}
+            userId={userId}
+            description={description}
+            imageUrl={imageUrl}
+            date={date}
+            comments={comments.reverse()}
+            likes={likes}
+            setPosts={setPosts}
+            setUpdatePost={setUpdatePost}
+          />
+        );
+      },
+    );
   };
 
   return (
@@ -68,7 +72,7 @@ const UserPage = () => {
           setUpdatePost={setUpdatePost}
         />
       ) : null}
-      {posts ? renderPosts(posts.reverse()) : null}
+      {posts ? renderPosts(posts) : null}
     </div>
   );
 };

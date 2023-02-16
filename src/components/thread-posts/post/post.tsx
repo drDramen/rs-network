@@ -41,7 +41,6 @@ const Post = ({
   const [newCommentId, setNewCommentId] = useState<string>('');
   const [deletedCommentId, setDeletedCommentId] = useState<string>('');
   const [showOptions, setShowOptions] = useState<boolean>(false);
-
   useEffect(() => {
     apiService.getUser(userId).then((user) => {
       setUser(user);
