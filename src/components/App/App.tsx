@@ -1,9 +1,8 @@
 import { Layout, Row, Spin } from 'antd';
 import { useUser } from '../../hooks/useUser';
+import AppHeader from '../app-header/AppHeader';
 import AppRouter from '../AppRouter/AppRouter';
 import './app.css';
-
-const { Header } = Layout;
 
 function App() {
   const { isLoading } = useUser();
@@ -19,9 +18,7 @@ function App() {
   return (
     <div className='App'>
       <Layout className='app-container'>
-        <Header>
-          <div className='logo'>RS Network</div>
-        </Header>
+        <AppHeader />
         <AppRouter />
       </Layout>
     </div>

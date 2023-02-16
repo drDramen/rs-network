@@ -1,0 +1,15 @@
+.logo {
+  font-size: 24px;
+  color: #fff;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  column-gap: 10px;
+}
+
+.login-btn:disabled {
+  background-color: #858585;
+}
