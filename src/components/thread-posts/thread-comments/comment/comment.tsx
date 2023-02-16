@@ -70,13 +70,13 @@ const Comment = ({
               {USER._id === comment.userId && showOptions ? (
                 <>
                   <Button
-                    className='comment-delete-btn'
+                    className='comment-btn'
                     type='link'
                   >
                     <EditOutlined onClick={() => setUpdateComment(comment)} />
                   </Button>
                   <Button
-                    className='comment-delete-btn'
+                    className='comment-btn'
                     type='link'
                   >
                     {<DeleteOutlined onClick={deleteComment} />}
