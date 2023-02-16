@@ -68,6 +68,17 @@ export default class ApiService {
     return this.deleteResource<TypePost>(`posts/${id}`);
   }
 
+  async updatePost(post: TypePost): Promise<TypePost> {
+    const response = await fetch(`${this._apiBase}posts/${post._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(post),
+    });
+    return response.json();
+  }
+
   async getComment(id: string) {
     return this.getResource<TypeComment>(`comment/${id}`);
   }
@@ -88,7 +99,6 @@ export default class ApiService {
       },
       body: JSON.stringify(user),
     });
-
     return response.json();
   }
 

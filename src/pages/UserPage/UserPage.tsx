@@ -17,6 +17,7 @@ const UserPage = () => {
   const apiService = new ApiService();
   const [posts, setPosts] = useState<TypePost[]>([]);
   const [currentUser, setCurrentUser] = useState(user);
+  const [updatePost, setUpdatePost] = useState<TypePost | null>(null);
 
   useEffect(() => {
     async function getUserPosts() {
@@ -40,6 +41,7 @@ const UserPage = () => {
           comments={comments.reverse()}
           likes={likes}
           setPosts={setPosts}
+          setUpdatePost={setUpdatePost}
         />
       );
     });
@@ -59,7 +61,13 @@ const UserPage = () => {
       {currentUser.about ? <TextParagraph weight='bold'>About</TextParagraph> : null}
       <TextParagraph size='small'>{currentUser.about}</TextParagraph>
       <br />
-      {currentId === user._id ? <PostForm setPosts={setPosts} /> : null}
+      {currentId === user._id ? (
+        <PostForm
+          updatePost={updatePost}
+          setPosts={setPosts}
+          setUpdatePost={setUpdatePost}
+        />
+      ) : null}
       {posts ? renderPosts(posts.reverse()) : null}
     </div>
   );

@@ -15,7 +15,7 @@ const webSocket = io(apiBaseUrl);
 const TreadPosts = () => {
   const apiService = new ApiService();
   const [posts, setPosts] = useState<TypePost[]>([]);
-
+  const [updatePost, setUpdatePost] = useState<TypePost | null>(null);
   const { user } = useUser();
 
   useEffect(() => {
@@ -39,8 +39,6 @@ const TreadPosts = () => {
     });
   });
 
-  // useEffect(() => {}, [posts]);
-
   const renderPosts = (arr: TypePost[]) => {
     return arr.map(({ _id, description, imageUrl, userId, date, comments, likes }: TypePost) => {
       return (
@@ -54,6 +52,7 @@ const TreadPosts = () => {
           comments={comments.reverse()}
           likes={likes}
           setPosts={setPosts}
+          setUpdatePost={setUpdatePost}
         />
       );
     });
@@ -62,7 +61,11 @@ const TreadPosts = () => {
   if (posts.length !== 0) {
     return (
       <div className={classes.wrapper}>
-        <PostForm setPosts={setPosts} />
+        <PostForm
+          updatePost={updatePost}
+          setPosts={setPosts}
+          setUpdatePost={setUpdatePost}
+        />
         {renderPosts(posts.reverse())}
       </div>
     );

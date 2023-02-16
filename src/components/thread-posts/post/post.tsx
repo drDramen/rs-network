@@ -23,6 +23,7 @@ const Post = ({
   comments,
   likes,
   setPosts,
+  setUpdatePost,
 }: {
   _id: string;
   userId: string;
@@ -32,13 +33,14 @@ const Post = ({
   likes: string[];
   comments: string[];
   setPosts: React.Dispatch<React.SetStateAction<TypePost[]>>;
+  setUpdatePost: React.Dispatch<React.SetStateAction<TypePost | null>>;
 }) => {
   const apiService = new ApiService();
   const [user, setUser] = useState<TypeUser | null>(null);
   const [commentsId, setCommentsId] = useState<string[]>(comments);
   const [newCommentId, setNewCommentId] = useState<string>('');
   const [deletedCommentId, setDeletedCommentId] = useState<string>('');
-  const [showTrash, setShowTrash] = useState<boolean>(false);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
 
   useEffect(() => {
     apiService.getUser(userId).then((user) => {
@@ -60,15 +62,19 @@ const Post = ({
     }
   }, [deletedCommentId]);
 
+  const editPost = () => {
+    setUpdatePost({ _id, userId, date, description, imageUrl, likes, comments });
+  };
+
   if (user) {
     return (
       <div
         className='post'
         onMouseEnter={() => {
-          setShowTrash(true);
+          setShowOptions(true);
         }}
         onMouseLeave={() => {
-          setShowTrash(false);
+          setShowOptions(false);
         }}
       >
         <PostHeader
@@ -78,8 +84,9 @@ const Post = ({
           image={user.image}
           date={date}
           likes={likes}
-          showTrash={showTrash}
+          showOptions={showOptions}
           setPosts={setPosts}
+          editPost={editPost}
         />
         <PostImage url={imageUrl} />
         <PostText text={description} />
