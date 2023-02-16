@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Upload } from 'antd';
+import { apiBaseUrl } from '../../../api-constants';
 
 type InputType = {
   setImage: React.Dispatch<React.SetStateAction<string>>;
@@ -10,7 +11,7 @@ const InputFile = ({ setImage }: InputType) => (
   <Upload
     name='image'
     accept='image/png, image/jpeg'
-    action='http://localhost:8080/image-upload'
+    action={`${apiBaseUrl}image-upload`}
     showUploadList={false}
     onChange={(info) => {
       if (info.file.status == 'done') {

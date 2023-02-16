@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   const login = async (email: string, password: string): Promise<void> => {
-    const response = await fetch('http://localhost:8080/login', {
+    const response = await fetch(`${apiBaseUrl}login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

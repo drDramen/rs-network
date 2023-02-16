@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import { apiBaseUrl } from '../../../api-constants';
 
 function RegisterForm({ isRegister, setUserName }: RegisterProps) {
   const [name, setName] = useState('');
@@ -24,7 +25,7 @@ function RegisterForm({ isRegister, setUserName }: RegisterProps) {
       repeatedPassword: passwordRepeat,
     };
     try {
-      const response = await fetch('http://localhost:8080/users', {
+      const response = await fetch(`${apiBaseUrl}users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
