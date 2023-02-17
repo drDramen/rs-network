@@ -25,12 +25,14 @@ const TreadPosts = () => {
     });
   }, []);
 
-  webSocket.on('new-post', () => {
-    // TODO: refactor this method to a function
-    apiService.getAllPosts(user._id).then((allPosts) => {
-      setPosts(allPosts);
+  useEffect(() => {
+    webSocket.on('new-post', () => {
+      // TODO: refactor this method to a function
+      apiService.getAllPosts(user._id).then((allPosts) => {
+        setPosts(allPosts);
+      });
     });
-  });
+  }, []);
 
   webSocket.on('del-post', () => {
     // TODO: refactor this method to a function

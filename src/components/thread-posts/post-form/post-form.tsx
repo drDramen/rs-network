@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { io } from 'socket.io-client';
 import { Button, Input, Divider } from 'antd';
 import { SendOutlined, FileImageOutlined, CloseOutlined } from '@ant-design/icons';

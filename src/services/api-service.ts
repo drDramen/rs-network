@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
 import { apiBaseUrl } from '../api-constants';
-import { TypePost, TypeUser, TypeComment } from '../types/types';
+import { TypePost, TypeUser, TypeComment, TypeDialog, TypeMessage } from '../types/types';
 
 export default class ApiService {
   _apiBase = apiBaseUrl;
@@ -124,5 +124,21 @@ export default class ApiService {
 
   async getFollowing(id: string) {
     return this.getResource<TypeUser[]>(`following/${id}`);
+  }
+
+  async createDialog(senderId: string, receiverId: string) {
+    return this.postResource<TypeDialog>('dialogs', { senderId, receiverId });
+  }
+
+  async getUserDialogs(userId: string) {
+    return this.getResource<TypeDialog[]>(`dialogs/${userId}`);
+  }
+
+  async createMessage(dialogId: string, sender: string, text: string) {
+    return this.postResource<TypeMessage>('messages', { dialogId, sender, text });
+  }
+
+  async getMessages(dialogId: string) {
+    return this.getResource<TypeMessage[]>(`messages/${dialogId}`);
   }
 }

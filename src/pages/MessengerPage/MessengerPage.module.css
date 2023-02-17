@@ -8,7 +8,7 @@
 
 .messages_block,
 .dialogs_block {
-  padding: 10px;
+  padding: 15px 10px 10px;
   border-radius: 5px;
   background-color: #ffffff;
   height: 81vh;
@@ -39,6 +39,7 @@
   display: flex;
   flex-direction: column;
   overflow: auto;
+  gap: 5px;
 }
 
 .messages_top::-webkit-scrollbar,
@@ -56,6 +57,35 @@
   background-color: #e4e6e9;
   border-radius: 20px;
   border: 2px solid #ffffff;
+}
+
+.dialog_desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: bold;
+  cursor: default;
+}
+
+.message_desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 8rem;
+  font-weight: bold;
+  cursor: default;
+  color: #606266;
+}
+
+.message_desc :first-child {
+  font-size: 6rem;
+  margin-bottom: 1rem;
+}
+
+.message_wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 .show_button {
