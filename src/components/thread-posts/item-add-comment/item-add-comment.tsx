@@ -30,10 +30,10 @@ const ItemAddComment = ({
   const { user } = useUser();
   const autoSize = updateComment ? { minRows: 2 } : true;
 
-  // useEffect(() => {
-  //   if (commentFormRef.current !== null)
-  //     commentFormRef.current.scrollIntoView({ behavior: 'smooth' });
-  // }, [updateComment]);
+  useEffect(() => {
+    if (commentFormRef.current !== null && updateComment)
+      commentFormRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [updateComment]);
 
   useEffect(() => {
     setComment(commentDescription);
