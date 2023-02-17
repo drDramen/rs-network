@@ -10,10 +10,14 @@ import './thread-comments.css';
 
 const TreadComments = ({
   commentsId,
+  updateComment,
   setDeletedCommentId,
+  setUpdateComment,
 }: {
   commentsId: string[];
+  updateComment: TypeComment | null;
   setDeletedCommentId: React.Dispatch<React.SetStateAction<string>>;
+  setUpdateComment: React.Dispatch<React.SetStateAction<TypeComment | null>>;
 }) => {
   const apiService = new ApiService();
   const [postComments, setPostComments] = useState<TypeComment[] | null>(null);
@@ -24,7 +28,7 @@ const TreadComments = ({
   useLayoutEffect(() => {
     setPostComments(null);
     setCurrentCommentId(postCommentsId[0]);
-  }, [postCommentsId]);
+  }, [postCommentsId, updateComment]);
 
   useLayoutEffect(() => {
     setPostComments(null);
@@ -58,15 +62,13 @@ const TreadComments = ({
   }, [currentCommentId]);
 
   const renderComments = (arr: TypeComment[]) => {
-    return arr.map(({ _id, userId, date, description }: TypeComment) => {
+    return arr.map((comment: TypeComment) => {
       return (
         <Comment
-          key={_id}
-          _id={_id}
-          userId={userId}
-          date={date}
-          description={description}
+          key={comment._id}
+          comment={comment}
           setDeletedCommentId={setDeletedCommentId}
+          setUpdateComment={setUpdateComment}
         />
       );
     });

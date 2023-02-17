@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable react-hooks/exhaustive-deps */
+
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { TypePost } from '../../types/types';
@@ -15,7 +17,7 @@ const webSocket = io(apiBaseUrl);
 const TreadPosts = () => {
   const apiService = new ApiService();
   const [posts, setPosts] = useState<TypePost[]>([]);
-
+  const [updatePost, setUpdatePost] = useState<TypePost | null>(null);
   const { user } = useUser();
 
   useEffect(() => {
@@ -39,31 +41,37 @@ const TreadPosts = () => {
     });
   });
 
-  // useEffect(() => {}, [posts]);
-
-  const renderPosts = (arr: TypePost[]) => {
-    return arr.map(({ _id, description, imageUrl, userId, date, comments, likes }: TypePost) => {
-      return (
-        <Post
-          key={_id}
-          _id={_id}
-          userId={userId}
-          description={description}
-          imageUrl={imageUrl}
-          date={date}
-          comments={comments.reverse()}
-          likes={likes}
-          setPosts={setPosts}
-        />
-      );
-    });
+  const renderPosts = (posts: TypePost[]) => {
+    const reversePosts = [...posts].reverse();
+    return reversePosts.map(
+      ({ _id, description, imageUrl, userId, date, comments, likes }: TypePost) => {
+        return (
+          <Post
+            key={_id}
+            _id={_id}
+            userId={userId}
+            description={description}
+            imageUrl={imageUrl}
+            date={date}
+            comments={comments.reverse()}
+            likes={likes}
+            setPosts={setPosts}
+            setUpdatePost={setUpdatePost}
+          />
+        );
+      },
+    );
   };
 
   if (posts.length !== 0) {
     return (
       <div className={classes.wrapper}>
-        <PostForm setPosts={setPosts} />
-        {renderPosts(posts.reverse())}
+        <PostForm
+          updatePost={updatePost}
+          setPosts={setPosts}
+          setUpdatePost={setUpdatePost}
+        />
+        {renderPosts(posts)}
       </div>
     );
   } else {

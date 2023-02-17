@@ -24,7 +24,7 @@ export type TypePost = {
 
 export type TypeComment = {
   _id: string;
-  postId?: string;
+  postId: string;
   userId: string;
   date: number;
   description: string;
