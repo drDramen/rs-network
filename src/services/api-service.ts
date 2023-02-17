@@ -166,7 +166,7 @@ class ApiService {
   }
 
   async login(email: string, password: string): Promise<LoginResponse> {
-    const response = await fetch('http://localhost:8080/login', {
+    const response = await fetch(`${this._apiBase}login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -183,7 +183,7 @@ class ApiService {
   }
 
   async checkPermission(token: string) {
-    return fetch(`${apiBaseUrl}permission`, {
+    return fetch(`${this._apiBase}permission`, {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
