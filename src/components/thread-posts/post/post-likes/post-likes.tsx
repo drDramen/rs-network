@@ -5,12 +5,11 @@
 import { useState, useEffect } from 'react';
 import { TypeUser } from '../../../../types/types';
 import { Button, Modal } from 'antd';
-import ApiService from '../../../../services/api-service';
+import { apiService } from '../../../../services/api-service';
 import Avatar from '../../../avatar';
 import './post-likes.css';
 
 const LikesModal = ({ likes }: { likes: string[] }) => {
-  const apiService = new ApiService();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [users, setUsers] = useState<TypeUser[] | null>(null);
   const [userId, setUserId] = useState<string>(likes[0]);

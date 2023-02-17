@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import { Button, Input, Divider } from 'antd';
 import { SendOutlined, FileImageOutlined, CloseOutlined } from '@ant-design/icons';
-import ApiService from '../../../services/api-service';
+import { apiService } from '../../../services/api-service';
 import PostImage from '../../thread-posts/post/post-image';
 import { TypePost } from '../../../types/types';
 import './post-form.css';
@@ -24,7 +24,6 @@ const PostForm = ({
   updatePost: TypePost | null;
   setUpdatePost: React.Dispatch<React.SetStateAction<TypePost | null>>;
 }) => {
-  const apiService = new ApiService();
   const [postDescription, postImageUrl] = updatePost
     ? [updatePost.description, updatePost.imageUrl]
     : ['', ''];

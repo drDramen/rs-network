@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { TypeComment } from '../../../types/types';
 import { Button } from 'antd';
-import ApiService from '../../../services/api-service';
+import { apiService } from '../../../services/api-service';
 import Comment from './comment';
 import './thread-comments.css';
 
@@ -19,7 +19,6 @@ const TreadComments = ({
   setDeletedCommentId: React.Dispatch<React.SetStateAction<string>>;
   setUpdateComment: React.Dispatch<React.SetStateAction<TypeComment | null>>;
 }) => {
-  const apiService = new ApiService();
   const [postComments, setPostComments] = useState<TypeComment[] | null>(null);
   const [postCommentsId, setpostCommentsId] = useState<string[]>(commentsId);
   const [currentCommentId, setCurrentCommentId] = useState<string>(postCommentsId[0]);

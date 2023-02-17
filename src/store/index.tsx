@@ -3,7 +3,7 @@ import { createContext, PropsWithChildren, useEffect, useReducer } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { apiBaseUrl } from '../api-constants';
 import { LoginResponse } from '../components/auth/LoginForm/LoginForm';
-import ApiService from '../services/api-service';
+import { apiService } from '../services/api-service';
 import { TypeUser } from '../types/types';
 import { AuthActionName, initialState, UserMethods, userReducer, UserState } from './user-reducer';
 
@@ -13,7 +13,6 @@ export const AuthContext = createContext<IAuthContext | null>(null);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(userReducer, initialState);
-  const apiService = new ApiService();
 
   const setLoading = (isLoading: boolean) => {
     dispatch({ type: AuthActionName.SET_LOADING, payload: isLoading });

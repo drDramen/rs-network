@@ -7,7 +7,7 @@ import { io } from 'socket.io-client';
 import { Row, Col, Button } from 'antd';
 import { TypePost } from '../../../../types/types';
 import dateTransformer from '../../../../services/date-transformer';
-import ApiService from '../../../../services/api-service';
+import { apiService } from '../../../../services/api-service';
 import LikesModal from '../../post/post-likes';
 import Avatar from '../../../avatar';
 import './post-header.css';
@@ -38,7 +38,6 @@ const PostHeader = ({
   setPosts: React.Dispatch<React.SetStateAction<TypePost[]>>;
   editPost: () => void;
 }) => {
-  const apiService = new ApiService();
   const postDate = dateTransformer(date);
   const [currentLikes, setCurrentLikes] = useState<string[]>(likes);
   const { user } = useUser();

@@ -5,7 +5,7 @@
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { TypePost } from '../../types/types';
-import ApiService from '../../services/api-service';
+import { apiService } from '../../services/api-service';
 import PostForm from './post-form';
 import Post from './post';
 import classes from './thread-posts.module.css';
@@ -15,7 +15,6 @@ import { apiBaseUrl } from '../../api-constants';
 const webSocket = io(apiBaseUrl);
 
 const TreadPosts = () => {
-  const apiService = new ApiService();
   const [posts, setPosts] = useState<TypePost[]>([]);
   const [updatePost, setUpdatePost] = useState<TypePost | null>(null);
   const { user } = useUser();

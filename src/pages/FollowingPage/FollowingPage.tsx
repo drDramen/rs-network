@@ -9,13 +9,11 @@ import { ToastContainer } from 'react-toastify';
 import { TypeUser } from '../../types/types';
 import { useUser } from '../../hooks/useUser';
 import NoUsersFound from '../../components/no-users-found';
-import ApiService from '../../services/api-service';
+import { apiService } from '../../services/api-service';
 import UserItem from '../../components/user-item';
 import classes from './FollowingPage.module.css';
 
 const FollowingPage = () => {
-  const apiService = new ApiService();
-
   const [followings, setFollowings] = useState<TypeUser[]>([]);
   const { user } = useUser();
 
