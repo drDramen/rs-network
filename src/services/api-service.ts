@@ -3,7 +3,7 @@
 import { apiBaseUrl } from '../api-constants';
 import { TypePost, TypeUser, TypeComment } from '../types/types';
 
-export default class ApiService {
+class ApiService {
   _apiBase = apiBaseUrl;
 
   async getResource<T>(url: string): Promise<T> {
@@ -147,3 +147,5 @@ export default class ApiService {
     return this.getResource<TypeUser[]>(`following/${id}`);
   }
 }
+
+export const apiService = new ApiService();
