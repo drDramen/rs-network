@@ -3,7 +3,7 @@ import Avatar from '../../../components/avatar';
 import { TypeDialog, TypeUser } from '../../../types/types';
 import { useState, useEffect } from 'react';
 import { useUser } from '../../../hooks/useUser';
-import ApiService from '../../../services/api-service';
+import { apiService } from '../../../services/api-service';
 
 const Dialog = ({ dialog, active }: { dialog: TypeDialog; active: boolean }) => {
   const [friend, setFriend] = useState<TypeUser>({
@@ -23,7 +23,7 @@ const Dialog = ({ dialog, active }: { dialog: TypeDialog; active: boolean }) => 
     const friendId = dialog.members.find((member) => member !== user._id) as string;
 
     const getFriend = async () => {
-      setFriend(await new ApiService().getUser(friendId));
+      setFriend(await apiService.getUser(friendId));
     };
     void getFriend();
   }, [dialog.members, user._id]);

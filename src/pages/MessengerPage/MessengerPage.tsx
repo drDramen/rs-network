@@ -6,10 +6,10 @@ import Dialog from './Dialog/Dialog';
 import Message from './Message/Message';
 import MessageForm from './MessageForm/MessageForm';
 import { useState, useEffect, useRef } from 'react';
-import ApiService from '../../services/api-service';
 import { TypeDialog, TypeMessage } from '../../types/types';
 import { io } from 'socket.io-client';
 import { apiBaseUrl } from '../../api-constants';
+import { apiService } from '../../services/api-service';
 
 const webSocket = io(apiBaseUrl);
 
@@ -46,11 +46,7 @@ const MessengerPage = () => {
         receiverId: friendId,
         text: newMessageText,
       });
-      const newMessage = await new ApiService().createMessage(
-        activeDialog._id,
-        user._id,
-        newMessageText,
-      );
+      const newMessage = await apiService.createMessage(activeDialog._id, user._id, newMessageText);
       setMessages([...messages, newMessage]);
       setNewMessageText('');
     }
@@ -70,7 +66,7 @@ const MessengerPage = () => {
   // for render dialogs
   useEffect(() => {
     const getDialogs = async (): Promise<void> => {
-      const receivedDialogs = await new ApiService().getUserDialogs(user._id);
+      const receivedDialogs = await apiService.getUserDialogs(user._id);
       setDialogs(receivedDialogs);
       setDialogsReserve(receivedDialogs);
     };
@@ -82,7 +78,7 @@ const MessengerPage = () => {
   useEffect(() => {
     if (activeDialog._id) {
       const getMessages = async (): Promise<void> => {
-        const receivedMessages = await new ApiService().getMessages(activeDialog._id);
+        const receivedMessages = await apiService.getMessages(activeDialog._id);
         setMessages(receivedMessages);
       };
 
@@ -115,7 +111,7 @@ const MessengerPage = () => {
       const asyncFilter = async () => {
         const mappedPromises = dialogsReserve.map((dialog) => {
           const friendId = findFriendId(dialog);
-          const userPromises = new ApiService().getUser(friendId);
+          const userPromises = apiService.getUser(friendId);
           return userPromises;
         });
         const users = await Promise.all(mappedPromises);
