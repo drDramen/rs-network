@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import { useEffect, useState } from 'react';
 import TextParagraph from '../../components/paragraph/TextParagraph';
-import ApiService from '../../services/api-service';
+import { apiService } from '../../services/api-service';
 import { ToastContainer } from 'react-toastify';
 import { TypePost } from '../../types/types';
 import UserInfo from './UserInfo/UserInfo';
@@ -15,7 +15,6 @@ const UserPage = () => {
   const { user } = useUser();
   const currentUserId = currentId === user._id ? user._id : currentId;
 
-  const apiService = new ApiService();
   const [posts, setPosts] = useState<TypePost[]>([]);
   const [currentUser, setCurrentUser] = useState(user);
   const [updatePost, setUpdatePost] = useState<TypePost | null>(null);

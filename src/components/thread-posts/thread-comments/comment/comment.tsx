@@ -7,7 +7,7 @@ import { Row, Col, Button } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { TypeUser, TypeComment } from '../../../../types/types';
 import dateTransformer from '../../../../services/date-transformer';
-import ApiService from '../../../../services/api-service';
+import { apiService } from '../../../../services/api-service';
 import Avatar from '../../../avatar';
 import PostCommentText from '../../../post-comment-text';
 import './comment.css';
@@ -23,7 +23,7 @@ const Comment = ({
   setUpdateComment: React.Dispatch<React.SetStateAction<TypeComment | null>>;
 }) => {
   const commentDate = dateTransformer(comment.date);
-  const apiService = new ApiService();
+
   const [user, setUser] = useState<TypeUser | null>(null);
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const USER = useUser().user;

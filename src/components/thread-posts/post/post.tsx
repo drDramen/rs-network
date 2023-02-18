@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { TypeUser, TypePost, TypeComment } from '../../../types/types';
 import { Divider } from 'antd';
-import ApiService from '../../../services/api-service';
+import { apiService } from '../../../services/api-service';
 import PostHeader from './post-header';
 import ItemAddComment from '../item-add-comment';
 import PostCommentText from '../../post-comment-text';
@@ -35,7 +35,6 @@ const Post = ({
   setPosts: React.Dispatch<React.SetStateAction<TypePost[]>>;
   setUpdatePost: React.Dispatch<React.SetStateAction<TypePost | null>>;
 }) => {
-  const apiService = new ApiService();
   const [user, setUser] = useState<TypeUser | null>(null);
   const [commentsId, setCommentsId] = useState<string[]>(comments);
   const [newCommentId, setNewCommentId] = useState<string>('');

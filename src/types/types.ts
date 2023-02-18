@@ -10,6 +10,13 @@ export type TypeUser = {
   about: string;
 };
 
+export type TypeUserCreation = {
+  name: string;
+  email: string;
+  password: string;
+  repeatedPassword: string;
+};
+
 export type EmptyUser = Record<string, never>;
 
 export type TypePost = {

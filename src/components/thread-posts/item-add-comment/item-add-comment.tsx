@@ -6,7 +6,7 @@ import { Button, Input } from 'antd';
 import { SendOutlined, CloseOutlined } from '@ant-design/icons';
 import { TypeComment } from '../../../types/types';
 
-import ApiService from '../../../services/api-service';
+import { apiService } from '../../../services/api-service';
 import './item-add-comment.css';
 import { useUser } from '../../../hooks/useUser';
 
@@ -23,7 +23,6 @@ const ItemAddComment = ({
   setNewComment: React.Dispatch<React.SetStateAction<string>>;
   setUpdateComment: React.Dispatch<React.SetStateAction<TypeComment | null>>;
 }) => {
-  const apiService = new ApiService();
   const commentFormRef = useRef<HTMLInputElement>(null);
   const commentDescription = updateComment ? updateComment.description : '';
   const [comment, setComment] = useState(commentDescription);

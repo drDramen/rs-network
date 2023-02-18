@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { TypePost } from '../../types/types';
-import ApiService from '../../services/api-service';
+import { apiService } from '../../services/api-service';
 import PostForm from './post-form';
 import Post from './post';
 import classes from './thread-posts.module.css';
@@ -15,34 +13,34 @@ import { apiBaseUrl } from '../../api-constants';
 const webSocket = io(apiBaseUrl);
 
 const TreadPosts = () => {
-  const apiService = new ApiService();
   const [posts, setPosts] = useState<TypePost[]>([]);
   const [updatePost, setUpdatePost] = useState<TypePost | null>(null);
   const { user } = useUser();
 
   useEffect(() => {
-    // TODO: refactor this method to a function
-    apiService.getAllPosts(user._id).then((allPosts) => {
+    const setAllPostsToState = async () => {
+      const allPosts: TypePost[] = await apiService.getAllPosts(user._id);
       setPosts(allPosts);
+    };
+
+    setAllPostsToState().catch(() => {});
+
+    webSocket.on('new-post', () => {
+      setAllPostsToState().catch(() => {});
     });
+
+    webSocket.on('del-post', () => {
+      setAllPostsToState().catch(() => {});
+    });
+
+    return () => {
+      webSocket.off('new-post');
+      webSocket.off('del-post');
+    };
   }, []);
 
-  webSocket.on('new-post', () => {
-    // TODO: refactor this method to a function
-    apiService.getAllPosts(user._id).then((allPosts) => {
-      setPosts(allPosts);
-    });
-  });
-
-  webSocket.on('del-post', () => {
-    // TODO: refactor this method to a function
-    apiService.getAllPosts(user._id).then((allPosts) => {
-      setPosts(allPosts);
-    });
-  });
-
-  const renderPosts = (posts: TypePost[]) => {
-    const reversePosts = [...posts].reverse();
+  const renderPosts = (postsData: TypePost[]) => {
+    const reversePosts = [...postsData].reverse();
     return reversePosts.map(
       ({ _id, description, imageUrl, userId, date, comments, likes }: TypePost) => {
         return (

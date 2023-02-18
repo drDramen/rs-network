@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
 import { apiBaseUrl } from '../api-constants';
-import { TypePost, TypeUser, TypeComment } from '../types/types';
+import { LoginResponse } from '../components/auth/LoginForm/LoginForm';
+import { TypePost, TypeUser, TypeComment, TypeUserCreation } from '../types/types';
 
-export default class ApiService {
+class ApiService {
   _apiBase = apiBaseUrl;
 
   async getResource<T>(url: string): Promise<T> {
@@ -83,6 +84,23 @@ export default class ApiService {
     return this.getResource<TypeComment>(`comment/${id}`);
   }
 
+  async createUser(body: TypeUserCreation): Promise<TypeUser> {
+    const response = await fetch(`${this._apiBase}users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (response.status === 400) {
+      const error = await response.text();
+      throw new Error(`${error}`);
+    }
+
+    return response.json();
+  }
+
   async getAllUsers() {
     return this.getResource<TypeUser[]>('users');
   }
@@ -146,4 +164,29 @@ export default class ApiService {
   async getFollowing(id: string) {
     return this.getResource<TypeUser[]>(`following/${id}`);
   }
+
+  async login(email: string, password: string): Promise<LoginResponse> {
+    const response = await fetch(`${this._apiBase}login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (response.status === 400) {
+      const error = await response.text();
+      throw new Error(`${error}`);
+    }
+
+    return response.json();
+  }
+
+  async checkPermission(token: string) {
+    return fetch(`${this._apiBase}permission`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
 }
+
+export const apiService = new ApiService();
