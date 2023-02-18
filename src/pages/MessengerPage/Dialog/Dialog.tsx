@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useUser } from '../../../hooks/useUser';
 import ApiService from '../../../services/api-service';
 
-const Dialog = ({ dialog }: { dialog: TypeDialog }) => {
+const Dialog = ({ dialog, active }: { dialog: TypeDialog; active: boolean }) => {
   const [friend, setFriend] = useState<TypeUser>({
     _id: '',
     name: '',
@@ -29,7 +29,7 @@ const Dialog = ({ dialog }: { dialog: TypeDialog }) => {
   }, [dialog.members, user._id]);
 
   return (
-    <div className={classes.dialog}>
+    <div className={active ? `${classes.dialog} ${classes.active}` : classes.dialog}>
       <Avatar
         image={friend.image}
         name={friend.name}

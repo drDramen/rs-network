@@ -4,7 +4,8 @@
 
 import { Row, Col, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useUser } from '../../hooks/useUser';
+import ApiService from '../../services/api-service';
 import Avatar from '../avatar';
 import FollowButton from '../buttons/FollowButton';
 
@@ -26,18 +27,14 @@ const UserItem = ({
   location?: string;
 }) => {
   const navigate = useNavigate();
+  const { user } = useUser();
 
-  const onMessage = () => {
-    toast('This feature is under development', {
-      position: 'top-center',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-    });
+  const onMessage = async () => {
+    const apiService = new ApiService();
+    const userDialogs = await apiService.getUserDialogs(user._id);
+    const findDialog = userDialogs.find((dialog) => dialog.members.includes(_id));
+    const newDialog = findDialog ? findDialog : await apiService.createDialog(user._id, _id);
+    navigate(`/messages?did=${newDialog._id}&rid=${newDialog.members[0]}-${newDialog.members[1]}`);
   };
 
   return (
@@ -86,7 +83,7 @@ const UserItem = ({
           <Button
             block
             type='primary'
-            onClick={onMessage}
+            onClick={() => void onMessage()}
           >
             Message
           </Button>

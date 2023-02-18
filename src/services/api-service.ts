@@ -134,6 +134,10 @@ export default class ApiService {
     return this.getResource<TypeDialog[]>(`dialogs/${userId}`);
   }
 
+  async getDialogById(dialogId: string) {
+    return this.getResource<TypeDialog>(`dialogs/single/${dialogId}`);
+  }
+
   async createMessage(dialogId: string, sender: string, text: string) {
     return this.postResource<TypeMessage>('messages', { dialogId, sender, text });
   }

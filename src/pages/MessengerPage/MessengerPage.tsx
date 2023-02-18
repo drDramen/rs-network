@@ -76,7 +76,7 @@ const MessengerPage = () => {
     };
 
     void getDialogs();
-  }, [user._id]);
+  }, [user._id, incomingMessage]);
 
   // for open dialog
   useEffect(() => {
@@ -89,6 +89,20 @@ const MessengerPage = () => {
       void getMessages();
     }
   }, [activeDialog]);
+
+  // for open dialog from other pages
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const dialogId = params.get('did');
+    const members = params.get('rid');
+    if (dialogId && members) {
+      setActiveDialog({
+        _id: dialogId,
+        members: members.split('-'),
+      });
+    }
+  }, []);
 
   // for scroll to last message
   useEffect(() => {
@@ -119,11 +133,12 @@ const MessengerPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dialogSearch]);
 
-  // for websockets
+  // for websockets connect
   useEffect(() => {
     webSocket.emit('clientCreate', user._id);
   }, [user]);
 
+  // for websockets incoming messages
   useEffect(() => {
     webSocket.on('getMessage', (data: { senderId: string; text: string }) => {
       setIncomingMessage({
@@ -140,28 +155,62 @@ const MessengerPage = () => {
     };
   }, []);
 
+  // for websockets incoming messages
   useEffect(() => {
     if (incomingMessage.sender && activeDialog?.members.includes(incomingMessage.sender)) {
       setMessages((prev) => [...prev, incomingMessage]);
     }
   }, [activeDialog, incomingMessage]);
 
+  const renderMessages = (array: TypeMessage[]) => {
+    return array.length ? (
+      array.map((message) => {
+        return (
+          <div
+            className={classes.message_wrapper}
+            key={message._id}
+            ref={scroll}
+          >
+            <Message content={message} />
+          </div>
+        );
+      })
+    ) : (
+      <div className={classes.no_messages}>
+        Your chat history is empty. Create it by writting your first message
+      </div>
+    );
+  };
+
+  const renderDialogs = (array: TypeDialog[]) => {
+    return array.length ? (
+      array.map((dialog) => {
+        const isActive = dialog._id === activeDialog._id;
+        return (
+          <div
+            key={dialog._id}
+            onClick={() => activateDialog(dialog)}
+          >
+            <Dialog
+              dialog={dialog}
+              active={isActive}
+            />
+          </div>
+        );
+      })
+    ) : (
+      <div className={classes.dialog_desc}>
+        Oh, no! You haven't any correspondence. Go and try your first!
+      </div>
+    );
+  };
+
   return (
     <div className={classes.wrapper}>
       <div className={classes.messages_block}>
         <div className={classes.messages_top}>
           {activeDialog._id ? (
-            messages.map((message) => {
-              return (
-                <div
-                  className={classes.message_wrapper}
-                  key={message._id}
-                  ref={scroll}
-                >
-                  <Message content={message} />
-                </div>
-              );
-            })
+            renderMessages(messages)
           ) : (
             <div className={classes.message_desc}>
               <WechatOutlined />
@@ -193,22 +242,7 @@ const MessengerPage = () => {
               setDialogSearch(event.target.value);
             }}
           />
-          {dialogs.length ? (
-            dialogs.map((dialog) => {
-              return (
-                <div
-                  key={dialog._id}
-                  onClick={() => activateDialog(dialog)}
-                >
-                  <Dialog dialog={dialog} />
-                </div>
-              );
-            })
-          ) : (
-            <div className={classes.dialog_desc}>
-              Oh, no! You haven't any correspondence. Go and try your first!
-            </div>
-          )}
+          {renderDialogs(dialogs)}
         </>
       </div>
       <div

@@ -22,6 +22,7 @@ export enum RouteNames {
   Followers = '/followers',
   Following = '/following',
   Messages = '/messages',
+  OpenDialog = '/messages?did=:dialogId&rid=:membersIds',
   Users = '/users/:id',
 }
 
@@ -37,5 +38,6 @@ export const privateRoutes: IRoute[] = [
   { path: RouteNames.Followers, component: FollowingPage }, // TODO: should be replaced component
   { path: RouteNames.Following, component: PostsFeed }, // TODO: should be replaced component
   { path: RouteNames.Messages, component: MessengerPage }, // TODO: should be replaced component
+  { path: RouteNames.OpenDialog, component: MessengerPage }, // TODO: should be replaced component
   { path: RouteNames.Users, component: UserPage }, // TODO: should be replaced component
 ];
