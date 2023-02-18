@@ -1,0 +1,21 @@
+.logo-wrapper {
+  font-size: 20px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.logo-img {
+  height: 28px;
+  margin-right: 3px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  column-gap: 10px;
+}
+
+.login-btn:disabled {
+  background-color: #858585;
+}

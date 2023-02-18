@@ -4,12 +4,13 @@
 
 import { Row, Col, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { SmileTwoTone } from '@ant-design/icons';
 import { useUser } from '../../hooks/useUser';
-import ApiService from '../../services/api-service';
 import Avatar from '../avatar';
 import FollowButton from '../buttons/FollowButton';
 
 import './user-item.css';
+import { apiService } from '../../services/api-service';
 
 const UserItem = ({
   _id,
@@ -30,7 +31,6 @@ const UserItem = ({
   const { user } = useUser();
 
   const onMessage = async () => {
-    const apiService = new ApiService();
     const userDialogs = await apiService.getUserDialogs(user._id);
     const findDialog = userDialogs.find((dialog) => dialog.members.includes(_id));
     const newDialog = findDialog ? findDialog : await apiService.createDialog(user._id, _id);
@@ -74,21 +74,28 @@ const UserItem = ({
           ) : null}
         </Row>
       </Col>
-      <Col className={'user-buttons'}>
-        <FollowButton
-          followedUserId={_id}
-          followedUserName={name}
-        />
-        <div style={{ width: '120px' }}>
-          <Button
-            block
-            type='primary'
-            onClick={() => void onMessage()}
-          >
-            Message
-          </Button>
-        </div>
-      </Col>
+      {user._id != _id ? (
+        <Col className={'user-buttons'}>
+          <FollowButton
+            followedUserId={_id}
+            followedUserName={name}
+          />
+          <div style={{ width: '120px' }}>
+            <Button
+              block
+              type='primary'
+              onClick={() => void onMessage()}
+            >
+              Message
+            </Button>
+          </div>
+        </Col>
+      ) : (
+        <Col className={'user-you'}>
+          It is You
+          <SmileTwoTone />
+        </Col>
+      )}
       <Col></Col>
     </Row>
   );

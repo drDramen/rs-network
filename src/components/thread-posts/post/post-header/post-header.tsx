@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-shadow */
 
-import { LikeOutlined, LikeFilled, DeleteOutlined } from '@ant-design/icons';
+import { LikeOutlined, LikeFilled, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { io } from 'socket.io-client';
 import { Row, Col, Button } from 'antd';
 import { TypePost } from '../../../../types/types';
 import dateTransformer from '../../../../services/date-transformer';
-import ApiService from '../../../../services/api-service';
+import { apiService } from '../../../../services/api-service';
 import LikesModal from '../../post/post-likes';
 import Avatar from '../../../avatar';
 import './post-header.css';
@@ -24,8 +24,9 @@ const PostHeader = ({
   image,
   date,
   likes,
-  showTrash,
+  showOptions,
   setPosts,
+  editPost,
 }: {
   userId: string;
   postId: string;
@@ -33,10 +34,10 @@ const PostHeader = ({
   image: string;
   date: number;
   likes: string[];
-  showTrash: boolean;
+  showOptions: boolean;
   setPosts: React.Dispatch<React.SetStateAction<TypePost[]>>;
+  editPost: () => void;
 }) => {
-  const apiService = new ApiService();
   const postDate = dateTransformer(date);
   const [currentLikes, setCurrentLikes] = useState<string[]>(likes);
   const { user } = useUser();
@@ -76,14 +77,23 @@ const PostHeader = ({
         </div>
         <div className='post-date'>{postDate}</div>
       </Col>
-      {user._id === userId && showTrash ? (
-        <Button
-          style={{ padding: '4px' }}
-          type='link'
-          size='large'
-        >
-          <DeleteOutlined onClick={deletePost} />
-        </Button>
+      {user._id === userId && showOptions ? (
+        <>
+          <Button
+            style={{ padding: '4px' }}
+            type='link'
+            size='large'
+          >
+            <EditOutlined onClick={editPost} />
+          </Button>
+          <Button
+            style={{ padding: '4px' }}
+            type='link'
+            size='large'
+          >
+            <DeleteOutlined onClick={deletePost} />
+          </Button>
+        </>
       ) : null}
       <Row className='post-like'>
         {currentLikes.length ? <LikesModal likes={currentLikes} /> : null}

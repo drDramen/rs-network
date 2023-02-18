@@ -8,7 +8,8 @@ import { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
-import { apiBaseUrl } from '../../../api-constants';
+import { TypeUserCreation } from '../../../types/types';
+import { apiService } from '../../../services/api-service';
 
 function RegisterForm({ isRegister, setUserName }: RegisterProps) {
   const [name, setName] = useState('');
@@ -18,25 +19,14 @@ function RegisterForm({ isRegister, setUserName }: RegisterProps) {
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
   const handleSubmit = async () => {
-    const user = {
+    const user: TypeUserCreation = {
       name: `${name} ${surname}`,
       email,
       password,
       repeatedPassword: passwordRepeat,
     };
     try {
-      const response = await fetch(`${apiBaseUrl}users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      });
-      if (response.status === 400) {
-        const error = await response.text();
-        throw new Error(`${error}`);
-      }
-      const data = (await response.json()) as User;
+      const data = await apiService.createUser(user);
       isRegister(true);
       setUserName(data.name.split(' ')[0]);
     } catch (err) {
@@ -121,18 +111,6 @@ function RegisterForm({ isRegister, setUserName }: RegisterProps) {
     </div>
   );
 }
-
-type User = {
-  _id?: string;
-  name: string;
-  email: string;
-  password: string;
-  age?: number;
-  image?: string;
-  followers?: string[];
-  location?: string;
-  about?: string;
-};
 
 type RegisterProps = {
   isRegister: React.Dispatch<React.SetStateAction<boolean>>;

@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import { Button, Input, Divider } from 'antd';
 import { SendOutlined, FileImageOutlined, CloseOutlined } from '@ant-design/icons';
-import ApiService from '../../../services/api-service';
+import { apiService } from '../../../services/api-service';
 import PostImage from '../../thread-posts/post/post-image';
 import { TypePost } from '../../../types/types';
 import './post-form.css';
@@ -14,24 +15,65 @@ import { apiBaseUrl } from '../../../api-constants';
 const { TextArea } = Input;
 const webSocket = io(apiBaseUrl);
 
-const PostForm = ({ setPosts }: { setPosts: React.Dispatch<React.SetStateAction<TypePost[]>> }) => {
-  const apiService = new ApiService();
-  const [description, setDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+const PostForm = ({
+  setPosts,
+  updatePost,
+  setUpdatePost,
+}: {
+  setPosts: React.Dispatch<React.SetStateAction<TypePost[]>>;
+  updatePost: TypePost | null;
+  setUpdatePost: React.Dispatch<React.SetStateAction<TypePost | null>>;
+}) => {
+  const [postDescription, postImageUrl] = updatePost
+    ? [updatePost.description, updatePost.imageUrl]
+    : ['', ''];
+  const postFormRef = useRef<HTMLInputElement>(null);
+  const [description, setDescription] = useState(postDescription);
+  const [imageUrl, setImageUrl] = useState(postImageUrl);
   const { user } = useUser();
+  const autoSize = updatePost ? { minRows: 2 } : true;
+
+  useEffect(() => {
+    if (postFormRef.current !== null) postFormRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [updatePost]);
+
+  useEffect(() => {
+    setDescription(postDescription);
+    setImageUrl(postImageUrl);
+  }, [updatePost]);
 
   const onSubmitPost = (event: React.MouseEvent) => {
     const date = new Date().getTime();
     event.preventDefault();
     if (description || imageUrl != '') {
-      apiService.createPost(user._id, date, description, imageUrl).then(() => {
-        webSocket.emit('new-post', 'New post created!');
-        apiService.getAllPosts(user._id).then((allPosts) => {
-          setPosts(allPosts);
+      if (!updatePost) {
+        apiService.createPost(user._id, date, description, imageUrl).then(() => {
+          webSocket.emit('new-post', 'New post created!');
+          apiService.getAllPosts(user._id).then((allPosts) => {
+            setPosts(allPosts);
+          });
         });
-      });
+      } else {
+        apiService
+          .updatePost({
+            _id: updatePost._id,
+            userId: user._id,
+            date: updatePost.date,
+            description: description,
+            imageUrl: imageUrl,
+            likes: updatePost.likes,
+            comments: updatePost.comments,
+          })
+          .then(() => {
+            webSocket.emit('new-post', 'Updated post!');
+            apiService.getAllPosts(user._id).then((allPosts) => {
+              setPosts(allPosts);
+            });
+          });
+      }
       setDescription('');
       setImageUrl('');
+      setUpdatePost(null);
     }
   };
 
@@ -54,7 +96,10 @@ const PostForm = ({ setPosts }: { setPosts: React.Dispatch<React.SetStateAction<
   };
 
   return (
-    <div className='post-form'>
+    <div
+      ref={postFormRef}
+      className='post-form'
+    >
       {imageUrl != '' ? (
         <PostImage
           url={imageUrl}
@@ -79,7 +124,8 @@ const PostForm = ({ setPosts }: { setPosts: React.Dispatch<React.SetStateAction<
           style={{ padding: '4px 35px' }}
           placeholder='Write something here...'
           value={description}
-          autoSize={true}
+          autoSize={autoSize}
+          size={'large'}
           onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => onDescriptionChange(event)}
         />
         <input
@@ -95,6 +141,17 @@ const PostForm = ({ setPosts }: { setPosts: React.Dispatch<React.SetStateAction<
         >
           <FileImageOutlined className='add-image-logo' />
         </label>
+        {updatePost ? (
+          <Button
+            className='cancel-update-post-btn'
+            type='link'
+            size='middle'
+            htmlType='submit'
+            onClick={() => setUpdatePost(null)}
+          >
+            {<CloseOutlined />}
+          </Button>
+        ) : null}
         <Button
           className='add-post-btn'
           type='link'

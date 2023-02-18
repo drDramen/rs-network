@@ -6,13 +6,12 @@ import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { TypeUser } from '../../types/types';
 import NoUsersFound from '../../components/no-users-found/no-users-found';
-import ApiService from '../../services/api-service';
+import { apiService } from '../../services/api-service';
 import SearchForm from '../../components/search-form';
 import UserItem from '../../components/user-item';
 import classes from './AllUsersPage.module.css';
 
 const AllUsersPage = () => {
-  const apiService = new ApiService();
   const [users, setUsers] = useState<TypeUser[]>([]);
   const [filtredUsers, setFiltredUsers] = useState<TypeUser[]>([]);
   const [isDefault, setIsDefault] = useState<boolean>(true);

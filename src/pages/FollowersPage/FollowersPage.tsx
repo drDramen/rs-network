@@ -1,8 +1,7 @@
-/* eslint-disable quotes */
-/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable quotes */
 
 import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -11,19 +10,21 @@ import { useUser } from '../../hooks/useUser';
 import NoUsersFound from '../../components/no-users-found';
 import { apiService } from '../../services/api-service';
 import UserItem from '../../components/user-item';
-import classes from './FollowingPage.module.css';
+import classes from './FollowersPage.module.css';
 
-const FollowingPage = () => {
-  const [followings, setFollowings] = useState<TypeUser[]>([]);
+const FollowersPage = () => {
+  const [followers, setFollowers] = useState<TypeUser[]>([]);
   const { user } = useUser();
 
   useEffect(() => {
-    apiService.getFollowing(user._id).then((allFollowings) => {
-      setFollowings(allFollowings);
-    });
+    user.followers.forEach((id) =>
+      apiService.getUser(id).then((_folower) => {
+        setFollowers((followers) => [...followers, _folower]);
+      }),
+    );
   }, []);
 
-  const renderFollowing = (arr: TypeUser[]) => {
+  const renderFollowers = (arr: TypeUser[]) => {
     return arr.map(({ _id, name, image }: { _id: string; name: string; image: string }) => {
       return (
         <UserItem
@@ -37,7 +38,7 @@ const FollowingPage = () => {
     });
   };
 
-  const title = "You don't have any followers";
+  const title = 'You are not following anyone';
 
   return (
     <div className={classes.wrapper}>
@@ -48,9 +49,9 @@ const FollowingPage = () => {
         hideProgressBar={true}
         closeButton={false}
       />
-      {followings.length ? renderFollowing(followings) : <NoUsersFound title={title} />}
+      {followers.length ? renderFollowers(followers) : <NoUsersFound title={title} />}
     </div>
   );
 };
 
-export default FollowingPage;
+export default FollowersPage;

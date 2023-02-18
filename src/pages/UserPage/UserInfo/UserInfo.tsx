@@ -3,7 +3,7 @@ import Avatar from '../../../components/avatar';
 import FollowButton from '../../../components/buttons/FollowButton';
 import TextParagraph from '../../../components/paragraph/TextParagraph';
 import { useUser } from '../../../hooks/useUser';
-import ApiService from '../../../services/api-service';
+import { apiService } from '../../../services/api-service';
 import { EmptyUser, TypeUser } from '../../../types/types';
 import classes from './UserInfo.module.css';
 
@@ -13,7 +13,7 @@ const UserInfo = ({
   setCurrentUser: React.Dispatch<React.SetStateAction<TypeUser | EmptyUser>>;
 }) => {
   const currentId = location.pathname.split('/')[2];
-  const apiService = new ApiService();
+
   const authContext = useUser();
   const [user, setUser] = useState(authContext.user);
 
