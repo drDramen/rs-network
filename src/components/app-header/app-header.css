@@ -1,6 +1,11 @@
-.logo {
-  font-size: 24px;
-  color: #fff;
+.logo-wrapper {
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.logo-img {
+  height: 28px;
+  margin-right: 3px;
 }
 
 .navbar {
