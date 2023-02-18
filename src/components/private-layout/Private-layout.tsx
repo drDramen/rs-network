@@ -4,6 +4,8 @@ import { FC } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useUser } from '../../hooks/useUser';
 import { getMenuItems } from './menu-items';
+import { Breakpoint } from '../../types/media';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 import './private-layout.css';
 
 const { Sider, Content } = Layout;
@@ -12,10 +14,16 @@ const PrivateLayout: FC = () => {
   const location = useLocation();
   const { user } = useUser();
   const items = getMenuItems(user._id);
+  const isNotBurger = useMediaQuery(Breakpoint.MD);
 
   return (
     <Layout>
       <Sider
+        style={{
+          position: `${isNotBurger ? 'static' : 'absolute'}`,
+          height: 'calc(100vh - 64px)',
+          zIndex: 1,
+        }}
         breakpoint='md'
         collapsedWidth='0'
       >

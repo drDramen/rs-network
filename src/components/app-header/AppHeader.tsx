@@ -6,6 +6,7 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useUser } from '../../hooks/useUser';
 import { RouteNames } from '../../router';
 import { Breakpoint } from '../../types/media';
+import logo from '../../assets/images/logo_rs.png';
 import Avatar from '../avatar';
 import './app-header.css';
 
@@ -14,11 +15,24 @@ const AppHeader = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isNotMobile = useMediaQuery(Breakpoint.ESM);
+  const isNotBurger = useMediaQuery(Breakpoint.MD);
 
   return (
-    <Header style={{ paddingInlineEnd: `${isNotMobile ? '50' : '10'}px` }}>
+    <Header
+      style={{
+        paddingInlineEnd: `${isNotMobile ? '50' : '10'}px`,
+        paddingInlineStart: `${isNotBurger ? '30' : '40'}px`,
+      }}
+    >
       <Row align='middle'>
-        <div className='logo'>RS Network</div>
+        <div className='logo-wrapper'>
+          <img
+            className='logo-img'
+            src={logo}
+            alt='rs-network-logo'
+          />
+          NETWORK
+        </div>
         <div className='navbar'>
           {isAuth ? (
             <>
