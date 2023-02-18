@@ -8,7 +8,7 @@ import { Divider } from 'antd';
 import ApiService from '../../../services/api-service';
 import PostHeader from './post-header';
 import ItemAddComment from '../item-add-comment';
-import PostText from './post-text';
+import PostCommentText from '../../post-comment-text';
 import PostImage from './post-image';
 import ThreadComments from '../thread-comments';
 
@@ -90,7 +90,10 @@ const Post = ({
           editPost={editPost}
         />
         <PostImage url={imageUrl} />
-        <PostText text={description} />
+        <PostCommentText
+          text={description}
+          length={340}
+        />
         <Divider className='post-divider' />
         <ItemAddComment
           postId={_id}

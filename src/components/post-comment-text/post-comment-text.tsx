@@ -1,25 +1,24 @@
 import { useState } from 'react';
 import { Typography } from 'antd';
-import './post-text.css';
+import './post-comment-text.css';
 
 const { Text } = Typography;
 
-const PostText = ({ text }: { text: string }) => {
+const PostCommentText = ({ text, length }: { text: string; length: number }) => {
   const [isReadMoreShow, setReadMoreShow] = useState(false);
 
   const toggleBtn = () => {
     setReadMoreShow((prevState) => !prevState);
   };
   return (
-    <div className='post-text'>
-      <Text className='post-text'>
-        {isReadMoreShow ? text : text.slice(0, 250)}
-        {text.length > 250 ? (
+    <div className='text'>
+      <Text className='text'>
+        {isReadMoreShow ? text : text.slice(0, length)}
+        {text.length > length ? (
           <button
-            className='post-read-more-less-btn'
+            className='read-more-less-btn'
             onClick={toggleBtn}
           >
-            {' '}
             {isReadMoreShow ? 'Read less' : '...Read more'}
           </button>
         ) : null}
@@ -28,4 +27,4 @@ const PostText = ({ text }: { text: string }) => {
   );
 };
 
-export default PostText;
+export default PostCommentText;

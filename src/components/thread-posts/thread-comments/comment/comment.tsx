@@ -9,6 +9,7 @@ import { TypeUser, TypeComment } from '../../../../types/types';
 import dateTransformer from '../../../../services/date-transformer';
 import ApiService from '../../../../services/api-service';
 import Avatar from '../../../avatar';
+import PostCommentText from '../../../post-comment-text';
 import './comment.css';
 import { useUser } from '../../../../hooks/useUser';
 
@@ -86,7 +87,10 @@ const Comment = ({
               {commentDate}
             </span>
           </Row>
-          <div className='comment-text'>{comment.description}</div>
+          <PostCommentText
+            text={comment.description}
+            length={200}
+          />
         </Row>
       </div>
     );
