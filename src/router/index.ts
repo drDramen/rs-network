@@ -5,6 +5,7 @@ import SettingsPage from '../pages/SettingsPage/SettingsPage';
 import UserPage from '../pages/UserPage/UserPage';
 import AllUsersPage from '../pages/AllUsersPage/AllUsersPage';
 import FollowingPage from '../pages/FollowingPage/FollowingPage';
+import MessengerPage from '../pages/MessengerPage/MessengerPage';
 import FollowersPage from '../pages/FollowersPage/FollowersPage';
 
 export interface IRoute {
@@ -22,6 +23,7 @@ export enum RouteNames {
   Followers = '/followers',
   Following = '/following',
   Messages = '/messages',
+  OpenDialog = '/messages?did=:dialogId&rid=:membersIds',
   Users = '/users/:id',
 }
 
@@ -35,7 +37,8 @@ export const privateRoutes: IRoute[] = [
   { path: RouteNames.Settings, component: SettingsPage }, // TODO: should be replaced component
   { path: RouteNames.AllUsers, component: AllUsersPage }, // TODO: should be replaced component
   { path: RouteNames.Followers, component: FollowingPage }, // TODO: should be replaced component
+  { path: RouteNames.Messages, component: MessengerPage }, // TODO: should be replaced component
+  { path: RouteNames.OpenDialog, component: MessengerPage }, // TODO: should be replaced component
   { path: RouteNames.Following, component: FollowersPage }, // TODO: should be replaced component
-  { path: RouteNames.Messages, component: PostsFeed }, // TODO: should be replaced component
   { path: RouteNames.Users, component: UserPage }, // TODO: should be replaced component
 ];

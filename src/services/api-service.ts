@@ -2,7 +2,14 @@
 
 import { apiBaseUrl } from '../api-constants';
 import { LoginResponse } from '../components/auth/LoginForm/LoginForm';
-import { TypePost, TypeUser, TypeComment, TypeUserCreation } from '../types/types';
+import {
+  TypePost,
+  TypeUser,
+  TypeComment,
+  TypeUserCreation,
+  TypeDialog,
+  TypeMessage,
+} from '../types/types';
 
 class ApiService {
   _apiBase = apiBaseUrl;
@@ -163,6 +170,26 @@ class ApiService {
 
   async getFollowing(id: string) {
     return this.getResource<TypeUser[]>(`following/${id}`);
+  }
+
+  async createDialog(senderId: string, receiverId: string) {
+    return this.postResource<TypeDialog>('dialogs', { senderId, receiverId });
+  }
+
+  async getUserDialogs(userId: string) {
+    return this.getResource<TypeDialog[]>(`dialogs/${userId}`);
+  }
+
+  async getDialogById(dialogId: string) {
+    return this.getResource<TypeDialog>(`dialogs/single/${dialogId}`);
+  }
+
+  async createMessage(dialogId: string, sender: string, text: string) {
+    return this.postResource<TypeMessage>('messages', { dialogId, sender, text });
+  }
+
+  async getMessages(dialogId: string) {
+    return this.getResource<TypeMessage[]>(`messages/${dialogId}`);
   }
 
   async login(email: string, password: string): Promise<LoginResponse> {

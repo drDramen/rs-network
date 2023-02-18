@@ -36,3 +36,16 @@ export type TypeComment = {
   date: number;
   description: string;
 };
+
+export type TypeDialog = {
+  _id: string;
+  members: string[];
+};
+
+export type TypeMessage = {
+  _id: string;
+  dialogId: string;
+  sender: string;
+  text: string;
+  createdAt: Date;
+};

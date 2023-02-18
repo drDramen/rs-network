@@ -1,0 +1,24 @@
+.form {
+  position: relative;
+}
+.input {
+  padding-right: 35px;
+}
+.button {
+  position: absolute;
+  right: 0;
+}
+
+.input::-webkit-scrollbar {
+  width: 12px;
+}
+
+.input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.input::-webkit-scrollbar-thumb {
+  background-color: #e4e6e9;
+  border-radius: 20px;
+  border: 2px solid #ffffff;
+}
