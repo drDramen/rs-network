@@ -8,6 +8,10 @@ import MessageForm from './MessageForm/MessageForm';
 import { useState, useEffect, useRef } from 'react';
 import ApiService from '../../services/api-service';
 import { TypeDialog, TypeMessage } from '../../types/types';
+import { io } from 'socket.io-client';
+import { apiBaseUrl } from '../../api-constants';
+
+const webSocket = io(apiBaseUrl);
 
 const MessengerPage = () => {
   const { user } = useUser();
@@ -21,11 +25,27 @@ const MessengerPage = () => {
   });
   const [messages, setMessages] = useState<TypeMessage[]>([]);
   const [newMessageText, setNewMessageText] = useState('');
+  const [incomingMessage, setIncomingMessage] = useState<TypeMessage>({
+    _id: '',
+    dialogId: '',
+    sender: '',
+    text: '',
+    createdAt: new Date(),
+  });
   const scroll = useRef<HTMLDivElement>(null);
   const breakPoint = 1100;
 
+  const findFriendId = (array: TypeDialog) =>
+    array.members.find((member) => member !== user._id) as string;
+
   const handleNewMessage = async () => {
     if (newMessageText) {
+      const friendId = findFriendId(activeDialog);
+      webSocket.emit('new-message', {
+        senderId: user._id,
+        receiverId: friendId,
+        text: newMessageText,
+      });
       const newMessage = await new ApiService().createMessage(
         activeDialog._id,
         user._id,
@@ -80,8 +100,8 @@ const MessengerPage = () => {
     if (dialogSearch) {
       const asyncFilter = async () => {
         const mappedPromises = dialogsReserve.map((dialog) => {
-          const friendId = dialog.members.find((member) => member !== user._id);
-          const userPromises = new ApiService().getUser(friendId as string);
+          const friendId = findFriendId(dialog);
+          const userPromises = new ApiService().getUser(friendId);
           return userPromises;
         });
         const users = await Promise.all(mappedPromises);
@@ -98,6 +118,33 @@ const MessengerPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dialogSearch]);
+
+  // for websockets
+  useEffect(() => {
+    webSocket.emit('clientCreate', user._id);
+  }, [user]);
+
+  useEffect(() => {
+    webSocket.on('getMessage', (data: { senderId: string; text: string }) => {
+      setIncomingMessage({
+        _id: `${Date.now()}`,
+        dialogId: `${Date.now()}`,
+        sender: data.senderId,
+        text: data.text,
+        createdAt: new Date(),
+      });
+    });
+
+    return () => {
+      webSocket.off('getMessage');
+    };
+  }, []);
+
+  useEffect(() => {
+    if (incomingMessage.sender && activeDialog?.members.includes(incomingMessage.sender)) {
+      setMessages((prev) => [...prev, incomingMessage]);
+    }
+  }, [activeDialog, incomingMessage]);
 
   return (
     <div className={classes.wrapper}>
