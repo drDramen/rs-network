@@ -15,13 +15,13 @@ const AppHeader = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isNotMobile = useMediaQuery(Breakpoint.ESM);
-  const isBurger = useMediaQuery(Breakpoint.MD);
+  const isNotBurger = useMediaQuery(Breakpoint.MD);
 
   return (
     <Header
       style={{
         paddingInlineEnd: `${isNotMobile ? '50' : '10'}px`,
-        paddingInlineStart: `${isBurger ? '30' : '40'}px`,
+        paddingInlineStart: `${isNotBurger ? '30' : '40'}px`,
       }}
     >
       <Row align='middle'>
