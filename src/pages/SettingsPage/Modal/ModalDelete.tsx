@@ -4,16 +4,19 @@ import InputEmail from '../../../components/input/InputEmail/InputEmail';
 import classes from './ModalDelete.module.css';
 import { useState } from 'react';
 import { useUser } from '../../../hooks/useUser';
+import { apiService } from '../../../services/api-service';
 
 const ModalDelele = ({
   modalOpen,
   setModalOpen,
+  isDelete,
 }: {
   modalOpen: boolean;
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isDelete: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [emailValue, setEmailValue] = useState('');
-  const { user } = useUser();
+  const { user, logOut } = useUser();
 
   const okButtonProps: ButtonProps =
     emailValue === user.email
@@ -33,6 +36,15 @@ const ModalDelele = ({
     className: classes.cancel_button,
   };
 
+  const handleDelete = async () => {
+    const response = await apiService.deleteUser(user._id);
+    setModalOpen(false);
+    isDelete(true);
+    setTimeout(() => {
+      logOut();
+    }, 3000);
+  };
+
   return (
     <Modal
       title={
@@ -49,7 +61,7 @@ const ModalDelele = ({
       okButtonProps={okButtonProps}
       cancelButtonProps={cancelButtonProps}
       okText='Delete account'
-      onOk={() => setModalOpen(false)}
+      onOk={() => void handleDelete()}
       onCancel={() => setModalOpen(false)}
       closable={false}
     >

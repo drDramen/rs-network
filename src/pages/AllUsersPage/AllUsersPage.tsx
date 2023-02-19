@@ -46,7 +46,7 @@ const AllUsersPage = () => {
         age: number;
         location: string;
       }) => {
-        return (
+        return name === 'User deleted' ? null : (
           <UserItem
             key={_id}
             _id={_id}
