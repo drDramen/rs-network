@@ -1,0 +1,33 @@
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.body_text {
+  text-align: center;
+  list-style-type: none;
+  margin-bottom: 1rem;
+}
+
+.label {
+  color: #606266;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.cancel_button {
+  min-width: 125px;
+}
+
+.ok_button:hover {
+  box-shadow: 0 0 5px #ff4d4f;
+}
+
+@media(max-width: 350px) {
+  .cancel_button {
+    min-width: 10px;
+  }
+}
