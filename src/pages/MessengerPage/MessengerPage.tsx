@@ -1,5 +1,5 @@
 import { SearchOutlined, WechatOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
+import { Button, Input } from 'antd';
 import classes from './MessengerPage.module.css';
 import { useUser } from '../../hooks/useUser';
 import Dialog from './Dialog/Dialog';
@@ -10,6 +10,7 @@ import { TypeDialog, TypeMessage } from '../../types/types';
 import { io } from 'socket.io-client';
 import { apiBaseUrl } from '../../api-constants';
 import { apiService } from '../../services/api-service';
+import { useNavigate } from 'react-router-dom';
 
 const webSocket = io(apiBaseUrl);
 
@@ -34,6 +35,7 @@ const MessengerPage = () => {
   });
   const scroll = useRef<HTMLDivElement>(null);
   const breakPoint = 1100;
+  const navigate = useNavigate();
 
   const findFriendId = (array: TypeDialog) =>
     array.members.find((member) => member !== user._id) as string;
@@ -195,9 +197,16 @@ const MessengerPage = () => {
         );
       })
     ) : (
-      <div className={classes.dialog_desc}>
-        Oh, no! You haven't any correspondence. Go and try your first!
-      </div>
+      <>
+        <div className={classes.dialog_desc}>Oh, no! You haven't any correspondence.</div>
+        <Button
+          className={classes.dialog_desc_button}
+          type='primary'
+          onClick={() => navigate('/users')}
+        >
+          Go and try your first!
+        </Button>
+      </>
     );
   };
 
@@ -216,6 +225,7 @@ const MessengerPage = () => {
         </div>
         <div className={classes.messages_bottom}>
           <MessageForm
+            disabled={activeDialog._id ? false : true}
             value={newMessageText}
             handleSubmit={() => {
               void handleNewMessage();
