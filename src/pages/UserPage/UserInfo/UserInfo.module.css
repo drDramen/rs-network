@@ -4,3 +4,13 @@
   align-items: center;
   justify-content: center;
 }
+
+@media (max-width: 500px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .info {
+    text-align: center;
+  }
+}

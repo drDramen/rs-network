@@ -16,6 +16,7 @@ const UserInfo = ({
 
   const authContext = useUser();
   const [user, setUser] = useState(authContext.user);
+  const breakPoint = 500;
 
   useEffect(() => {
     if (currentId !== user._id) {
@@ -33,22 +34,28 @@ const UserInfo = ({
         name={user.name}
         size={{ xs: 180, sm: 180, md: 210, lg: 210, xl: 230, xxl: 280 }}
       ></Avatar>
-      <div>
+      <div className={classes.info}>
         <TextParagraph
           weight='bold'
-          size='large'
+          size={window.innerWidth > breakPoint ? 'large' : undefined}
         >
           {user.name.split(' ')[0]}
         </TextParagraph>
         <TextParagraph
           weight='bold'
-          size='large'
+          size={window.innerWidth > breakPoint ? 'large' : undefined}
         >
           {user.name.split(' ')[1]}
         </TextParagraph>
-        <TextParagraph>{user.age ? `${user.age} y.o` : ''}</TextParagraph>
-        <TextParagraph>{user.location}</TextParagraph>
-        <TextParagraph>{user.email}</TextParagraph>
+        <TextParagraph size={window.innerWidth > breakPoint ? undefined : 'small'}>
+          {user.age ? `${user.age} y.o` : ''}
+        </TextParagraph>
+        <TextParagraph size={window.innerWidth > breakPoint ? undefined : 'small'}>
+          {user.location}
+        </TextParagraph>
+        <TextParagraph size={window.innerWidth > breakPoint ? undefined : 'small'}>
+          {user.email}
+        </TextParagraph>
         {authContext.user._id === user._id ? null : (
           <FollowButton
             followedUserId={user._id}
