@@ -9,6 +9,7 @@ import { Button } from 'antd';
 import { useUser } from '../../hooks/useUser';
 import { TypeUser } from '../../types/types';
 import { ToastContainer, toast } from 'react-toastify';
+import isEmailValid from '../../services/isEmailValid';
 
 const SettingsPage = () => {
   const authContext = useUser();
@@ -23,6 +24,18 @@ const SettingsPage = () => {
   const [about, setAbout] = useState(user.about);
 
   const handleSumbit = () => {
+    if (name.toLowerCase() === 'user') {
+      toast.error(`Name ${name} is forbidden!`);
+      return;
+    }
+    if (surname.toLowerCase() === 'deleted') {
+      toast.error(`Surname ${surname} is forbidden!`);
+      return;
+    }
+    if (!isEmailValid(email)) {
+      toast.error('Email is invalid!');
+      return;
+    }
     const updatedUser: TypeUser = {
       ...user,
       image,
@@ -60,36 +73,54 @@ const SettingsPage = () => {
         <InputFile setImage={setImage} />
       </div>
       <div>
-        <InputText
-          placeholder='Your name'
-          value={name}
-          setValue={setName}
-        />
-        <InputText
-          placeholder='Your surname'
-          value={surname}
-          setValue={setSurname}
-        />
-        <InputText
-          placeholder='Your age'
-          value={age === '0' ? '' : `${age}`}
-          setValue={setAge}
-        />
-        <InputText
-          placeholder='Your location'
-          value={location}
-          setValue={setLocation}
-        />
-        <InputEmail
-          placeholder='Your email'
-          value={email}
-          setValue={setEmail}
-        />
-        <InputTextArea
-          placeholder='Type something about yourself...'
-          value={about}
-          setValue={setAbout}
-        />
+        <div>
+          <span className={classes.label}>Name:</span>
+          <InputText
+            placeholder='Your name'
+            value={name}
+            setValue={setName}
+          />
+        </div>
+        <div>
+          <span className={classes.label}>Surname:</span>
+          <InputText
+            placeholder='Your surname'
+            value={surname}
+            setValue={setSurname}
+          />
+        </div>
+        <div>
+          <span className={classes.label}>Age:</span>
+          <InputText
+            placeholder='Your age'
+            value={age === '0' ? '' : `${age}`}
+            setValue={setAge}
+          />
+        </div>
+        <div>
+          <span className={classes.label}>Location:</span>
+          <InputText
+            placeholder='Your location'
+            value={location}
+            setValue={setLocation}
+          />
+        </div>
+        <div>
+          <span className={classes.label}>E-mail:</span>
+          <InputEmail
+            placeholder='Your email'
+            value={email}
+            setValue={setEmail}
+          />
+        </div>
+        <div>
+          <span className={classes.label}>About:</span>
+          <InputTextArea
+            placeholder='Type something about yourself...'
+            value={about}
+            setValue={setAbout}
+          />
+        </div>
         <Button
           className={classes.button}
           type='primary'
