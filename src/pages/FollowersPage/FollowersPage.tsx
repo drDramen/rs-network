@@ -26,7 +26,7 @@ const FollowersPage = () => {
 
   const renderFollowers = (arr: TypeUser[]) => {
     return arr.map(({ _id, name, image }: { _id: string; name: string; image: string }) => {
-      return (
+      return name === 'User deleted' ? null : (
         <UserItem
           key={_id}
           _id={_id}

@@ -192,6 +192,10 @@ class ApiService {
     return this.getResource<TypeMessage[]>(`messages/${dialogId}`);
   }
 
+  async deleteUser(userId: string) {
+    return this.deleteResource<{ message: string }>(`users/remove/${userId}`);
+  }
+
   async login(email: string, password: string): Promise<LoginResponse> {
     const response = await fetch(`${this._apiBase}login`, {
       method: 'POST',

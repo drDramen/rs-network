@@ -15,12 +15,31 @@
 .button {
   display: block;
   min-width: 10%;
-  margin: 1rem auto;
+  margin: 0.5rem auto;
 }
 
 .label {
   color: #606266;
   margin-left: 5px;
+}
+
+.delete_block {
+  text-align: center;
+  margin: 1.5rem 0 1rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #dbdbdb;
+}
+
+.danger_text {
+  color: rgb(231, 33, 33);
+  cursor: pointer;
+}
+
+.danger_text:hover {
+  text-decoration: underline;
+  color: rgb(231, 33, 33);
 }
 
 @media (max-width: 400px) {

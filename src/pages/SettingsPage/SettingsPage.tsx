@@ -10,6 +10,8 @@ import { useUser } from '../../hooks/useUser';
 import { TypeUser } from '../../types/types';
 import { ToastContainer, toast } from 'react-toastify';
 import isEmailValid from '../../services/isEmailValid';
+import ModalDelete from './Modal/ModalDelete';
+import SuccessfulDelete from './SuccessfulDelete/SuccessfulDelete';
 
 const SettingsPage = () => {
   const authContext = useUser();
@@ -22,6 +24,8 @@ const SettingsPage = () => {
   const [location, setLocation] = useState(user.location);
   const [email, setEmail] = useState(user.email);
   const [about, setAbout] = useState(user.about);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const handleSumbit = () => {
     if (name.toLowerCase() === 'user') {
@@ -55,7 +59,9 @@ const SettingsPage = () => {
     }
   };
 
-  return (
+  return isDeleted ? (
+    <SuccessfulDelete />
+  ) : (
     <div className={classes.wrapper}>
       <ToastContainer
         position='top-right'
@@ -128,6 +134,20 @@ const SettingsPage = () => {
         >
           Update info
         </Button>
+        <div className={classes.delete_block}>
+          You can{' '}
+          <a
+            className={classes.danger_text}
+            onClick={() => setModalOpen(true)}
+          >
+            delete your profile
+          </a>
+        </div>
+        <ModalDelete
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          isDelete={setIsDeleted}
+        />
       </div>
     </div>
   );

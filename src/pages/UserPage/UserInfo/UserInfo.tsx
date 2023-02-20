@@ -56,7 +56,7 @@ const UserInfo = ({
         <TextParagraph size={window.innerWidth > breakPoint ? undefined : 'small'}>
           {user.email}
         </TextParagraph>
-        {authContext.user._id === user._id ? null : (
+        {authContext.user._id === user._id ? null : user.name === 'User deleted' ? null : (
           <FollowButton
             followedUserId={user._id}
             followedUserName={user.name}
