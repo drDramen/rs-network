@@ -50,6 +50,7 @@ const PrivateLayout: FC = () => {
           margin: 'auto',
           overflowY: 'auto',
         }}
+        className='content'
       >
         <Outlet />
       </Content>

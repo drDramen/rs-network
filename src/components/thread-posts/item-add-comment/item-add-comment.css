@@ -21,3 +21,8 @@
   right: 0;
   top: 1px;
 }
+
+.input {
+  transition: var(--transition);
+  background-color: var(--input-background);
+}

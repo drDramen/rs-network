@@ -44,6 +44,7 @@ const FollowButton = ({
           block
           danger
           onClick={handleClick}
+          style={{ backgroundColor: 'var(--secondary-button-color)', maxWidth: '110px' }}
         >
           Unfollow
         </Button>
@@ -52,6 +53,7 @@ const FollowButton = ({
           block
           type='primary'
           onClick={handleClick}
+          style={{ backgroundColor: 'var(--primary-button-color)', maxWidth: '110px' }}
         >
           Follow
         </Button>

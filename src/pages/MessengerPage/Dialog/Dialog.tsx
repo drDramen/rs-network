@@ -35,7 +35,7 @@ const Dialog = ({ dialog, active }: { dialog: TypeDialog; active: boolean }) => 
         name={friend.name}
         size={{ xs: 45, sm: 45, md: 45, lg: 45, xl: 45, xxl: 45 }}
       ></Avatar>
-      <p>{friend.name}</p>
+      <p style={{ color: 'var(--main-text-color)' }}>{friend.name}</p>
     </div>
   );
 };

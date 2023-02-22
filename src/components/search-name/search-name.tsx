@@ -2,6 +2,7 @@
 
 import { Input } from 'antd';
 import { useState, useEffect } from 'react';
+import classes from './search-name.module.css';
 
 const SearchName = ({
   isDefault,
@@ -29,6 +30,7 @@ const SearchName = ({
       placeholder='Enter name...'
       value={currentName}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => onSearch(event)}
+      className={classes.input}
     />
   );
 };

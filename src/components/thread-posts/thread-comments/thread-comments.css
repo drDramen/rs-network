@@ -7,4 +7,6 @@
 
 .show-all-comments-btn {
   margin-top: 10px;
+  transition: var(--transition);
+  background-color: var(--secondary-button-color);
 }

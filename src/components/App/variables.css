@@ -1,0 +1,27 @@
+:root {
+  --transition: background-color 0.5s ease;
+
+  --main-background: #f5f5f5;
+  --post-background: #ffffff;
+  --input-background: #ffffff;
+  --comment-background: #ebebf5;
+  --icons-color: #1876f2;
+  --main-text-color: #000000;
+  --secondary-text-color: #606266;
+  --primary-button-color: #1677ff;
+  --secondary-button-color: #ffffff;
+  --message-own-color: #e4e6e9;
+}
+
+.dark-theme {
+  --main-background: #141414;
+  --post-background: #222222;
+  --input-background: #141414;
+  --comment-background: #333333;
+  --icons-color: #1876f2;
+  --main-text-color: #e1e3e6;
+  --secondary-text-color: #939393;
+  --primary-button-color: #e1e3e6;
+  --secondary-button-color: #141414;
+  --message-own-color: #262626;
+}

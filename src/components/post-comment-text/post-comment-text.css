@@ -1,5 +1,7 @@
 .text {
   margin: 5px 0;
+  transition: var(--transition);
+  color: var(--main-text-color);
 }
 
 .read-more-less-btn {

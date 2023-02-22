@@ -20,7 +20,12 @@ const InputFile = ({ setImage }: InputType) => (
       }
     }}
   >
-    <Button icon={<UploadOutlined />}>Click to upload image</Button>
+    <Button
+      style={{ backgroundColor: 'var(--secondary-button-color)', color: 'var(--main-text-color)' }}
+      icon={<UploadOutlined style={{ color: 'var(--main-text-color)' }} />}
+    >
+      Click to upload image
+    </Button>
   </Upload>
 );
 

@@ -3,6 +3,7 @@
 
 import { Row, Col, Slider, InputNumber } from 'antd';
 import { useState, useEffect } from 'react';
+import './search-age.css';
 
 const SearchAge = ({
   setFiltredAge,
@@ -46,6 +47,7 @@ const SearchAge = ({
           max={120}
           value={inputValue[0]}
           onChange={onChange1}
+          style={{ backgroundColor: 'var(--input-background)' }}
         />
       </Col>
       <Col span={16}>
@@ -67,6 +69,7 @@ const SearchAge = ({
           max={120}
           value={inputValue[1]}
           onChange={onChange2}
+          style={{ backgroundColor: 'var(--input-background)' }}
         />
       </Col>
     </Row>

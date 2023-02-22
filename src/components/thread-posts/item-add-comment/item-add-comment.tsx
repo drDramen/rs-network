@@ -78,6 +78,7 @@ const ItemAddComment = ({
         autoSize={autoSize}
         size={'large'}
         onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => onCommentChange(event)}
+        className='input'
       />
       {updateComment ? (
         <Button

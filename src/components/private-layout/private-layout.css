@@ -2,3 +2,8 @@
   top: -52px;
   inset-inline-end: unset;
 }
+
+.content {
+  transition: var(--transition);
+  background-color: var(--main-background);
+}

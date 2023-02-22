@@ -203,6 +203,7 @@ const MessengerPage = () => {
           className={classes.dialog_desc_button}
           type='primary'
           onClick={() => navigate('/users')}
+          style={{ backgroundColor: 'var(--primary-button-color)' }}
         >
           Go and try your first!
         </Button>

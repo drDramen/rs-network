@@ -1,9 +1,8 @@
-.wrapper {
-  margin-bottom: 0.5rem;
+.input {
   background-color: var(--input-background);
   color: var(--main-text-color);
 }
 
-.wrapper::placeholder {
+.input::placeholder {
   color: var(--secondary-text-color);
 }

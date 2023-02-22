@@ -3,6 +3,7 @@ import { useUser } from '../../hooks/useUser';
 import AppHeader from '../app-header/AppHeader';
 import AppRouter from '../AppRouter/AppRouter';
 import './app.css';
+import './variables.css';
 
 function App() {
   const { isLoading } = useUser();
@@ -16,7 +17,7 @@ function App() {
   }
 
   return (
-    <div className='App'>
+    <div className='App dark-theme'>
       <Layout className='app-container'>
         <AppHeader />
         <AppRouter />

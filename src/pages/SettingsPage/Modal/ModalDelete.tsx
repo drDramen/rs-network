@@ -64,6 +64,7 @@ const ModalDelele = ({
       onOk={() => void handleDelete()}
       onCancel={() => setModalOpen(false)}
       closable={false}
+      style={{ backgroundColor: 'var(--post-background)', color: 'var(--main-text-color)' }}
     >
       <ul className={classes.body_text}>
         <li>Your personal data will be deleted</li>
