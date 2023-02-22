@@ -5,6 +5,11 @@
   justify-content: center;
 }
 
+.buttons_wrapper {
+  display: flex;
+  gap: 10px;
+}
+
 @media (max-width: 500px) {
   .wrapper {
     flex-direction: column;

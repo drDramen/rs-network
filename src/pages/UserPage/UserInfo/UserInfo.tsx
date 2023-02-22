@@ -1,4 +1,6 @@
+import { Button } from 'antd';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '../../../components/avatar';
 import FollowButton from '../../../components/buttons/FollowButton';
 import TextParagraph from '../../../components/paragraph/TextParagraph';
@@ -15,8 +17,18 @@ const UserInfo = ({
   const currentId = location.pathname.split('/')[2];
 
   const authContext = useUser();
+  const navigate = useNavigate();
   const [user, setUser] = useState(authContext.user);
   const breakPoint = 500;
+
+  const onMessage = async () => {
+    const userDialogs = await apiService.getUserDialogs(authContext.user._id);
+    const findDialog = userDialogs.find((dialog) => dialog.members.includes(user._id));
+    const newDialog = findDialog
+      ? findDialog
+      : await apiService.createDialog(authContext.user._id, user._id);
+    navigate(`/messages?did=${newDialog._id}&rid=${newDialog.members[0]}-${newDialog.members[1]}`);
+  };
 
   useEffect(() => {
     if (currentId !== user._id) {
@@ -57,10 +69,22 @@ const UserInfo = ({
           {user.email}
         </TextParagraph>
         {authContext.user._id === user._id ? null : user.name === 'User deleted' ? null : (
-          <FollowButton
-            followedUserId={user._id}
-            followedUserName={user.name}
-          />
+          <div className={classes.buttons_wrapper}>
+            <FollowButton
+              followedUserId={user._id}
+              followedUserName={user.name}
+            />
+            <Button
+              block
+              type='primary'
+              onClick={() => {
+                void onMessage();
+              }}
+              style={{ padding: '0px', maxWidth: '88px' }}
+            >
+              Message
+            </Button>
+          </div>
         )}
       </div>
     </div>
