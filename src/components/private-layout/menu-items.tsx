@@ -8,6 +8,10 @@ export const getMenuItems = (id: string): MenuProps['items'] => {
       key: `/users/${id}`,
     },
     {
+      label: <NavLink to={'/' + id}>Post feed</NavLink>,
+      key: '/',
+    },
+    {
       label: <NavLink to='/users'>All Users</NavLink>,
       key: '/users',
     },
