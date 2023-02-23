@@ -2,6 +2,11 @@
   padding: 5px 0;
 }
 
+:where(.css-dev-only-do-not-override-ixblex).ant-modal .ant-modal-content {
+  background-color: var(--post-background);
+  color: var(--main-text-color);
+}
+
 .like-name {
   font-size: 1em;
   font-weight: 900;

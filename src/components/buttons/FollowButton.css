@@ -1,0 +1,8 @@
+.btn-follow {
+  background-color: var(--primary-button-color);
+  max-width: 110px;
+}
+
+.btn-follow:hover {
+  background-color: var(--primary-button-hover);
+}

@@ -3,6 +3,13 @@
 }
 .input {
   padding-right: 35px;
+  background-color: var(--input-background);
+  color: var(--main-text-color);
+  border-color: var(--input-border);
+}
+
+.input::placeholder {
+  color: var(--secondary-text-color);
 }
 .button {
   position: absolute;
@@ -18,7 +25,7 @@
 }
 
 .input::-webkit-scrollbar-thumb {
-  background-color: #e4e6e9;
+  background-color: var(--scroll-color);
   border-radius: 20px;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--post-background);
 }

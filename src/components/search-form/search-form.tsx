@@ -6,6 +6,7 @@ import SearchAge from '../search-age/search-age';
 import { useEffect, useState } from 'react';
 import { Divider, Row, Col, Button } from 'antd';
 import { TypeUser } from '../../types/types';
+import './search-form.css';
 
 const SearchForm = ({
   users,
@@ -100,7 +101,7 @@ const SearchForm = ({
             block
             type='primary'
             onClick={onReset}
-            style={{ backgroundColor: 'var(--primary-button-color)' }}
+            className='button-reset-search'
           >
             Reset
           </Button>

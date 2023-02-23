@@ -30,7 +30,8 @@
   padding: 1rem;
   background-color: var(--post-background);
   border-radius: 5px;
-  border: 1px solid #dbdbdb;
+  border: 1px solid var(--input-border);
+  color: var(--main-text-color);
 }
 
 .danger_text {

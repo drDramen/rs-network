@@ -1,7 +1,11 @@
 import LoginForm from '../../components/auth/LoginForm/LoginForm';
 
 const LoginPage = () => {
-  return <LoginForm />;
+  return (
+    <div style={{ backgroundColor: 'var(--main-background)' }}>
+      <LoginForm />
+    </div>
+  );
 };
 
 export default LoginPage;

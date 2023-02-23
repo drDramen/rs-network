@@ -25,4 +25,10 @@
 .input {
   transition: var(--transition);
   background-color: var(--input-background);
+  color: var(--main-text-color);
+  border-color: var(--input-border);
+}
+
+.input::placeholder {
+  color: var(--secondary-text-color);
 }

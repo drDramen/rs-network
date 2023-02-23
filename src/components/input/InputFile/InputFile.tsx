@@ -2,6 +2,7 @@
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Upload } from 'antd';
 import { apiBaseUrl } from '../../../api-constants';
+import classes from './InputFile.module.css';
 
 type InputType = {
   setImage: React.Dispatch<React.SetStateAction<string>>;
@@ -21,7 +22,8 @@ const InputFile = ({ setImage }: InputType) => (
     }}
   >
     <Button
-      style={{ backgroundColor: 'var(--secondary-button-color)', color: 'var(--main-text-color)' }}
+      style={{}}
+      className={classes.button}
       icon={<UploadOutlined style={{ color: 'var(--main-text-color)' }} />}
     >
       Click to upload image

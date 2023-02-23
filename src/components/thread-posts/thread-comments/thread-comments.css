@@ -9,4 +9,6 @@
   margin-top: 10px;
   transition: var(--transition);
   background-color: var(--secondary-button-color);
+  color: var(--main-text-color);
+  border-color: var(--input-border);
 }

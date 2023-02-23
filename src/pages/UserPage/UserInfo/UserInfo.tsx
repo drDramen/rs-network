@@ -80,11 +80,6 @@ const UserInfo = ({
               onClick={() => {
                 void onMessage();
               }}
-              style={{
-                padding: '0px',
-                maxWidth: '110px',
-                backgroundColor: 'var(--primary-button-color)',
-              }}
             >
               Message
             </Button>

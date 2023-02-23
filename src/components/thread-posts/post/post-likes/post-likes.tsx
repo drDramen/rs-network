@@ -64,7 +64,7 @@ const LikesModal = ({ likes }: { likes: string[] }) => {
     <>
       <Button
         className='post-like-number'
-        style={{ padding: '1px 0 0 0', color: '#000000' }}
+        style={{ padding: '1px 0 0 0', color: 'var(--main-text-color)' }}
         type='link'
         size='small'
         onClick={showLikers}
@@ -77,6 +77,7 @@ const LikesModal = ({ likes }: { likes: string[] }) => {
           onOk={handleOk}
           onCancel={handleCancel}
           footer={null}
+          wrapClassName='modal-likes'
         >
           {renderLikers(users)}
         </Modal>

@@ -85,7 +85,7 @@ const UserItem = ({
               block
               type='primary'
               onClick={() => void onMessage()}
-              style={{ backgroundColor: 'var(--primary-button-color)' }}
+              className='msg-bth'
             >
               Message
             </Button>

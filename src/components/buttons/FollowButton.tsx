@@ -3,6 +3,7 @@ import { useUser } from '../../hooks/useUser';
 import { useState } from 'react';
 import { TypeUser } from '../../types/types';
 import { toast } from 'react-toastify';
+import './FollowButton.css';
 
 const FollowButton = ({
   followedUserId,
@@ -53,7 +54,7 @@ const FollowButton = ({
           block
           type='primary'
           onClick={handleClick}
-          style={{ backgroundColor: 'var(--primary-button-color)', maxWidth: '110px' }}
+          className='btn-follow'
         >
           Follow
         </Button>

@@ -1,0 +1,9 @@
+:where(.css-dev-only-do-not-override-ixblex).ant-input-affix-wrapper > input.ant-input {
+  background-color: var(--input-background);
+  color: var(--main-text-color);
+}
+
+:where(.css-dev-only-do-not-override-ixblex).ant-input-affix-wrapper
+  > input.ant-input::placeholder {
+  color: var(--secondary-text-color);
+}

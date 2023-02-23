@@ -47,7 +47,7 @@ const SearchAge = ({
           max={120}
           value={inputValue[0]}
           onChange={onChange1}
-          style={{ backgroundColor: 'var(--input-background)' }}
+          style={{ backgroundColor: 'var(--input-background)', borderColor: 'var(--input-border)' }}
         />
       </Col>
       <Col span={16}>
@@ -69,7 +69,7 @@ const SearchAge = ({
           max={120}
           value={inputValue[1]}
           onChange={onChange2}
-          style={{ backgroundColor: 'var(--input-background)' }}
+          style={{ backgroundColor: 'var(--input-background)', borderColor: 'var(--input-border)' }}
         />
       </Col>
     </Row>

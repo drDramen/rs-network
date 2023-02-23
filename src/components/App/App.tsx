@@ -17,7 +17,7 @@ function App() {
   }
 
   return (
-    <div className='App dark-theme'>
+    <div className='App'>
       <Layout className='app-container'>
         <AppHeader />
         <AppRouter />

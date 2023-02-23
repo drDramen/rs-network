@@ -9,6 +9,7 @@ import { Breakpoint } from '../../types/media';
 import logo from '../../assets/images/logo_rs.png';
 import Avatar from '../avatar';
 import './app-header.css';
+import ToggleTheme from '../toggle-theme/ToggleTheme';
 
 const AppHeader = () => {
   const { isAuth, user, logOut } = useUser();
@@ -22,6 +23,7 @@ const AppHeader = () => {
       style={{
         paddingInlineEnd: `${isNotMobile ? '50' : '10'}px`,
         paddingInlineStart: `${isNotBurger ? '30' : '40'}px`,
+        backgroundColor: 'var(--sidebar-color)',
       }}
     >
       <Row align='middle'>
@@ -36,6 +38,7 @@ const AppHeader = () => {
         <div className='navbar'>
           {isAuth ? (
             <>
+              <ToggleTheme />
               <Avatar
                 id={user._id}
                 image={user.image}
