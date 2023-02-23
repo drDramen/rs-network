@@ -14,24 +14,6 @@ const Ava = ({
 }) => {
   const navigate = useNavigate();
   const cursor = id ? 'pointer' : 'auto';
-  if (image === '') {
-    return (
-      <div
-        style={{ cursor: cursor }}
-        onClick={() => {
-          if (id) navigate(`/users/${id}`);
-        }}
-      >
-        <Avatar
-          alt='avatar'
-          size={size ? size : 'default'}
-          style={{ fontSize: '9rem' }}
-        >
-          {name.at(0)?.toUpperCase()}
-        </Avatar>
-      </div>
-    );
-  }
   return (
     <div
       style={{ cursor: cursor, display: 'inline' }}
@@ -39,11 +21,21 @@ const Ava = ({
         if (id) navigate(`/users/${id}`);
       }}
     >
-      <Avatar
-        src={image}
-        alt='avatar'
-        size={size ? size : 'default'}
-      />
+      {image === '' ? (
+        <Avatar
+          alt='avatar'
+          size={size ? size : 'default'}
+          style={{ fontSize: '9rem' }}
+        >
+          {name.at(0)?.toUpperCase()}
+        </Avatar>
+      ) : (
+        <Avatar
+          src={image}
+          alt='avatar'
+          size={size ? size : 'default'}
+        />
+      )}
     </div>
   );
 };
