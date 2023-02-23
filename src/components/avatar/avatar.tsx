@@ -34,7 +34,7 @@ const Ava = ({
   }
   return (
     <div
-      style={{ cursor: cursor, display: 'flex' }}
+      style={{ cursor: cursor, display: 'inline' }}
       onClick={() => {
         if (id) navigate(`/users/${id}`);
       }}

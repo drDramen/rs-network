@@ -21,6 +21,11 @@
 
 .comment-name {
   font-weight: 700;
+  cursor: pointer;
+}
+
+.comment-name:hover {
+  text-decoration: underline;
 }
 
 .comment-date {
