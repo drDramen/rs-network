@@ -8,7 +8,7 @@ import { Row, Col, Button } from 'antd';
 import { TypePost } from '../../../../types/types';
 import dateTransformer from '../../../../services/date-transformer';
 import { apiService } from '../../../../services/api-service';
-import LikesModal from '../../post/post-likes';
+import UsersModal from '../../../users-modal';
 import Avatar from '../../../avatar';
 import './post-header.css';
 import { useUser } from '../../../../hooks/useUser';
@@ -96,7 +96,7 @@ const PostHeader = ({
         </>
       ) : null}
       <Row className='post-like'>
-        {currentLikes.length ? <LikesModal likes={currentLikes} /> : null}
+        {currentLikes.length ? <UsersModal usersId={currentLikes} /> : null}
         <Button
           style={{ padding: '4px' }}
           type='link'
