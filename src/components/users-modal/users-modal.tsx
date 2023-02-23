@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { TypeUser } from '../../types/types';
 import { Button, Modal } from 'antd';
 import { apiService } from '../../services/api-service';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '../avatar';
 import './users-modal.css';
 
@@ -13,6 +14,7 @@ const UsersModal = ({ usersId, userName }: { usersId: string[]; userName?: strin
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [users, setUsers] = useState<TypeUser[] | null>(null);
   const [userId, setUserId] = useState<string>(usersId[0]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     apiService.getUser(userId).then((user) => {
@@ -53,8 +55,17 @@ const UsersModal = ({ usersId, userName }: { usersId: string[]; userName?: strin
           <Avatar
             image={image}
             name={name}
+            id={_id}
           />
-          <span className='modal-name'>{name}</span>
+          <span
+            className='modal-name'
+            onClick={() => {
+              handleCancel();
+              navigate(`/users/${_id}`);
+            }}
+          >
+            {name}
+          </span>
         </div>
       );
     });
@@ -90,7 +101,7 @@ const UsersModal = ({ usersId, userName }: { usersId: string[]; userName?: strin
         {users ? (
           renderUsers(users)
         ) : (
-          <span className='modal-name'>
+          <span className='modal-text'>
             {`${userName ? userName : 'User'} is not following anyone!`}
           </span>
         )}
