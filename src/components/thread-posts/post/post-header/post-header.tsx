@@ -69,12 +69,12 @@ const PostHeader = ({
         name={name}
       />
       <Col className='name-date'>
-        <div
+        <span
           className='post-name'
           onClick={() => navigate(`/users/${userId}`)}
         >
           {name}
-        </div>
+        </span>
         <div className='post-date'>{postDate}</div>
       </Col>
       {user._id === userId && showOptions ? (
