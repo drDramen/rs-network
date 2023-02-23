@@ -7,6 +7,7 @@ import TextParagraph from '../../../components/paragraph/TextParagraph';
 import { useUser } from '../../../hooks/useUser';
 import { apiService } from '../../../services/api-service';
 import { EmptyUser, TypeUser } from '../../../types/types';
+import UsersModal from '../../../components/users-modal';
 import classes from './UserInfo.module.css';
 
 const UserInfo = ({
@@ -84,6 +85,10 @@ const UserInfo = ({
             >
               Message
             </Button>
+            <UsersModal
+              usersId={user.followers}
+              userName={user.name}
+            />
           </div>
         )}
       </div>
