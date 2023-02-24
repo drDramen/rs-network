@@ -1,7 +1,9 @@
 .wrapper {
+  position: relative;
   width: 95%;
   height: calc(100vh - 64px);
   max-width: 600px;
   margin: 0 auto;
-  padding-top: 2%;
+  height: 100%;
+  padding-top: 10px;
 }
