@@ -49,6 +49,7 @@ const PrivateLayout: FC = () => {
           maxHeight: 'calc(100vh - 64px)',
           margin: 'auto',
           overflowY: 'auto',
+          height: '100%',
         }}
       >
         <Outlet />
