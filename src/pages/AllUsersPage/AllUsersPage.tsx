@@ -3,18 +3,20 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
 import { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { TypeUser } from '../../types/types';
 import NoUsersFound from '../../components/no-users-found/no-users-found';
 import { apiService } from '../../services/api-service';
 import SearchForm from '../../components/search-form';
 import UserItem from '../../components/user-item';
 import classes from './AllUsersPage.module.css';
+import LoadSpinner from '../../components/load-spinner/LoadSpinner';
 
 const AllUsersPage = () => {
   const [users, setUsers] = useState<TypeUser[]>([]);
   const [filtredUsers, setFiltredUsers] = useState<TypeUser[]>([]);
   const [isDefault, setIsDefault] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsDefault(
@@ -25,10 +27,18 @@ const AllUsersPage = () => {
   }, [filtredUsers]);
 
   useEffect(() => {
-    apiService.getAllUsers().then((allUsers) => {
-      setUsers(allUsers);
-      setFiltredUsers(allUsers);
-    });
+    setIsLoading(true);
+    apiService
+      .getAllUsers()
+      .then((allUsers) => {
+        setUsers(allUsers);
+        setFiltredUsers(allUsers);
+      })
+      .catch((err) => {
+        const error = err as Error;
+        toast.error(error.message);
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const renderUsers = (arr: TypeUser[]) => {
@@ -76,7 +86,8 @@ const AllUsersPage = () => {
         setFiltredUsers={setFiltredUsers}
         isDefault={isDefault}
       />
-      {filtredUsers.length ? renderUsers(filtredUsers) : <NoUsersFound />}
+      {!isLoading && (filtredUsers.length ? renderUsers(filtredUsers) : <NoUsersFound />)}
+      {isLoading && <LoadSpinner />}
     </div>
   );
 };

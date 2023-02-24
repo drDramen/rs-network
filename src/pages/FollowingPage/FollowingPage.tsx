@@ -5,22 +5,31 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
 import { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { TypeUser } from '../../types/types';
 import { useUser } from '../../hooks/useUser';
 import NoUsersFound from '../../components/no-users-found';
 import { apiService } from '../../services/api-service';
 import UserItem from '../../components/user-item';
 import classes from './FollowingPage.module.css';
+import LoadSpinner from '../../components/load-spinner/LoadSpinner';
 
 const FollowingPage = () => {
   const [followings, setFollowings] = useState<TypeUser[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { user } = useUser();
 
   useEffect(() => {
-    apiService.getFollowing(user._id).then((allFollowings) => {
-      setFollowings(allFollowings);
-    });
+    apiService
+      .getFollowing(user._id)
+      .then((allFollowings) => {
+        setFollowings(allFollowings);
+      })
+      .catch((err) => {
+        const error = err as Error;
+        toast.error(error.message);
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const renderFollowing = (arr: TypeUser[]) => {
@@ -48,7 +57,9 @@ const FollowingPage = () => {
         hideProgressBar={true}
         closeButton={false}
       />
-      {followings.length ? renderFollowing(followings) : <NoUsersFound title={title} />}
+      {!isLoading &&
+        (followings.length ? renderFollowing(followings) : <NoUsersFound title={title} />)}
+      {isLoading && <LoadSpinner />}
     </div>
   );
 };
