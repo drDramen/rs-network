@@ -61,10 +61,6 @@ const UserPage = () => {
     );
   };
 
-  if (isLoading) {
-    return <LoadSpinner />;
-  }
-
   return (
     <div className={classes.wrapper}>
       <ToastContainer
@@ -74,19 +70,26 @@ const UserPage = () => {
         hideProgressBar={true}
         closeButton={false}
       />
-      <UserInfo currentUser={currentUser} />
-      <br />
-      {currentUser.about ? <TextParagraph weight='bold'>About</TextParagraph> : null}
-      <TextParagraph size='small'>{currentUser.about}</TextParagraph>
-      <br />
-      {currentId === user._id ? (
-        <PostForm
-          updatePost={updatePost}
-          setPosts={setPosts}
-          setUpdatePost={setUpdatePost}
-        />
-      ) : null}
-      {posts.length ? renderPosts(posts) : null}
+
+      {isLoading ? (
+        <LoadSpinner />
+      ) : (
+        <>
+          <UserInfo currentUser={currentUser} />
+          <br />
+          {currentUser.about ? <TextParagraph weight='bold'>About</TextParagraph> : null}
+          <TextParagraph size='small'>{currentUser.about}</TextParagraph>
+          <br />
+          {currentId === user._id ? (
+            <PostForm
+              updatePost={updatePost}
+              setPosts={setPosts}
+              setUpdatePost={setUpdatePost}
+            />
+          ) : null}
+          {posts.length ? renderPosts(posts) : null}
+        </>
+      )}
     </div>
   );
 };
