@@ -1,22 +1,19 @@
-import { Layout, Row, Spin } from 'antd';
+import { Layout } from 'antd';
 import { useUser } from '../../hooks/useUser';
 import AppHeader from '../app-header/AppHeader';
 import AppRouter from '../AppRouter/AppRouter';
+import LoadSpinner from '../load-spinner/LoadSpinner';
 import './app.css';
 
 function App() {
   const { isLoading } = useUser();
 
   if (isLoading) {
-    return (
-      <Row className='loading'>
-        <Spin size='large' />
-      </Row>
-    );
+    return <LoadSpinner />;
   }
 
   return (
-    <div className='App'>
+    <div className='app'>
       <Layout className='app-container'>
         <AppHeader />
         <AppRouter />
