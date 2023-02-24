@@ -2,30 +2,41 @@
 import { useEffect, useState } from 'react';
 import TextParagraph from '../../components/paragraph/TextParagraph';
 import { apiService } from '../../services/api-service';
-import { ToastContainer } from 'react-toastify';
-import { TypePost } from '../../types/types';
+import { toast, ToastContainer } from 'react-toastify';
+import { TypePost, TypeUser } from '../../types/types';
 import UserInfo from './UserInfo/UserInfo';
 import Post from '../../components/thread-posts/post';
 import classes from './UserPage.module.css';
 import { useUser } from '../../hooks/useUser';
 import PostForm from '../../components/thread-posts/post-form';
+import { useLocation } from 'react-router-dom';
+import LoadSpinner from '../../components/load-spinner/LoadSpinner';
 
 const UserPage = () => {
-  const currentId = location.pathname.split('/')[2];
+  const currentId = useLocation().pathname.split('/')[2];
   const { user } = useUser();
-  const currentUserId = currentId === user._id ? user._id : currentId;
-
+  const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState<TypePost[]>([]);
-  const [currentUser, setCurrentUser] = useState(user);
+  const [currentUser, setCurrentUser] = useState({} as TypeUser);
   const [updatePost, setUpdatePost] = useState<TypePost | null>(null);
 
   useEffect(() => {
-    async function getUserPosts() {
+    setIsLoading(true);
+
+    const currentUserId = currentId === user._id ? user._id : currentId;
+
+    (async () => {
       const userPosts = await apiService.getUserPosts(currentUserId);
+      const crntUser = await apiService.getUser(currentUserId);
       setPosts(userPosts);
-    }
-    void getUserPosts();
-  });
+      setCurrentUser(crntUser);
+    })()
+      .catch((err) => {
+        const error = err as Error;
+        toast.error(error.message);
+      })
+      .finally(() => setIsLoading(false));
+  }, [currentId, user._id]);
 
   // TODO: move this function from this file and from threa-posts to a single module
   const renderPosts = (posts: TypePost[]) => {
@@ -50,6 +61,10 @@ const UserPage = () => {
     );
   };
 
+  if (isLoading) {
+    return <LoadSpinner />;
+  }
+
   return (
     <div className={classes.wrapper}>
       <ToastContainer
@@ -59,7 +74,7 @@ const UserPage = () => {
         hideProgressBar={true}
         closeButton={false}
       />
-      <UserInfo setCurrentUser={setCurrentUser} />
+      <UserInfo currentUser={currentUser} />
       <br />
       {currentUser.about ? <TextParagraph weight='bold'>About</TextParagraph> : null}
       <TextParagraph size='small'>{currentUser.about}</TextParagraph>
@@ -71,7 +86,7 @@ const UserPage = () => {
           setUpdatePost={setUpdatePost}
         />
       ) : null}
-      {posts ? renderPosts(posts) : null}
+      {posts.length ? renderPosts(posts) : null}
     </div>
   );
 };
