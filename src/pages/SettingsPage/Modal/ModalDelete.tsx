@@ -37,7 +37,7 @@ const ModalDelele = ({
   };
 
   const handleDelete = async () => {
-    const response = await apiService.deleteUser(user._id);
+    await apiService.deleteUser(user._id);
     setModalOpen(false);
     isDelete(true);
     setTimeout(() => {
