@@ -4,24 +4,31 @@
 /* eslint-disable quotes */
 
 import { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { TypeUser } from '../../types/types';
 import { useUser } from '../../hooks/useUser';
 import NoUsersFound from '../../components/no-users-found';
 import { apiService } from '../../services/api-service';
 import UserItem from '../../components/user-item';
 import classes from './FollowersPage.module.css';
+import LoadSpinner from '../../components/load-spinner/LoadSpinner';
 
 const FollowersPage = () => {
   const [followers, setFollowers] = useState<TypeUser[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { user } = useUser();
 
   useEffect(() => {
-    user.followers.forEach((id) =>
-      apiService.getUser(id).then((_folower) => {
-        setFollowers((followers) => [...followers, _folower]);
-      }),
-    );
+    setIsLoading(true);
+    Promise.all(user.followers.map((id) => apiService.getUser(id)))
+      .then((followers) => {
+        setFollowers(followers);
+      })
+      .catch((err) => {
+        const error = err as Error;
+        toast.error(error.message);
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const renderFollowers = (arr: TypeUser[]) => {
@@ -49,7 +56,9 @@ const FollowersPage = () => {
         hideProgressBar={true}
         closeButton={false}
       />
-      {followers.length ? renderFollowers(followers) : <NoUsersFound title={title} />}
+      {!isLoading &&
+        (followers.length ? renderFollowers(followers) : <NoUsersFound title={title} />)}
+      {isLoading && <LoadSpinner />}
     </div>
   );
 };

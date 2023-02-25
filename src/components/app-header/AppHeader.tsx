@@ -27,7 +27,10 @@ const AppHeader = () => {
       }}
     >
       <Row align='middle'>
-        <div className='logo-wrapper'>
+        <div
+          className='logo-wrapper'
+          onClick={() => navigate(RouteNames.Root)}
+        >
           <img
             className='logo-img'
             src={logo}

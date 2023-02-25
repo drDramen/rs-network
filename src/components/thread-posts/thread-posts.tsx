@@ -9,18 +9,23 @@ import Post from './post';
 import classes from './thread-posts.module.css';
 import { useUser } from '../../hooks/useUser';
 import { apiBaseUrl } from '../../api-constants';
+import LoadSpinner from '../load-spinner/LoadSpinner';
 
 const webSocket = io(apiBaseUrl);
 
 const TreadPosts = () => {
   const [posts, setPosts] = useState<TypePost[]>([]);
   const [updatePost, setUpdatePost] = useState<TypePost | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   const { user } = useUser();
 
   useEffect(() => {
     const setAllPostsToState = async () => {
+      setIsLoading(true);
       const allPosts: TypePost[] = await apiService.getAllPosts(user._id);
       setPosts(allPosts);
+      setIsLoading(false);
     };
 
     setAllPostsToState().catch(() => {});
@@ -61,20 +66,17 @@ const TreadPosts = () => {
     );
   };
 
-  if (posts.length !== 0) {
-    return (
-      <div className={classes.wrapper}>
-        <PostForm
-          updatePost={updatePost}
-          setPosts={setPosts}
-          setUpdatePost={setUpdatePost}
-        />
-        {renderPosts(posts)}
-      </div>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <div className={classes.wrapper}>
+      <PostForm
+        updatePost={updatePost}
+        setPosts={setPosts}
+        setUpdatePost={setUpdatePost}
+      />
+      {!isLoading && renderPosts(posts)}
+      {isLoading && <LoadSpinner />}
+    </div>
+  );
 };
 
 export default TreadPosts;
