@@ -1,5 +1,6 @@
 import { Image } from 'antd';
 import './post-image.css';
+import placeholder from '../../../../assets/images/post-image-placeholder.jpg';
 
 const PostImage = ({
   url,
@@ -10,7 +11,7 @@ const PostImage = ({
   className?: string;
   preview?: boolean;
 }) => {
-  if (url != '') {
+  if (url !== '') {
     return (
       <Image
         width={'100%'}
@@ -18,6 +19,7 @@ const PostImage = ({
         alt='Post Image'
         className={className}
         preview={preview}
+        fallback={placeholder}
       />
     );
   } else {
