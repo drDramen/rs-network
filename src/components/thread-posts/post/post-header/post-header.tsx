@@ -27,6 +27,7 @@ const PostHeader = ({
   showOptions,
   setPosts,
   editPost,
+  isUserPage,
 }: {
   userId: string;
   postId: string;
@@ -37,6 +38,7 @@ const PostHeader = ({
   showOptions: boolean;
   setPosts: React.Dispatch<React.SetStateAction<TypePost[]>>;
   editPost: () => void;
+  isUserPage?: boolean;
 }) => {
   const postDate = dateTransformer(date);
   const [currentLikes, setCurrentLikes] = useState<string[]>(likes);
@@ -51,10 +53,17 @@ const PostHeader = ({
 
   const deletePost = () => {
     apiService.deletePost(postId).then(() => {
-      apiService.getAllPosts(user._id).then((allPosts) => {
-        setPosts(allPosts);
-        webSocket.emit('del-post', 'Post deleted!');
-      });
+      if (isUserPage) {
+        apiService.getUserPosts(user._id).then((allPosts) => {
+          setPosts(allPosts);
+          webSocket.emit('del-post', 'Post deleted!');
+        });
+      } else {
+        apiService.getAllPosts(user._id).then((allPosts) => {
+          setPosts(allPosts);
+          webSocket.emit('del-post', 'Post deleted!');
+        });
+      }
     });
   };
 

@@ -24,6 +24,7 @@ const Post = ({
   likes,
   setPosts,
   setUpdatePost,
+  isUserPage,
 }: {
   _id: string;
   userId: string;
@@ -34,6 +35,7 @@ const Post = ({
   comments: string[];
   setPosts: React.Dispatch<React.SetStateAction<TypePost[]>>;
   setUpdatePost: React.Dispatch<React.SetStateAction<TypePost | null>>;
+  isUserPage?: boolean;
 }) => {
   const [user, setUser] = useState<TypeUser | null>(null);
   const [commentsId, setCommentsId] = useState<string[]>(comments);
@@ -87,6 +89,7 @@ const Post = ({
           showOptions={showOptions}
           setPosts={setPosts}
           editPost={editPost}
+          isUserPage={isUserPage}
         />
         <PostImage url={imageUrl} />
         <PostCommentText
