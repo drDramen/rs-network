@@ -77,6 +77,7 @@ const UserInfo = ({
             />
             <Button
               block
+              style={{ width: '100%' }}
               type='primary'
               onClick={() => {
                 void onMessage();

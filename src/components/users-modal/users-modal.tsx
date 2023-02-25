@@ -77,7 +77,7 @@ const UsersModal = ({ usersId, userName }: { usersId: string[]; userName?: strin
         <Button
           block
           type='primary'
-          style={{ padding: '0px', maxWidth: '88px' }}
+          style={{ padding: '0px', width: '100%' }}
           onClick={showModal}
         >
           Followings

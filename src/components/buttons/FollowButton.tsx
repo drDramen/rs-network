@@ -39,7 +39,7 @@ const FollowButton = ({
   };
 
   return (
-    <div style={{ width: '120px' }}>
+    <div style={{ maxWidth: '120px', width: '100%' }}>
       {isFollow ? (
         <Button
           block
