@@ -19,3 +19,13 @@
     text-align: center;
   }
 }
+
+.following-user {
+  padding: 5px 0;
+}
+
+.following-name {
+  font-size: 1em;
+  font-weight: 900;
+  margin-left: 10px;
+}

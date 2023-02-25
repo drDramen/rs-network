@@ -12,6 +12,7 @@ import Avatar from '../../../avatar';
 import PostCommentText from '../../../post-comment-text';
 import './comment.css';
 import { useUser } from '../../../../hooks/useUser';
+import { useNavigate } from 'react-router-dom';
 
 const Comment = ({
   comment,
@@ -27,6 +28,7 @@ const Comment = ({
   const [user, setUser] = useState<TypeUser | null>(null);
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const USER = useUser().user;
+  const navigate = useNavigate();
 
   useEffect(() => {
     apiService.getUser(comment.userId).then((user) => {
@@ -64,7 +66,12 @@ const Comment = ({
             className='comment-header'
             style={{ height: '24px' }}
           >
-            <span className='comment-name'>{user.name}</span>
+            <span
+              className='comment-name'
+              onClick={() => navigate(`/users/${user._id}`)}
+            >
+              {user.name}
+            </span>
 
             <span className='comment-date'>
               {' '}

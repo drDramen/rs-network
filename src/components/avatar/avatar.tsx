@@ -14,14 +14,14 @@ const Ava = ({
 }) => {
   const navigate = useNavigate();
   const cursor = id ? 'pointer' : 'auto';
-  if (image === '') {
-    return (
-      <div
-        style={{ cursor: cursor }}
-        onClick={() => {
-          if (id) navigate(`/users/${id}`);
-        }}
-      >
+  return (
+    <div
+      style={{ cursor: cursor, display: 'inline' }}
+      onClick={() => {
+        if (id) navigate(`/users/${id}`);
+      }}
+    >
+      {image === '' ? (
         <Avatar
           alt='avatar'
           size={size ? size : 'default'}
@@ -29,21 +29,13 @@ const Ava = ({
         >
           {name.at(0)?.toUpperCase()}
         </Avatar>
-      </div>
-    );
-  }
-  return (
-    <div
-      style={{ cursor: cursor, display: 'flex' }}
-      onClick={() => {
-        if (id) navigate(`/users/${id}`);
-      }}
-    >
-      <Avatar
-        src={image}
-        alt='avatar'
-        size={size ? size : 'default'}
-      />
+      ) : (
+        <Avatar
+          src={image}
+          alt='avatar'
+          size={size ? size : 'default'}
+        />
+      )}
     </div>
   );
 };
