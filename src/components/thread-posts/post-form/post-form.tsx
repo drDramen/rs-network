@@ -127,6 +127,7 @@ const PostForm = ({
           autoSize={autoSize}
           size={'large'}
           onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => onDescriptionChange(event)}
+          className='post-form-input'
         />
         <input
           className='add-image-input'

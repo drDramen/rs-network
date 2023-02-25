@@ -77,11 +77,11 @@ const UserInfo = ({
             />
             <Button
               block
+              style={{ width: '100%' }}
               type='primary'
               onClick={() => {
                 void onMessage();
               }}
-              style={{ padding: '0px', maxWidth: '88px' }}
             >
               Message
             </Button>

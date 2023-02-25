@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1876f2;
+  background-color: var(--icons-color);
   color: #ffffff;
   padding: 5px 10px;
   border-radius: 10px;
@@ -21,7 +21,7 @@
 .message_bottom {
   font-size: 12px;
   font-weight: 600;
-  color: #606266;
+  color: var(--secondary-text-color);
   margin: 3px 45px 0 45px;
 }
 
@@ -38,6 +38,6 @@
 }
 
 .text.own {
-  background-color: #e4e6e9;
-  color: #1d1f23;
+  background-color: var(--message-own-color);
+  color: var(--main-text-color);
 }

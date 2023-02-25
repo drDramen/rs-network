@@ -15,7 +15,7 @@ const NoUsersFound = ({ title }: { title?: string }) => {
           />
         </Col>
       </Row>
-      <Row style={{ fontSize: '30px', margin: '15px auto' }}>
+      <Row style={{ fontSize: '30px', margin: '15px auto', color: 'var(--main-text-color)' }}>
         {title ? title : 'No Users Found'}
       </Row>
     </Row>

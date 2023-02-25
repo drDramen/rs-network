@@ -1,4 +1,5 @@
 import { Result } from 'antd';
+import './SuccessfulDelete.css';
 
 const SuccessfulDelete = () => {
   return (

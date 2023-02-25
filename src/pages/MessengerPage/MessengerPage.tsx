@@ -11,6 +11,7 @@ import { io } from 'socket.io-client';
 import { apiBaseUrl } from '../../api-constants';
 import { apiService } from '../../services/api-service';
 import { useNavigate } from 'react-router-dom';
+import './MessengerPage.css';
 
 const webSocket = io(apiBaseUrl);
 
@@ -242,11 +243,12 @@ const MessengerPage = () => {
         <>
           <Input
             placeholder='Find your friends'
-            suffix={<SearchOutlined />}
+            suffix={<SearchOutlined style={{ color: 'var(--main-text-color)' }} />}
             value={dialogSearch}
             onChange={(event) => {
               setDialogSearch(event.target.value);
             }}
+            className={classes.input_dialog}
           />
           {renderDialogs(dialogs)}
         </>

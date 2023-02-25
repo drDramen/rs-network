@@ -1,3 +1,10 @@
 .wrapper {
   margin-bottom: 0.5rem;
+  background-color: var(--input-background);
+  color: var(--main-text-color);
+  border-color: var(--input-border);
+}
+
+.wrapper::placeholder {
+  color: var(--secondary-text-color);
 }

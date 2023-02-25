@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { AutoComplete } from 'antd';
+import './search-location.css';
 
 const SearchLocation = ({
   locations,

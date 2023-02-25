@@ -3,6 +3,7 @@ import { useUser } from '../../hooks/useUser';
 import { useState } from 'react';
 import { TypeUser } from '../../types/types';
 import { toast } from 'react-toastify';
+import './FollowButton.css';
 
 const FollowButton = ({
   followedUserId,
@@ -38,12 +39,13 @@ const FollowButton = ({
   };
 
   return (
-    <div style={{ width: '120px' }}>
+    <div style={{ maxWidth: '120px', width: '100%' }}>
       {isFollow ? (
         <Button
           block
           danger
           onClick={handleClick}
+          style={{ backgroundColor: 'var(--secondary-button-color)', maxWidth: '110px' }}
         >
           Unfollow
         </Button>
@@ -52,6 +54,7 @@ const FollowButton = ({
           block
           type='primary'
           onClick={handleClick}
+          className='btn-follow'
         >
           Follow
         </Button>

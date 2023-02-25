@@ -10,9 +10,9 @@
 .dialogs_block {
   padding: 15px 10px 10px;
   border-radius: 5px;
-  background-color: #ffffff;
+  background-color: var(--post-background);
   height: 81vh;
-  box-shadow: 0px 0px 10px #c0c3d3;
+  box-shadow: 0px 0px 10px var(--post-shadow);
 }
 
 .messages_block {
@@ -54,9 +54,9 @@
 
 .messages_top::-webkit-scrollbar-thumb,
 .dialogs_block::-webkit-scrollbar-thumb {
-  background-color: #e4e6e9;
+  background-color: var(--scroll-color);
   border-radius: 20px;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--post-background);
 }
 
 .dialog_desc {
@@ -66,6 +66,7 @@
   margin-top: 1rem;
   font-weight: bold;
   cursor: default;
+  color: var(--main-text-color);
 }
 
 .dialog_desc_button {
@@ -80,7 +81,7 @@
   margin-top: 8rem;
   font-weight: bold;
   cursor: default;
-  color: #606266;
+  color: var(--secondary-text-color);
 }
 
 .message_desc :first-child {
@@ -95,7 +96,7 @@
 
 .show_button {
   position: absolute;
-  background-color: #1876f2;
+  background-color: var(--primary-button-color);
   color: #ffffff;
   padding: 5px;
   border-radius: 5px;
@@ -112,7 +113,12 @@
   margin-top: 10rem;
   font-weight: bold;
   cursor: default;
-  color: #606266;
+  color: var(--secondary-text-color);
+}
+
+.input_dialog {
+  background-color: var(--input-background);
+  border-color: var(--input-border);
 }
 
 @media (max-width: 1100px) {

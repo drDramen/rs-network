@@ -6,7 +6,7 @@ const RegisterPage = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [userName, setUserName] = useState('');
   return (
-    <>
+    <div style={{ backgroundColor: 'var(--main-background)' }}>
       {isRegister ? (
         <SuccessfulRegister name={userName} />
       ) : (
@@ -15,7 +15,7 @@ const RegisterPage = () => {
           setUserName={setUserName}
         />
       )}
-    </>
+    </div>
   );
 };
 

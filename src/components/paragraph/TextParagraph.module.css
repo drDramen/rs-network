@@ -4,6 +4,7 @@
 .normal {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
+  color: var(--main-text-color);
 }
 
 .normal {

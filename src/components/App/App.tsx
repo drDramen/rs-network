@@ -3,6 +3,7 @@ import { useUser } from '../../hooks/useUser';
 import AppHeader from '../app-header/AppHeader';
 import AppRouter from '../AppRouter/AppRouter';
 import './app.css';
+import './variables.css';
 
 function App() {
   const { isLoading } = useUser();

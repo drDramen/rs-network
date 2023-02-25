@@ -1,1 +1,1 @@
-export const apiBaseUrl = 'https://rs-network-production.up.railway.app/';
+export const apiBaseUrl = 'http://localhost:8080/';

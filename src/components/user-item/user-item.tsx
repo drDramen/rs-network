@@ -63,12 +63,12 @@ const UserItem = ({
             {name}
           </Row>
           {age ? (
-            <Row>
+            <Row style={{ color: 'var(--main-text-color)' }}>
               Age: <span className={'user-title'}>{age}</span>
             </Row>
           ) : null}
           {location ? (
-            <Row>
+            <Row style={{ color: 'var(--main-text-color)' }}>
               Location: <span className={'user-title'}>{location}</span>
             </Row>
           ) : null}
@@ -85,6 +85,7 @@ const UserItem = ({
               block
               type='primary'
               onClick={() => void onMessage()}
+              className='msg-bth'
             >
               Message
             </Button>

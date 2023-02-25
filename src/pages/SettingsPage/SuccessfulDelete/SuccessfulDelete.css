@@ -1,0 +1,7 @@
+:where(.css-dev-only-do-not-override-ixblex).ant-result .ant-result-title {
+  color: var(--main-text-color);
+}
+
+:where(.css-dev-only-do-not-override-ixblex).ant-result .ant-result-subtitle {
+  color: var(--secondary-text-color);
+}

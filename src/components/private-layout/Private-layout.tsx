@@ -23,6 +23,7 @@ const PrivateLayout: FC = () => {
           position: `${isNotBurger ? 'static' : 'absolute'}`,
           height: 'calc(100vh - 64px)',
           zIndex: 1,
+          backgroundColor: 'var(--sidebar-color)',
         }}
         breakpoint='md'
         collapsedWidth='0'
@@ -40,6 +41,7 @@ const PrivateLayout: FC = () => {
             mode='inline'
             selectedKeys={[location.pathname]}
             items={items}
+            style={{ backgroundColor: 'var(--sidebar-color)' }}
           />
           <Footer />
         </Row>
@@ -47,9 +49,10 @@ const PrivateLayout: FC = () => {
       <Content
         style={{
           maxHeight: 'calc(100vh - 64px)',
-          margin: 'auto',
+          margin: '0',
           overflowY: 'auto',
         }}
+        className='content'
       >
         <Outlet />
       </Content>

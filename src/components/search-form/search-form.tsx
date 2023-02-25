@@ -6,6 +6,7 @@ import SearchAge from '../search-age/search-age';
 import { useEffect, useState } from 'react';
 import { Divider, Row, Col, Button } from 'antd';
 import { TypeUser } from '../../types/types';
+import './search-form.css';
 
 const SearchForm = ({
   users,
@@ -53,7 +54,7 @@ const SearchForm = ({
     <div>
       <Row>
         <Col
-          style={{ display: 'flex', alignItems: 'center' }}
+          style={{ display: 'flex', alignItems: 'center', color: 'var(--main-text-color)' }}
           span={3}
         >
           Name:
@@ -67,7 +68,7 @@ const SearchForm = ({
       </Row>
       <Row style={{ margin: '10px 0' }}>
         <Col
-          style={{ display: 'flex', alignItems: 'center' }}
+          style={{ display: 'flex', alignItems: 'center', color: 'var(--main-text-color)' }}
           span={3}
         >
           Location:
@@ -82,7 +83,7 @@ const SearchForm = ({
       </Row>
       <Row>
         <Col
-          style={{ display: 'flex', alignItems: 'center' }}
+          style={{ display: 'flex', alignItems: 'center', color: 'var(--main-text-color)' }}
           span={3}
         >
           Age:
@@ -100,6 +101,7 @@ const SearchForm = ({
             block
             type='primary'
             onClick={onReset}
+            className='button-reset-search'
           >
             Reset
           </Button>
