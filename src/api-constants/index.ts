@@ -1,1 +1,1 @@
-export const apiBaseUrl = 'https://rs-network-production.up.railway.app/';
+export const apiBaseUrl = 'http://rs-network-production.up.railway.app/';
