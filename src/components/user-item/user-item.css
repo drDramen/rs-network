@@ -59,7 +59,8 @@
   color: var(--main-text-color);
 }
 
-:where(.css-dev-only-do-not-override-ixblex).ant-btn-primary {
+:where(.css-dev-only-do-not-override-ixblex).ant-btn-primary,
+:where(.css-ixblex).ant-btn-primary {
   background-color: var(--primary-button-color);
   max-width: 110px;
 }

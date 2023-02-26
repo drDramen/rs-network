@@ -2,6 +2,9 @@
     .ant-select-customize-input
   )
   .ant-select-selector
+  input,
+.ant-select-show-search:where(.css-ixblex).ant-select:not(.ant-select-customize-input)
+  .ant-select-selector
   input {
   background-color: var(--input-background);
   color: var(--main-text-color);
@@ -9,7 +12,8 @@
 
 :where(.css-dev-only-do-not-override-ixblex).ant-select-single
   .ant-select-selector
-  .ant-select-selection-placeholder {
+  .ant-select-selection-placeholder,
+:where(.css-ixblex).ant-select-single .ant-select-selector .ant-select-selection-placeholder {
   position: absolute;
   z-index: 2;
   color: var(--secondary-text-color);
@@ -18,6 +22,8 @@
 .ant-select-show-search:where(.css-dev-only-do-not-override-ixblex).ant-select:not(
     .ant-select-customize-input
   )
+  .ant-select-selector,
+.ant-select-show-search:where(.css-ixblex).ant-select:not(.ant-select-customize-input)
   .ant-select-selector {
   background-color: var(--input-background);
   border-color: var(--input-border);

@@ -1,3 +1,4 @@
-:where(.css-dev-only-do-not-override-ixblex).ant-input-number .ant-input-number-input {
+:where(.css-dev-only-do-not-override-ixblex).ant-input-number .ant-input-number-input,
+:where(.css-dev-only-do-not-override-ixblex).ant-input-number {
   color: var(--main-text-color);
 }
