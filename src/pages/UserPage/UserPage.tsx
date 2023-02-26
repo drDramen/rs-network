@@ -55,6 +55,7 @@ const UserPage = () => {
             likes={likes}
             setPosts={setPosts}
             setUpdatePost={setUpdatePost}
+            isUserPage={true}
           />
         );
       },
@@ -85,6 +86,7 @@ const UserPage = () => {
               updatePost={updatePost}
               setPosts={setPosts}
               setUpdatePost={setUpdatePost}
+              isUserPage={true}
             />
           ) : null}
           {posts.length ? renderPosts(posts) : null}

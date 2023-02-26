@@ -19,10 +19,12 @@ const PostForm = ({
   setPosts,
   updatePost,
   setUpdatePost,
+  isUserPage,
 }: {
   setPosts: React.Dispatch<React.SetStateAction<TypePost[]>>;
   updatePost: TypePost | null;
   setUpdatePost: React.Dispatch<React.SetStateAction<TypePost | null>>;
+  isUserPage?: boolean;
 }) => {
   const [postDescription, postImageUrl] = updatePost
     ? [updatePost.description, updatePost.imageUrl]
@@ -49,9 +51,15 @@ const PostForm = ({
       if (!updatePost) {
         apiService.createPost(user._id, date, description, imageUrl).then(() => {
           webSocket.emit('new-post', 'New post created!');
-          apiService.getAllPosts(user._id).then((allPosts) => {
-            setPosts(allPosts);
-          });
+          if (isUserPage) {
+            apiService.getUserPosts(user._id).then((allPosts) => {
+              setPosts(allPosts);
+            });
+          } else {
+            apiService.getAllPosts(user._id).then((allPosts) => {
+              setPosts(allPosts);
+            });
+          }
         });
       } else {
         apiService
@@ -66,9 +74,15 @@ const PostForm = ({
           })
           .then(() => {
             webSocket.emit('new-post', 'Updated post!');
-            apiService.getAllPosts(user._id).then((allPosts) => {
-              setPosts(allPosts);
-            });
+            if (isUserPage) {
+              apiService.getUserPosts(user._id).then((allPosts) => {
+                setPosts(allPosts);
+              });
+            } else {
+              apiService.getAllPosts(user._id).then((allPosts) => {
+                setPosts(allPosts);
+              });
+            }
           });
       }
       setDescription('');
