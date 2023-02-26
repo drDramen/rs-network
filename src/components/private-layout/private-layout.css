@@ -8,10 +8,12 @@
   background-color: var(--main-background);
 }
 
-:where(.css-dev-only-do-not-override-ixblex).ant-menu-dark .ant-menu-item-selected {
+:where(.css-dev-only-do-not-override-ixblex).ant-menu-dark .ant-menu-item-selected,
+:where(.css-ixblex).ant-menu-dark .ant-menu-item-selected {
   background-color: var(--primary-button-color);
 }
 
-:where(.css-dev-only-do-not-override-ixblex).ant-menu-dark .ant-menu-item-selected:active {
+:where(.css-dev-only-do-not-override-ixblex).ant-menu-dark .ant-menu-item-selected:active,
+:where(.css-ixblex).ant-menu-dark .ant-menu-item-selected:active {
   background-color: var(--primary-button-color);
 }
