@@ -19,7 +19,8 @@
   margin-left: 10px;
 }
 
-:where(.css-dev-only-do-not-override-ixblex).ant-modal .ant-modal-content {
+:where(.css-dev-only-do-not-override-ixblex).ant-modal .ant-modal-content,
+:where(.css-ixblex).ant-modal .ant-modal-content {
   background-color: var(--post-background);
   color: var(--main-text-color);
 }

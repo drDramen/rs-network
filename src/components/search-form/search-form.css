@@ -2,10 +2,12 @@
   background-color: var(--primary-button-color);
 }
 
-:where(.css-dev-only-do-not-override-ixblex).ant-btn-primary:not(:disabled):hover {
+:where(.css-dev-only-do-not-override-ixblex).ant-btn-primary:not(:disabled):hover,
+:where(.css-ixblex).ant-btn-primary:not(:disabled):hover {
   background-color: var(--primary-button-hover);
 }
 
-:where(.css-dev-only-do-not-override-ixblex).ant-btn-primary:not(:disabled):active {
+:where(.css-dev-only-do-not-override-ixblex).ant-btn-primary:not(:disabled):active,
+:where(.css-ixblex).ant-btn-primary:not(:disabled):active {
   background-color: var(--primary-button-color);
 }
