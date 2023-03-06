@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons_wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 500px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .info {
+    text-align: center;
+  }
+}
+
+.following-user {
+  padding: 5px 0;
+}
+
+.following-name {
+  font-size: 1em;
+  font-weight: 900;
+  margin-left: 10px;
+}

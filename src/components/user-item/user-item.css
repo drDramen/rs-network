@@ -1,0 +1,70 @@
+.user-wrapper {
+  width: 100%;
+  border: solid var(--post-border) 1px;
+  border-radius: 5px;
+  background-color: var(--post-background);
+  padding: 15px;
+  margin: 10px 0;
+  box-shadow: 0px 0px 10px var(--post-shadow);
+}
+
+.user-avatar {
+  margin-right: 1rem;
+}
+
+.user-information-wrapper {
+  display: flex;
+}
+
+.user-information {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.user-name {
+  font-size: 1.4em;
+  font-weight: 500;
+  margin-bottom: 0.3em;
+  color: var(--main-text-color);
+}
+
+.user-name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.user-title {
+  font-weight: 500;
+  margin: 0 0 0.3em 0.3em;
+}
+
+.user-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5em;
+  margin-top: 0.5em;
+  flex-grow: 2;
+  align-self: flex-end;
+}
+
+.user-you {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 2;
+  gap: 0.2em;
+  align-self: flex-start;
+  font-size: 20px;
+  line-height: 19px;
+  color: var(--main-text-color);
+}
+
+:where(.css-dev-only-do-not-override-ixblex).ant-btn-primary,
+:where(.css-ixblex).ant-btn-primary {
+  background-color: var(--primary-button-color);
+  max-width: 110px;
+}
+
+.msg-btn:hover {
+  background-color: var(--primary-button-hover);
+}

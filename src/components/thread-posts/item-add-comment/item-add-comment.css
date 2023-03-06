@@ -1,0 +1,34 @@
+.add-comment-form {
+  position: relative;
+}
+
+.add-comment-btn {
+  position: absolute;
+  width: 32px;
+  font-size: 20px;
+  line-height: 20px;
+  padding: 5px;
+  right: 0;
+  bottom: 2px;
+}
+
+.cancel-update-comment-btn {
+  position: absolute;
+  width: 32px;
+  font-size: 20px;
+  line-height: 20px;
+  padding: 5px;
+  right: 0;
+  top: 1px;
+}
+
+.input {
+  transition: var(--transition);
+  background-color: var(--input-background);
+  color: var(--main-text-color);
+  border-color: var(--input-border);
+}
+
+.input::placeholder {
+  color: var(--secondary-text-color);
+}

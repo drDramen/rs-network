@@ -1,0 +1,140 @@
+.wrapper {
+  width: 95%;
+  max-width: 1000px;
+  margin: 2% auto;
+  display: flex;
+  gap: 1rem;
+}
+
+.messages_block,
+.dialogs_block {
+  padding: 15px 10px 10px;
+  border-radius: 5px;
+  background-color: var(--post-background);
+  height: 81vh;
+  box-shadow: 0px 0px 10px var(--post-shadow);
+}
+
+.messages_block {
+  flex: 9;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
+}
+
+.messages_top {
+  flex: 11.5;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.messages_bottom {
+  flex: 0.5;
+}
+
+.dialogs_block {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  gap: 5px;
+}
+
+.messages_top::-webkit-scrollbar,
+.dialogs_block::-webkit-scrollbar {
+  width: 12px;
+}
+
+.messages_top::-webkit-scrollbar-track,
+.dialogs_block::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages_top::-webkit-scrollbar-thumb,
+.dialogs_block::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-color);
+  border-radius: 20px;
+  border: 2px solid var(--post-background);
+}
+
+.dialog_desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: bold;
+  cursor: default;
+  color: var(--main-text-color);
+}
+
+.dialog_desc_button {
+  max-width: 200px;
+  margin: 0.5rem auto 0;
+}
+
+.message_desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 8rem;
+  font-weight: bold;
+  cursor: default;
+  color: var(--secondary-text-color);
+}
+
+.message_desc :first-child {
+  font-size: 6rem;
+  margin-bottom: 1rem;
+}
+
+.message_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.show_button {
+  position: absolute;
+  background-color: var(--primary-button-color);
+  color: #ffffff;
+  padding: 5px;
+  border-radius: 5px;
+  top: 67px;
+  right: 20px;
+  cursor: pointer;
+  display: none;
+}
+
+.no_messages {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.8rem;
+  text-align: center;
+  margin-top: 10rem;
+  font-weight: bold;
+  cursor: default;
+  color: var(--secondary-text-color);
+}
+
+.input_dialog {
+  background-color: var(--input-background);
+  border-color: var(--input-border);
+}
+
+@media (max-width: 1100px) {
+  .dialogs_block {
+    position: absolute;
+    z-index: 2;
+    max-width: 250px;
+    right: 15px;
+    transition: 0.3s ease-in-out;
+  }
+
+  .dialogs_block.hidden {
+    transform: translateY(-200%);
+  }
+
+  .show_button {
+    display: block;
+  }
+}

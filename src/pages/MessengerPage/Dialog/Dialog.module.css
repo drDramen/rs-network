@@ -1,0 +1,19 @@
+.dialog {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.dialog:hover {
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px var(--primary-button-hover);
+}
+
+.active {
+  border-radius: 5px;
+  background-color: var(--primary-button-hover);
+  color: #ffffff;
+}

@@ -1,0 +1,39 @@
+:root {
+  --transition: background-color 0.5s ease;
+
+  --main-background: #f5f5f5;
+  --post-background: #ffffff;
+  --post-border: #c2c2c2;
+  --post-shadow: #c0c3d3;
+  --input-background: #ffffff;
+  --input-border: #dbdbdb;
+  --comment-background: #ebebf5;
+  --icons-color: #1876f2;
+  --main-text-color: #000000;
+  --secondary-text-color: #606266;
+  --primary-button-color: #1677ff;
+  --primary-button-hover: #589eff;
+  --secondary-button-color: #ffffff;
+  --message-own-color: #e4e6e9;
+  --scroll-color: #e4e6e9;
+  --sidebar-color: #001529;
+}
+
+.dark-theme {
+  --main-background: #141414;
+  --post-background: #222222;
+  --post-border: #585858;
+  --post-shadow: #414144;
+  --input-background: #141414;
+  --input-border: #7e7e7e;
+  --comment-background: #333333;
+  --icons-color: #2d5283;
+  --main-text-color: #d0d1d3;
+  --secondary-text-color: #939393;
+  --primary-button-color: #383333;
+  --primary-button-hover: #4e4d4d;
+  --secondary-button-color: #141414;
+  --message-own-color: #424242;
+  --scroll-color: #8f8f8f;
+  --sidebar-color: #222222;
+}

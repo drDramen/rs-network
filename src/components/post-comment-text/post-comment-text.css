@@ -1,0 +1,14 @@
+.text {
+  margin: 5px 0;
+  transition: var(--transition);
+  color: var(--main-text-color);
+}
+
+.read-more-less-btn {
+  border: none;
+  background-color: transparent;
+  font-weight: 700;
+  color: #1677ff;
+  cursor: pointer;
+  margin-left: 3px;
+}

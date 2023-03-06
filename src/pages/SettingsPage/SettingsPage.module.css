@@ -1,0 +1,52 @@
+.wrapper {
+  width: 95%;
+  max-width: 600px;
+  margin: 2% auto 0;
+}
+
+.avatar {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.button {
+  display: block;
+  min-width: 10%;
+  margin: 0.5rem auto;
+  background-color: var(--primary-button-color);
+}
+
+.label {
+  color: var(--secondary-text-color);
+  margin-left: 5px;
+}
+
+.delete_block {
+  text-align: center;
+  margin: 1.5rem 0 1rem;
+  padding: 1rem;
+  background-color: var(--post-background);
+  border-radius: 5px;
+  border: 1px solid var(--input-border);
+  color: var(--main-text-color);
+}
+
+.danger_text {
+  color: rgb(231, 33, 33);
+  cursor: pointer;
+}
+
+.danger_text:hover {
+  text-decoration: underline;
+  color: rgb(231, 33, 33);
+}
+
+@media (max-width: 400px) {
+  .avatar {
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -1,0 +1,42 @@
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  color: var(--main-text-color);
+  background-color: var(--post-background);
+}
+
+.body_text {
+  text-align: center;
+  list-style-type: none;
+  margin-bottom: 1rem;
+}
+
+.label {
+  color: var(--secondary-text-color);
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.cancel_button {
+  min-width: 125px;
+  background-color: var(--input-background);
+  color: var(--main-text-color);
+  border-color: var(--input-border);
+}
+
+.ok_button {
+  min-width: 125px;
+}
+
+.ok_button:hover {
+  box-shadow: 0 0 5px #ff4d4f;
+}
+
+@media (max-width: 350px) {
+  .cancel_button {
+    min-width: 10px;
+  }
+}
